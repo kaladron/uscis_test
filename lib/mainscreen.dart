@@ -30,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _body() {
     return Column(
-      children: <Widget>[
+      children: [
         Card(
           child: InkWell(
             onTap: () {},
@@ -59,6 +59,20 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
         ),
+        DropdownButton(value: 'foo', onChanged: (value) {}, items: [
+          DropdownMenuItem(
+            child: Text('foo'),
+            value: 'foo',
+          ),
+          DropdownMenuItem(
+            child: Text('bar'),
+            value: 'bar',
+          ),
+          DropdownMenuItem(
+            child: Text('baz'),
+            value: 'baz',
+          ),
+        ]),
         Expanded(child: Text('Choose your region')),
       ],
     );
