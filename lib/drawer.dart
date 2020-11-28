@@ -2,6 +2,7 @@
 // 2008 or 2020 exam checkbox
 // Checkbox/Slider for showing text when asking question
 // Checkbox/Slider for reading question out loud when asking
+// Checkbox/Slide to only show question for 65+
 // Button to clear mastering progress
 // About
 
