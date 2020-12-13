@@ -10,6 +10,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:uscis_test/drawer.dart';
+import 'package:uscis_test/questionscreen.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeName = '/';
@@ -34,7 +35,9 @@ class _MainScreenState extends State<MainScreen> {
       children: [
         Card(
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, QuestionScreen.routeName);
+            },
             child: Column(
               children: <Widget>[
                 const ListTile(

@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:uscis_test/mainscreen.dart';
+import 'package:uscis_test/questionscreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,11 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var materialApp = MaterialApp(
         title: 'USCIS Citizenship Test',
-        initialRoute: '/',
+        initialRoute: MainScreen.routeName,
         theme: ThemeData(),
         darkTheme: ThemeData.dark(),
         routes: {
           MainScreen.routeName: (context) => MainScreen(),
+          QuestionScreen.routeName: (context) => QuestionScreen(),
         });
     return materialApp;
   }
