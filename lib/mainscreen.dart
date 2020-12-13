@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:uscis_test/drawer.dart';
 
 class MainScreen extends StatefulWidget {
+  static const routeName = '/';
   @override
   _MainScreenState createState() => _MainScreenState();
 }

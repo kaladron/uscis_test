@@ -11,11 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var materialApp = MaterialApp(
-      title: 'USCIS Citizenship Test',
-      home: MainScreen(),
-      theme: ThemeData(),
-      darkTheme: ThemeData.dark(),
-    );
+        title: 'USCIS Citizenship Test',
+        initialRoute: '/',
+        theme: ThemeData(),
+        darkTheme: ThemeData.dark(),
+        routes: {
+          MainScreen.routeName: (context) => MainScreen(),
+        });
     return materialApp;
   }
 }
