@@ -18,6 +18,40 @@ class _QuestionScreenState extends State<QuestionScreen> {
       appBar: AppBar(
         title: Text('Question'),
       ),
+      body: QuestionWidget(
+        "hi",
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.skip_previous),
+            label: 'Previous',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.skip_next),
+            label: 'Next',
+          ),
+        ],
+      ),
     );
+  }
+}
+
+class QuestionWidget extends StatefulWidget {
+  final String questionText;
+  const QuestionWidget(this.questionText);
+
+  @override
+  _QuestionWidgetState createState() => _QuestionWidgetState();
+}
+
+class _QuestionWidgetState extends State<QuestionWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Text(widget.questionText);
   }
 }
