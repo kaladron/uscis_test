@@ -3,22 +3,8 @@
 // Button to trigger listening response
 // Bottom bar with Home, Prev, Next
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-class QuestionStorage {
-  Future<String> readFile() async {
-    try {
-      var contents = await rootBundle.loadString('2008.json');
-
-      return contents;
-    } catch (e) {
-      return e.toString();
-    }
-  }
-}
+import 'package:uscis_test/question.dart';
 
 class QuestionScreen extends StatefulWidget {
   static const routeName = '/question';
