@@ -14,13 +14,13 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  String _questionText = "ooga";
+  String _questionText = "";
 
   void initState() {
     super.initState();
-    widget.storage.readFile().then((String value) {
+    widget.storage.readFile().then((Question question) {
       setState(() {
-        _questionText = value;
+        _questionText = question.question;
       });
     });
   }
