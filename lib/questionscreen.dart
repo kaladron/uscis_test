@@ -3,28 +3,20 @@
 // Button to trigger listening response
 // Bottom bar with Home, Prev, Next
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:uscis_test/question.dart';
+import 'package:provider/provider.dart';
+
+import 'dart:async';
 
 class QuestionScreen extends StatefulWidget {
   static const routeName = '/question';
-  final QuestionStorage storage = QuestionStorage();
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  String _questionText = "";
-
-  void initState() {
-    super.initState();
-    widget.storage.readFile().then((Question question) {
-      setState(() {
-        _questionText = question.question;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +24,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         title: Text("Question"),
       ),
       body: QuestionWidget(
-        _questionText,
+        '${context.watch<QuestionPicker>().question}',
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -49,8 +41,13 @@ class _QuestionScreenState extends State<QuestionScreen> {
             label: 'Next',
           ),
         ],
+        onTap: _doAThing,
       ),
     );
+  }
+
+  void _doAThing(int x) {
+    context.read<QuestionPicker>().getQuestion(1);
   }
 }
 
@@ -66,5 +63,38 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
     return Text(widget.questionText);
+  }
+}
+
+/// Mix-in [DiagnosticableTreeMixin] to have access to [debugFillProperties] for the devtool
+// ignore: prefer_mixin
+class QuestionPicker with ChangeNotifier, DiagnosticableTreeMixin {
+  String _question = "foo bar baz";
+
+  String get question => _question;
+
+  int _counter = 0;
+
+  final QuestionStorage storage = QuestionStorage();
+
+  QuestionPicker() {
+    _init();
+  }
+
+  Future _init() async {
+    storage.readFile();
+  }
+
+  void getQuestion(int _) {
+    _counter++;
+    _question = storage.questions[_counter].question;
+    notifyListeners();
+  }
+
+  /// Makes `QuestionPicker` readable inside the devtools by listing all of its properties
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('question', question));
   }
 }
