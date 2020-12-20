@@ -69,11 +69,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 /// Mix-in [DiagnosticableTreeMixin] to have access to [debugFillProperties] for the devtool
 // ignore: prefer_mixin
 class QuestionPicker with ChangeNotifier, DiagnosticableTreeMixin {
-  String _question = "foo bar baz";
+  String get question =>
+      storage.questions == null ? "" : storage.questions[_cursor].question;
 
-  String get question => _question;
-
-  int _counter = 0;
+  int _cursor = 0;
 
   final QuestionStorage storage = QuestionStorage();
 
@@ -86,8 +85,7 @@ class QuestionPicker with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   void getQuestion(int _) {
-    _counter++;
-    _question = storage.questions[_counter].question;
+    _cursor++;
     notifyListeners();
   }
 
