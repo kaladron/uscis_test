@@ -3,17 +3,19 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 class QuestionStorage {
-  List<Question> questions;
+  List<Question> _questions;
+
+  List<Question> get questions => _questions;
 
   Future<List<Question>> readFile() async {
 //    try {
     var contents = await rootBundle.loadString('2008.json');
     var data = jsonDecode(contents);
-    questions = [];
+    _questions = [];
     for (Map i in data) {
-      questions.add(Question.fromJson(i));
+      _questions.add(Question.fromJson(i));
     }
-    return questions;
+    return _questions;
 //    } catch (e) {
 //      // TODO(jeffbailey): Better error handling.
 //      return e.toString();
