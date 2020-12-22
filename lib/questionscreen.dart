@@ -24,7 +24,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         title: Text("Question"),
       ),
       body: QuestionWidget(
-        '${context.watch<QuestionPicker>().question}',
+        '${context.watch<QuestionPicker>().question.question}',
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -47,7 +47,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   }
 
   void _doAThing(int x) {
-    context.read<QuestionPicker>().getQuestion(1);
+    context.read<QuestionPicker>().getQuestion(x);
   }
 }
 
@@ -67,8 +67,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 }
 
 class QuestionPicker with ChangeNotifier {
-  String get question =>
-      storage.questions == null ? "" : storage.questions[_cursor].question;
+  Question get question => storage.questions[_cursor];
 
   int _cursor = 0;
 
@@ -82,8 +81,19 @@ class QuestionPicker with ChangeNotifier {
     await storage.readFile();
   }
 
-  void getQuestion(int _) {
+  // TODO(jeffbailey): Bounds check these.
+  void prevQuestion() {
+    _cursor--;
+    notifyListeners();
+  }
+
+  void nextQuestion() {
     _cursor++;
+    notifyListeners();
+  }
+
+  void getQuestion(int cursor) {
+    _cursor = cursor;
     notifyListeners();
   }
 }

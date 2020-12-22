@@ -9,7 +9,7 @@ import 'package:uscis_test/questionscreen.dart';
 
 void main() => runApp(MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => QuestionPicker()),
+        ChangeNotifierProvider(create: (_) => QuestionPicker(), lazy: false),
       ],
       child: MyApp(),
     ));
