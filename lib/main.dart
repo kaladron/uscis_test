@@ -5,14 +5,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/mainscreen.dart';
+import 'package:uscis_test/question.dart';
 import 'package:uscis_test/questionscreen.dart';
 
-void main() => runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => QuestionPicker(), lazy: false),
-      ],
-      child: MyApp(),
-    ));
+void main() {
+  final QuestionStorage storage = QuestionStorage();
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+          create: (_) => QuestionPicker(storage), lazy: false),
+    ],
+    child: MyApp(),
+  ));
+}
 
 class MyApp extends StatelessWidget {
   @override

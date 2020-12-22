@@ -67,18 +67,18 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 }
 
 class QuestionPicker with ChangeNotifier {
-  Question get question => storage.questions[_cursor];
+  Question get question => _storage.questions[_cursor];
 
   int _cursor = 0;
 
-  final QuestionStorage storage = QuestionStorage();
+  final QuestionStorage _storage;
 
-  QuestionPicker() {
+  QuestionPicker(this._storage) {
     _init();
   }
 
   Future _init() async {
-    await storage.readFile();
+    await _storage.readFile();
   }
 
   // TODO(jeffbailey): Bounds check these.
