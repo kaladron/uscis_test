@@ -66,9 +66,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   }
 }
 
-/// Mix-in [DiagnosticableTreeMixin] to have access to [debugFillProperties] for the devtool
-// ignore: prefer_mixin
-class QuestionPicker with ChangeNotifier, DiagnosticableTreeMixin {
+class QuestionPicker with ChangeNotifier {
   String get question =>
       storage.questions == null ? "" : storage.questions[_cursor].question;
 
@@ -81,18 +79,11 @@ class QuestionPicker with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   Future _init() async {
-    storage.readFile();
+    await storage.readFile();
   }
 
   void getQuestion(int _) {
     _cursor++;
     notifyListeners();
-  }
-
-  /// Makes `QuestionPicker` readable inside the devtools by listing all of its properties
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('question', question));
   }
 }
