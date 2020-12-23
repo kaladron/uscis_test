@@ -35,6 +35,20 @@ class _MainScreenState extends State<MainScreen> {
       children: [
         Card(
           child: InkWell(
+            onTap: () {},
+            child: Column(
+              children: <Widget>[
+                const ListTile(
+                  leading: Icon(Icons.pageview),
+                  title: Text('View'),
+                  subtitle: Text('View Questions'),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Card(
+          child: InkWell(
             onTap: () {
               Navigator.pushNamed(context, QuestionScreen.routeName);
             },
