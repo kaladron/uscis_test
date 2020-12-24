@@ -25,25 +25,20 @@ class _QuestionScreenImpl extends StatelessWidget {
       appBar: AppBar(
         title: Text("Question"),
       ),
-      body: QuestionWidget(
-        '${context.watch<QuestionContext>().question.question}',
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.skip_previous),
-            label: 'Previous',
+      body: Column(
+        children: [
+          QuestionWidget(
+            '${context.watch<QuestionContext>().question.question}',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+          RaisedButton(
+            onPressed: context.watch<QuestionContext>().prevQuestion,
+            child: Text('Previous'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.skip_next),
-            label: 'Next',
-          ),
+          RaisedButton(
+            onPressed: context.watch<QuestionContext>().nextQuestion,
+            child: Text('Next'),
+          )
         ],
-        onTap: context.watch<QuestionContext>().setQuestion,
       ),
     ));
   }

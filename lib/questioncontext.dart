@@ -20,9 +20,10 @@ class QuestionContext extends ChangeNotifier {
   }
 
   void setQuestion(int cursor) {
-    if (_cursor == 0) return;
-    if (_context.read<QuestionStorage>().questions.length == (_cursor + 1))
-      _cursor = cursor;
+    if (cursor < 0) return;
+    if (_context.read<QuestionStorage>().questions.length < (cursor + 1))
+      return;
+    _cursor = cursor;
     notifyListeners();
   }
 }
