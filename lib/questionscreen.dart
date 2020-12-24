@@ -24,7 +24,7 @@ class _QuestionScreenImpl extends StatefulWidget {
 }
 
 class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
-  bool _showQuestion = true;
+  bool _showAnswer = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
           Text(
             '${context.watch<QuestionContext>().question.question}',
           ),
-          if (_showQuestion) ...[
+          if (_showAnswer) ...[
             Text('${context.watch<QuestionContext>().question.answers[0]}'),
           ],
           RaisedButton(
@@ -56,7 +56,7 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
 
   void _toggle() {
     setState(() {
-      _showQuestion = !_showQuestion;
+      _showAnswer = !_showAnswer;
     });
   }
 }
