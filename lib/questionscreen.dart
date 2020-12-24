@@ -3,28 +3,30 @@
 // Button to trigger listening response
 // Bottom bar with Home, Prev, Next
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:uscis_test/question.dart';
+import 'package:uscis_test/questioncontext.dart';
 import 'package:provider/provider.dart';
 
-import 'dart:async';
-
-class QuestionScreen extends StatefulWidget {
+class QuestionScreen extends StatelessWidget {
   static const routeName = '/question';
   @override
-  _QuestionScreenState createState() => _QuestionScreenState();
+  Widget build(BuildContext context) {
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(
+          create: (context) => QuestionContext(context), lazy: false),
+    ], child: QuestionScreenImpl());
+  }
 }
 
-class _QuestionScreenState extends State<QuestionScreen> {
+class QuestionScreenImpl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return (Scaffold(
       appBar: AppBar(
         title: Text("Question"),
       ),
       body: QuestionWidget(
-        '${context.watch<QuestionPicker>().question.question}',
+        '${context.watch<QuestionContext>().question.question}',
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -41,13 +43,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
             label: 'Next',
           ),
         ],
-        onTap: _doAThing,
+        onTap: context.watch<QuestionContext>().setQuestion,
       ),
-    );
-  }
-
-  void _doAThing(int x) {
-    context.read<QuestionPicker>().getQuestion(x);
+    ));
   }
 }
 
@@ -63,37 +61,5 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
     return Text(widget.questionText);
-  }
-}
-
-class QuestionPicker with ChangeNotifier {
-  Question get question => _storage.questions[_cursor];
-
-  int _cursor = 0;
-
-  final QuestionStorage _storage;
-
-  QuestionPicker(this._storage) {
-    _init();
-  }
-
-  Future _init() async {
-    await _storage.readFile();
-  }
-
-  // TODO(jeffbailey): Bounds check these.
-  void prevQuestion() {
-    _cursor--;
-    notifyListeners();
-  }
-
-  void nextQuestion() {
-    _cursor++;
-    notifyListeners();
-  }
-
-  void getQuestion(int cursor) {
-    _cursor = cursor;
-    notifyListeners();
   }
 }

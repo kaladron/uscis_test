@@ -9,12 +9,9 @@ import 'package:uscis_test/question.dart';
 import 'package:uscis_test/questionscreen.dart';
 
 void main() {
-  final QuestionStorage storage = QuestionStorage();
-
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(
-          create: (_) => QuestionPicker(storage), lazy: false),
+      Provider(create: (_) => QuestionStorage(), lazy: false),
     ],
     child: MyApp(),
   ));

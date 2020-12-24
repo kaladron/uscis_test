@@ -7,7 +7,11 @@ class QuestionStorage {
 
   List<Question> get questions => _questions;
 
-  Future<List<Question>> readFile() async {
+  QuestionStorage() {
+    _readFile();
+  }
+
+  Future<List<Question>> _readFile() async {
 //    try {
     var contents = await rootBundle.loadString('2008.json');
     var data = jsonDecode(contents);
