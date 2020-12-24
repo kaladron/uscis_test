@@ -11,19 +11,18 @@ class QuestionContext extends ChangeNotifier {
 
   int _cursor = 0;
 
-  // TODO(jeffbailey): Bounds check these.
   void prevQuestion() {
-    _cursor--;
-    notifyListeners();
+    setQuestion(_cursor - 1);
   }
 
   void nextQuestion() {
-    _cursor++;
-    notifyListeners();
+    setQuestion(_cursor + 1);
   }
 
   void setQuestion(int cursor) {
-    _cursor = cursor;
+    if (_cursor == 0) return;
+    if (_context.read<QuestionStorage>().questions.length == (_cursor + 1))
+      _cursor = cursor;
     notifyListeners();
   }
 }
