@@ -27,7 +27,7 @@ class _QuestionScreenImpl extends StatelessWidget {
       ),
       body: Column(
         children: [
-          QuestionWidget(
+          Text(
             '${context.watch<QuestionContext>().question.question}',
           ),
           RaisedButton(
@@ -41,20 +41,5 @@ class _QuestionScreenImpl extends StatelessWidget {
         ],
       ),
     ));
-  }
-}
-
-class QuestionWidget extends StatefulWidget {
-  final String questionText;
-  const QuestionWidget(this.questionText);
-
-  @override
-  _QuestionWidgetState createState() => _QuestionWidgetState();
-}
-
-class _QuestionWidgetState extends State<QuestionWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Text(widget.questionText);
   }
 }
