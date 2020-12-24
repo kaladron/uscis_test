@@ -14,11 +14,11 @@ class QuestionScreen extends StatelessWidget {
     return MultiProvider(providers: [
       ChangeNotifierProvider(
           create: (context) => QuestionContext(context), lazy: false),
-    ], child: QuestionScreenImpl());
+    ], child: _QuestionScreenImpl());
   }
 }
 
-class QuestionScreenImpl extends StatelessWidget {
+class _QuestionScreenImpl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
