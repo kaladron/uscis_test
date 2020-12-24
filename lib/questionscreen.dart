@@ -18,7 +18,14 @@ class QuestionScreen extends StatelessWidget {
   }
 }
 
-class _QuestionScreenImpl extends StatelessWidget {
+class _QuestionScreenImpl extends StatefulWidget {
+  @override
+  _QuestionScreenImplState createState() => _QuestionScreenImplState();
+}
+
+class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
+  bool _showQuestion = true;
+
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
@@ -30,6 +37,9 @@ class _QuestionScreenImpl extends StatelessWidget {
           Text(
             '${context.watch<QuestionContext>().question.question}',
           ),
+          if (_showQuestion) ...[
+            Text('${context.watch<QuestionContext>().question.answers[0]}'),
+          ],
           RaisedButton(
             onPressed: context.watch<QuestionContext>().prevQuestion,
             child: Text('Previous'),
@@ -37,9 +47,16 @@ class _QuestionScreenImpl extends StatelessWidget {
           RaisedButton(
             onPressed: context.watch<QuestionContext>().nextQuestion,
             child: Text('Next'),
-          )
+          ),
+          RaisedButton(onPressed: _toggle, child: Text('Show/Hide'))
         ],
       ),
     ));
+  }
+
+  void _toggle() {
+    setState(() {
+      _showQuestion = !_showQuestion;
+    });
   }
 }
