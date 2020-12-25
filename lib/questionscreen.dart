@@ -34,30 +34,30 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
       ),
       body: Column(
         children: [
-          Row(
-            children: [
-              MaterialButton(
-                onPressed: _prevQuestion,
-                child: Text('<'),
-                shape: CircleBorder(),
-                color: Colors.blue,
-              ),
-              Expanded(
-                child: Text(
-                  '${context.watch<QuestionContext>().question.question}',
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Row(
+              children: [
+                MaterialButton(
+                  onPressed: _prevQuestion,
+                  child: Text('<'),
+                  shape: CircleBorder(),
+                  color: Colors.blue,
                 ),
-              ),
-              MaterialButton(
-                onPressed: _nextQuestion,
-                child: Text('>'),
-                shape: CircleBorder(),
-                color: Colors.blue,
-              ),
-            ],
+                Expanded(
+                  child: Text(
+                    '${context.watch<QuestionContext>().question.question}',
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: _nextQuestion,
+                  child: Text('>'),
+                  shape: CircleBorder(),
+                  color: Colors.blue,
+                ),
+              ],
+            ),
           ),
-          if (_showAnswer) ...[
-            Text('${context.watch<QuestionContext>().question.answers[0]}'),
-          ],
           MaterialButton(
             onPressed: _nextQuestion,
             child: Icon(Icons.mic_none_outlined, size: 24),
@@ -65,7 +65,10 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
             padding: EdgeInsets.all(16),
             color: Colors.red,
           ),
-          RaisedButton(onPressed: _toggle, child: Text('Show Answer'))
+          RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
+          if (_showAnswer) ...[
+            Text('${context.watch<QuestionContext>().question.answers[0]}'),
+          ],
         ],
       ),
     ));
