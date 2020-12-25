@@ -34,37 +34,56 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
       ),
       body: Column(
         children: [
-          Text(
-            '${context.watch<QuestionContext>().question.question}',
+          Row(
+            children: [
+              MaterialButton(
+                onPressed: _prevQuestion,
+                child: Text('<'),
+                shape: CircleBorder(),
+                color: Colors.blue,
+              ),
+              Expanded(
+                child: Text(
+                  '${context.watch<QuestionContext>().question.question}',
+                ),
+              ),
+              MaterialButton(
+                onPressed: _nextQuestion,
+                child: Text('>'),
+                shape: CircleBorder(),
+                color: Colors.blue,
+              ),
+            ],
           ),
           if (_showAnswer) ...[
             Text('${context.watch<QuestionContext>().question.answers[0]}'),
           ],
-          RaisedButton(
-            onPressed: _prevQuestion,
-            child: Text('Previous'),
-          ),
-          RaisedButton(
+          MaterialButton(
             onPressed: _nextQuestion,
-            child: Text('Next'),
+            child: Icon(Icons.mic_none_outlined, size: 24),
+            shape: CircleBorder(),
+            padding: EdgeInsets.all(16),
+            color: Colors.red,
           ),
-          RaisedButton(onPressed: _toggle, child: Text('Show/Hide'))
+          RaisedButton(onPressed: _toggle, child: Text('Show Answer'))
         ],
       ),
     ));
   }
 
   void _prevQuestion() {
+    _showAnswer = false;
     context.read<QuestionContext>().prevQuestion();
   }
 
   void _nextQuestion() {
+    _showAnswer = false;
     context.read<QuestionContext>().nextQuestion();
   }
 
   void _toggle() {
     setState(() {
-      _showAnswer = !_showAnswer;
+      _showAnswer = true;
     });
   }
 }
