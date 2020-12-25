@@ -41,17 +41,25 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
             Text('${context.watch<QuestionContext>().question.answers[0]}'),
           ],
           RaisedButton(
-            onPressed: context.watch<QuestionContext>().prevQuestion,
+            onPressed: _prevQuestion,
             child: Text('Previous'),
           ),
           RaisedButton(
-            onPressed: context.watch<QuestionContext>().nextQuestion,
+            onPressed: _nextQuestion,
             child: Text('Next'),
           ),
           RaisedButton(onPressed: _toggle, child: Text('Show/Hide'))
         ],
       ),
     ));
+  }
+
+  void _prevQuestion() {
+    context.read<QuestionContext>().prevQuestion();
+  }
+
+  void _nextQuestion() {
+    context.read<QuestionContext>().nextQuestion();
   }
 
   void _toggle() {
