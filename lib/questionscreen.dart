@@ -29,7 +29,7 @@ class _QuestionScreenImpl extends StatefulWidget {
 class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   final SpeechToText speech = SpeechToText();
 
-  String resultText = '';
+  String _resultText = '';
 
   bool _showAnswer = false;
 
@@ -65,7 +65,7 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
               ],
             ),
           ),
-          Text('$resultText'),
+          Text('$_resultText'),
           MaterialButton(
             onPressed: startListening,
             child: Icon(Icons.mic_none_outlined, size: 24),
@@ -82,14 +82,21 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
     ));
   }
 
-  void _prevQuestion() {
+  void _resetQuestionState() {
     _showAnswer = false;
+    _resultText = '';
+  }
+
+  void _prevQuestion() {
+    _resetQuestionState();
     context.read<QuestionContext>().prevQuestion();
+    setState(() {});
   }
 
   void _nextQuestion() {
-    _showAnswer = false;
+    _resetQuestionState();
     context.read<QuestionContext>().nextQuestion();
+    setState(() {});
   }
 
   void _toggle() {
@@ -112,7 +119,7 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   }
 
   void resultListener(SpeechRecognitionResult result) {
-    resultText = result.recognizedWords;
+    _resultText = result.recognizedWords;
     setState(() {});
   }
 }
