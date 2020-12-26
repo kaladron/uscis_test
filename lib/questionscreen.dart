@@ -96,7 +96,8 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   }
 
   Future<void> startListening() async {
-    var hasSpeech = await speech.initialize(debugLogging: true);
+    // TODO(jeffbailey): All the error handling!
+    var hasSpeech = await speech.initialize(debugLogging: false);
 
     print(hasSpeech.toString());
     speech.listen(
@@ -109,6 +110,6 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   }
 
   void resultListener(SpeechRecognitionResult result) {
-    print('${result.recognizedWords} - ${result.finalResult}');
+    print('${result.recognizedWords}');
   }
 }
