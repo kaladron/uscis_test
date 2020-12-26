@@ -29,6 +29,8 @@ class _QuestionScreenImpl extends StatefulWidget {
 class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   final SpeechToText speech = SpeechToText();
 
+  String resultText = '';
+
   bool _showAnswer = false;
 
   @override
@@ -63,6 +65,7 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
               ],
             ),
           ),
+          Text('$resultText'),
           MaterialButton(
             onPressed: startListening,
             child: Icon(Icons.mic_none_outlined, size: 24),
@@ -99,7 +102,6 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
     // TODO(jeffbailey): All the error handling!
     var hasSpeech = await speech.initialize(debugLogging: false);
 
-    print(hasSpeech.toString());
     speech.listen(
         onResult: resultListener,
         listenFor: Duration(seconds: 5),
@@ -110,6 +112,7 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   }
 
   void resultListener(SpeechRecognitionResult result) {
-    print('${result.recognizedWords}');
+    resultText = result.recognizedWords;
+    setState(() {});
   }
 }
