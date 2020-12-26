@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:uscis_test/questioncontext.dart';
 import 'package:provider/provider.dart';
 
+import 'package:speech_to_text/speech_to_text.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+
 class QuestionScreen extends StatelessWidget {
   static const routeName = '/question';
   @override
@@ -24,6 +27,8 @@ class _QuestionScreenImpl extends StatefulWidget {
 }
 
 class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
+  final SpeechToText speech = SpeechToText();
+
   bool _showAnswer = false;
 
   @override
@@ -59,7 +64,7 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
             ),
           ),
           MaterialButton(
-            onPressed: _nextQuestion,
+            onPressed: startListening,
             child: Icon(Icons.mic_none_outlined, size: 24),
             shape: CircleBorder(),
             padding: EdgeInsets.all(16),
@@ -88,5 +93,22 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
     setState(() {
       _showAnswer = true;
     });
+  }
+
+  Future<void> startListening() async {
+    var hasSpeech = await speech.initialize(debugLogging: true);
+
+    print(hasSpeech.toString());
+    speech.listen(
+        onResult: resultListener,
+        listenFor: Duration(seconds: 5),
+        pauseFor: Duration(seconds: 5),
+        partialResults: false,
+        cancelOnError: true,
+        listenMode: ListenMode.confirmation);
+  }
+
+  void resultListener(SpeechRecognitionResult result) {
+    print('${result.recognizedWords} - ${result.finalResult}');
   }
 }
