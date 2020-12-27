@@ -29,6 +29,8 @@ class _QuestionScreenImpl extends StatefulWidget {
 class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   final SpeechToText speech = SpeechToText();
 
+  final Widget _answerMark = AnswerMark();
+
   String _resultText = '';
 
   bool _showAnswer = false;
@@ -39,46 +41,50 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
       appBar: AppBar(
         title: Text("Question"),
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-              children: [
-                MaterialButton(
-                  onPressed: _prevQuestion,
-                  child: Text('<'),
-                  shape: CircleBorder(),
-                  color: Colors.blue,
-                ),
-                Expanded(
-                  child: Text(
-                    '${context.watch<QuestionContext>().question.question}',
+      body: Stack(children: [
+        // TODO(jeffbailey): This is aligned poorly, too far down
+        _answerMark,
+        Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  MaterialButton(
+                    onPressed: _prevQuestion,
+                    child: Text('<'),
+                    shape: CircleBorder(),
+                    color: Colors.blue,
                   ),
-                ),
-                MaterialButton(
-                  onPressed: _nextQuestion,
-                  child: Text('>'),
-                  shape: CircleBorder(),
-                  color: Colors.blue,
-                ),
-              ],
+                  Expanded(
+                    child: Text(
+                      '${context.watch<QuestionContext>().question.question}',
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: _nextQuestion,
+                    child: Text('>'),
+                    shape: CircleBorder(),
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Text('$_resultText'),
-          MaterialButton(
-            onPressed: startListening,
-            child: Icon(Icons.mic_none_outlined, size: 24),
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(16),
-            color: Colors.red,
-          ),
-          RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
-          if (_showAnswer) ...[
-            Text('${context.watch<QuestionContext>().question.answers[0]}'),
+            Text('$_resultText'),
+            MaterialButton(
+              onPressed: startListening,
+              child: Icon(Icons.mic_none_outlined, size: 24),
+              shape: CircleBorder(),
+              padding: EdgeInsets.all(16),
+              color: Colors.red,
+            ),
+            RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
+            if (_showAnswer) ...[
+              Text('${context.watch<QuestionContext>().question.answers[0]}'),
+            ],
           ],
-        ],
-      ),
+        ),
+      ]),
     ));
   }
 
@@ -121,5 +127,44 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   void resultListener(SpeechRecognitionResult result) {
     _resultText = result.recognizedWords;
     setState(() {});
+  }
+}
+
+class AnswerMark extends StatefulWidget {
+  const AnswerMark({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _AnswerMarkState createState() => _AnswerMarkState();
+}
+
+class _AnswerMarkState extends State<AnswerMark> {
+  bool show = false;
+
+  void showRight() {
+    show = true;
+    setState(() {});
+  }
+
+  void fadeOut() {
+    show = false;
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      opacity: show ? 1.0 : 0.0,
+      onEnd: fadeOut,
+      duration: Duration(milliseconds: 250),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Center(
+            child: Text(
+          '✓', //  ✓ ✗
+          style: TextStyle(fontSize: 112, color: Colors.green),
+        ))
+      ]),
+    );
   }
 }
