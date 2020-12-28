@@ -29,7 +29,8 @@ class _QuestionScreenImpl extends StatefulWidget {
 class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   final SpeechToText speech = SpeechToText();
 
-  final Widget _answerMark = AnswerMark();
+  bool _show = false;
+  bool _answerWasRight = false;
 
   String _resultText = '';
 
@@ -43,7 +44,20 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
       ),
       body: Stack(children: [
         // TODO(jeffbailey): This is aligned poorly, too far down
-        _answerMark,
+        AnimatedOpacity(
+          opacity: _show ? 1.0 : 0.0,
+          onEnd: _fadeOut,
+          duration: Duration(milliseconds: 500),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Center(
+                child: Text(
+              _answerWasRight ? '✓' : '✗',
+              style: TextStyle(
+                  fontSize: 112,
+                  color: _answerWasRight ? Colors.green : Colors.red),
+            ))
+          ]),
+        ),
         Column(
           children: [
             Container(
@@ -126,45 +140,28 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
 
   void resultListener(SpeechRecognitionResult result) {
     _resultText = result.recognizedWords;
-    setState(() {});
-  }
-}
-
-class AnswerMark extends StatefulWidget {
-  const AnswerMark({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _AnswerMarkState createState() => _AnswerMarkState();
-}
-
-class _AnswerMarkState extends State<AnswerMark> {
-  bool show = false;
-
-  void showRight() {
-    show = true;
+    if (context.read<QuestionContext>().checkAnswer(_resultText)) {
+      _showRight();
+    } else {
+      _showWrong();
+    }
     setState(() {});
   }
 
-  void fadeOut() {
-    show = false;
+  void _fadeOut() {
+    _show = false;
     setState(() {});
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedOpacity(
-      opacity: show ? 1.0 : 0.0,
-      onEnd: fadeOut,
-      duration: Duration(milliseconds: 250),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Center(
-            child: Text(
-          '✓', //  ✓ ✗
-          style: TextStyle(fontSize: 112, color: Colors.green),
-        ))
-      ]),
-    );
+  void _showRight() {
+    _show = true;
+    _answerWasRight = true;
+    setState(() {});
+  }
+
+  void _showWrong() {
+    _show = true;
+    _answerWasRight = false;
+    setState(() {});
   }
 }
