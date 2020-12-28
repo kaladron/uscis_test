@@ -26,4 +26,9 @@ class QuestionContext extends ChangeNotifier {
     _cursor = cursor;
     notifyListeners();
   }
+
+  bool checkAnswer(String answer) {
+    if (question.answers[0] == answer) return true;
+    return false;
+  }
 }
