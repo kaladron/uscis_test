@@ -53,7 +53,7 @@
         "number": 7,
         "question": "How many amendments does the Constitution have?",
         "answers": [
-            "twenty-seven (27)"
+            "27"
         ]
     },
     {
@@ -150,14 +150,14 @@
         "number": 18,
         "question": "How many U.S. Senators are there?",
         "answers": [
-            "one hundred (100)"
+            "100"
         ]
     },
     {
         "number": 19,
         "question": "We elect a U.S. Senator for how many years?",
         "answers": [
-            "six (6)"
+            "6"
         ]
     },
     {
@@ -172,14 +172,14 @@
         "number": 21,
         "question": "The House of Representatives has how many voting members?",
         "answers": [
-            "four hundred thirty-five (435)"
+            "435"
         ]
     },
     {
         "number": 22,
         "question": "We elect a U.S. Representative for how many years?",
         "answers": [
-            "two (2)"
+            "2"
         ]
     },
     {
@@ -209,7 +209,7 @@
         "number": 26,
         "question": "We elect a President for how many years?",
         "answers": [
-            "four (4)"
+            "4"
         ]
     },
     {
@@ -393,7 +393,7 @@
         "number": 48,
         "question": "There are four amendments to the Constitution about who can vote. Describe one of them.",
         "answers": [
-            "Citizens eighteen (18) and older (can vote).",
+            "Citizens 18 and older (can vote).",
             "You don’t have to pay (a poll tax) to vote.",
             "Any citizen can vote. (Women and men can vote.)",
             "A male citizen of any race (can vote)."
@@ -453,7 +453,7 @@
         "number": 54,
         "question": "How old do citizens have to be to vote for President?",
         "answers": [
-            "eighteen (18) and older"
+            "18 and older"
         ],
         "over65": true
     },
@@ -486,8 +486,8 @@
         "number": 57,
         "question": "When must all men register for the Selective Service?",
         "answers": [
-            "at age eighteen (18)",
-            "between eighteen (18) and twenty-six (26)",
+            "at age 18",
+            "between 18 and twenty-six (26)",
             "AMERICAN HISTORY"
         ]
     },
