@@ -196,6 +196,8 @@ class QuestionContext extends ChangeNotifier {
 
   Question get question => _context.read<QuestionStorage>().questions[_cursor];
 
+  final _stripPunctuation = RegExp(r"[^\w\s']+");
+
   int _cursor = 0;
 
   void prevQuestion() {
@@ -215,18 +217,16 @@ class QuestionContext extends ChangeNotifier {
   }
 
   // The following needs to happen in checkAnswer:
-  // Lower Case
-  // Strip punctuation
-  // Iterate over all answers
-  // Remove stopwords
-  // Convert numbers to words
-  // Handle 4th vs 4
+  // TODO(jeffbailey): Iterate over all the answers
+  // TODO(jeffbailey): Duplicate answers with and without parens contents
   // TODO(jeffbailey): Figure out why "fought for women's rights" isn't matching - seems to have trouble with apostrophes.
-  // TODO(jeffbailey): Star Spangled vs. Star-Spangled
-  // Apply stemmer
-  bool checkAnswer(String answer) {
+  bool checkAnswer(String origAnswer) {
     List<String> answerTokens = List();
     List<String> keyTokens = List();
+
+    // Treat hyphenated words as two words for matching.
+    var answer = origAnswer.replaceAll('-', ' ');
+    var key = question.answers[0].replaceAll('-', ' ');
 
     for (var token in answer.split(' ')) {
       token = _prepToken(token);
@@ -235,7 +235,7 @@ class QuestionContext extends ChangeNotifier {
       }
     }
 
-    for (var token in question.answers[0].split(' ')) {
+    for (var token in key.split(' ')) {
       token = _prepToken(token);
       if (token != null) {
         keyTokens.add(token);
@@ -249,9 +249,22 @@ class QuestionContext extends ChangeNotifier {
     return false;
   }
 
+  // regularize apostrophe
+  // convert - to space
+  // Iterate over all answers
+  // Convert numbers to words
+  // Handle 4th vs 4
   String _prepToken(String token) {
+    // 1. Lower Case
     token = token.toLowerCase();
+
+    // 4. Strip punctuation
+    token = token.replaceAll(_stripPunctuation, '');
+
+    // 5. Remove Stopwords
     if (_stopWords.contains(token)) return null;
+
+    // 9. Stem.
     token = _stemmer.stem(token);
     return token;
   }
