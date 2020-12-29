@@ -248,8 +248,6 @@ class QuestionContext extends ChangeNotifier {
     return false;
   }
 
-  // Iterate over all answers
-  // Convert numbers to words
   // Handle 4th vs 4
   String _prepToken(String token) {
     // 1. Lower Case
