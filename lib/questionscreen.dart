@@ -32,6 +32,9 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   bool _show = false;
   bool _answerWasRight = false;
 
+  Color _micButtonBackground = Colors.red;
+  Color _micButtonForeground = Colors.white;
+
   String _resultText = '';
 
   bool _showAnswer = false;
@@ -87,10 +90,11 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
             Text('$_resultText'),
             MaterialButton(
               onPressed: startListening,
-              child: Icon(Icons.mic_none_outlined, size: 24),
+              child: Icon(Icons.mic_none_outlined,
+                  size: 24, color: _micButtonForeground),
               shape: CircleBorder(),
               padding: EdgeInsets.all(16),
-              color: Colors.red,
+              color: _micButtonBackground,
             ),
             RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
             if (_showAnswer) ...[
@@ -128,6 +132,9 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   Future<void> startListening() async {
     // TODO(jeffbailey): All the error handling!
     var hasSpeech = await speech.initialize(debugLogging: false);
+    _micButtonBackground = Colors.white;
+    _micButtonForeground = Colors.red;
+    setState(() {});
 
     speech.listen(
         onResult: resultListener,
@@ -139,6 +146,9 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   }
 
   void resultListener(SpeechRecognitionResult result) {
+    _micButtonBackground = Colors.red;
+    _micButtonForeground = Colors.white;
+    setState(() {});
     _resultText = result.recognizedWords;
     if (context.read<QuestionContext>().checkAnswer(_resultText)) {
       _showRight();
