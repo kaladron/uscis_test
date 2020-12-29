@@ -219,7 +219,6 @@ class QuestionContext extends ChangeNotifier {
   // The following needs to happen in checkAnswer:
   // TODO(jeffbailey): Iterate over all the answers
   // TODO(jeffbailey): Duplicate answers with and without parens contents
-  // TODO(jeffbailey): Figure out why "fought for women's rights" isn't matching - seems to have trouble with apostrophes.
   bool checkAnswer(String origAnswer) {
     List<String> answerTokens = List();
     List<String> keyTokens = List();
@@ -249,14 +248,15 @@ class QuestionContext extends ChangeNotifier {
     return false;
   }
 
-  // regularize apostrophe
-  // convert - to space
   // Iterate over all answers
   // Convert numbers to words
   // Handle 4th vs 4
   String _prepToken(String token) {
     // 1. Lower Case
     token = token.toLowerCase();
+
+    // 2. Regularize Apostrophes
+    token = token.replaceAll('\u2019', "'");
 
     // 4. Strip punctuation
     token = token.replaceAll(_stripPunctuation, '');
