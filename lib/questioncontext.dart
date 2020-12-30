@@ -247,7 +247,7 @@ class QuestionContext extends ChangeNotifier {
 
     print("Answer: " + answerTokens.toString());
 
-    for (var answer in question.answers) {
+    for (var answer in question.allAnswers) {
       List<String> keyTokens = List();
       var key = answer.replaceAll('-', ' ');
       for (var token in key.split(' ')) {

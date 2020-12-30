@@ -54,6 +54,9 @@
         "question": "How many amendments does the Constitution have?",
         "answers": [
             "twenty-seven (27)"
+        ],
+        "extra_answers": [
+            "27"
         ]
     },
     {
@@ -151,6 +154,9 @@
         "question": "How many U.S. Senators are there?",
         "answers": [
             "one hundred (100)"
+        ],
+        "extra_answers": [
+            "100"
         ]
     },
     {
@@ -158,6 +164,9 @@
         "question": "We elect a U.S. Senator for how many years?",
         "answers": [
             "six (6)"
+        ],
+        "extra_answers": [
+            "6"
         ]
     },
     {
@@ -173,6 +182,9 @@
         "question": "The House of Representatives has how many voting members?",
         "answers": [
             "four hundred thirty-five (435)"
+        ],
+        "extra_answers": [
+            "435"
         ]
     },
     {
@@ -180,6 +192,9 @@
         "question": "We elect a U.S. Representative for how many years?",
         "answers": [
             "two (2)"
+        ],
+        "extra_answers": [
+            "2"
         ]
     },
     {
@@ -210,6 +225,9 @@
         "question": "We elect a President for how many years?",
         "answers": [
             "four (4)"
+        ],
+        "extra_answers": [
+            "4"
         ]
     },
     {
@@ -397,6 +415,9 @@
             "You don’t have to pay (a poll tax) to vote.",
             "Any citizen can vote. (Women and men can vote.)",
             "A male citizen of any race (can vote)."
+        ],
+        "extra_answers": [
+            "Citizens 18 and older (can vote)."
         ]
     },
     {
@@ -455,6 +476,9 @@
         "answers": [
             "eighteen (18) and older"
         ],
+        "extra_answers": [
+            "18 and older"
+        ],
         "over65": true
     },
     {
@@ -489,6 +513,10 @@
             "at age eighteen (18)",
             "between eighteen (18) and twenty-six (26)",
             "AMERICAN HISTORY"
+        ],
+        "extra_answers": [
+            "at age 18",
+            "between 18 and 26"
         ]
     },
     {

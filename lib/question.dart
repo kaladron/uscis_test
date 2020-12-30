@@ -45,13 +45,20 @@ class Question {
   final int number;
   final String question;
   final List<String> answers;
+  final List<String> extraAnswers;
   final bool over65;
   final int mustAnswer;
+
+  // TODO(jeffbailey): Expand this for all the optional parens answers.
+  List<String> get allAnswers => [...answers, ...?extraAnswers];
 
   Question.fromJson(Map<String, dynamic> json)
       : number = json['number'],
         question = json['question'],
         answers = json['answers'].cast<String>(),
+        extraAnswers = json.containsKey('extra_answers')
+            ? json['extra_answers'].cast<String>()
+            : [""],
         over65 = json.containsKey('over65') ? json['over65'] : false,
         mustAnswer = json.containsKey('must_answer') ? json['must_answer'] : 1;
 }
