@@ -112,7 +112,8 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
             ),
             RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
             if (_showAnswer) ...[
-              Text('${context.watch<QuestionContext>().question.answers[0]}'),
+              for (var i in context.watch<QuestionContext>().question.answers)
+                Text(i),
             ],
           ],
         ),
