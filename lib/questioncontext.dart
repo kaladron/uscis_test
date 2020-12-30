@@ -231,7 +231,6 @@ class QuestionContext extends ChangeNotifier {
   }
 
   // The following needs to happen in checkAnswer:
-  // TODO(jeffbailey): Iterate over all the answers
   // TODO(jeffbailey): Duplicate answers with and without parens contents
   bool checkAnswer(String origAnswer) {
     List<String> answerTokens = List();
