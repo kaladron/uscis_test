@@ -230,7 +230,6 @@ class QuestionContext extends ChangeNotifier {
     notifyListeners();
   }
 
-  // The following needs to happen in checkAnswer:
   // TODO(jeffbailey): Duplicate answers with and without parens contents
   bool checkAnswer(String origAnswer) {
     List<String> answerTokens = List();
@@ -264,7 +263,7 @@ class QuestionContext extends ChangeNotifier {
     return false;
   }
 
-  // Handle 4th vs 4
+  // TODO(jeffbailey): Handle 4th vs 4
   String _prepToken(String token) {
     // 1. Lower Case
     token = token.toLowerCase();
@@ -272,13 +271,14 @@ class QuestionContext extends ChangeNotifier {
     // 2. Regularize Apostrophes
     token = token.replaceAll('\u2019', "'");
 
-    // 4. Strip punctuation
+    // 3. Strip punctuation
     token = token.replaceAll(_stripPunctuation, '');
 
-    // 5. Remove Stopwords
+    // 4. Remove Stopwords
+    // TODO(jeffbailey): filter not from stopwords, it's semantically important
     if (_stopWords.contains(token)) return null;
 
-    // 9. Stem.
+    // 5. Stem.
     token = _stemmer.stem(token);
     return token;
   }
