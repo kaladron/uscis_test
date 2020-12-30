@@ -235,11 +235,9 @@ class QuestionContext extends ChangeNotifier {
   // TODO(jeffbailey): Duplicate answers with and without parens contents
   bool checkAnswer(String origAnswer) {
     List<String> answerTokens = List();
-    List<String> keyTokens = List();
 
     // Treat hyphenated words as two words for matching.
     var answer = origAnswer.replaceAll('-', ' ');
-    var key = question.answers[0].replaceAll('-', ' ');
 
     for (var token in answer.split(' ')) {
       token = _prepToken(token);
@@ -248,17 +246,22 @@ class QuestionContext extends ChangeNotifier {
       }
     }
 
-    for (var token in key.split(' ')) {
-      token = _prepToken(token);
-      if (token != null) {
-        keyTokens.add(token);
-      }
-    }
-
     print("Answer: " + answerTokens.toString());
-    print("Key: " + keyTokens.toString());
 
-    if (ListEquality().equals(answerTokens, keyTokens)) return true;
+    for (var answer in question.answers) {
+      List<String> keyTokens = List();
+      var key = answer.replaceAll('-', ' ');
+      for (var token in key.split(' ')) {
+        token = _prepToken(token);
+        if (token != null) {
+          keyTokens.add(token);
+        }
+      }
+
+      print("Key: " + keyTokens.toString());
+
+      if (ListEquality().equals(answerTokens, keyTokens)) return true;
+    }
     return false;
   }
 
