@@ -274,11 +274,14 @@ class QuestionContext extends ChangeNotifier {
     // 3. Strip punctuation
     token = token.replaceAll(_stripPunctuation, '');
 
-    // 4. Remove Stopwords
+    // 4. Filter empty words
+    if (token.isEmpty) return null;
+
+    // 5. Remove Stopwords
     // TODO(jeffbailey): filter not from stopwords, it's semantically important
     if (_stopWords.contains(token)) return null;
 
-    // 5. Stem.
+    // 6. Stem.
     token = _stemmer.stem(token);
     return token;
   }

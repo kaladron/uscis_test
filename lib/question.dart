@@ -49,8 +49,33 @@ class Question {
   final bool over65;
   final int mustAnswer;
 
-  // TODO(jeffbailey): Expand this for all the optional parens answers.
-  List<String> get allAnswers => [...answers, ...?extraAnswers];
+  final _stripParens = RegExp(r'\(.+\)');
+
+  /// The Answer set includes:
+  ///  * The official answers in the book.
+  ///  * "alternative phrasing of the correct answer"
+  ///    see: https://www.uscis.gov/sites/default/files/document/guides/Test_Scoring_Guidelines.pdf
+  ///  * Answers with the bits in parens filtered out.
+  ///
+  /// There is no guide to alternative phrasings, but it's used to convert words
+  /// into numbers, allow "fourth of July" in addition to "July 4", etc.
+  ///
+  /// These are split into these groups so that only the official answers
+  /// are ever shown to the user.  That is what they should be studying from.
+  List<String> get allAnswers {
+    var strippedAnswers = List<String>();
+    for (var answer in answers) {
+      if (answer.contains('(')) {
+        var strippedAnswer = answer.replaceAll(_stripParens, '');
+        strippedAnswers.add(strippedAnswer);
+      }
+    }
+    return [
+      ...answers,
+      if (extraAnswers.isNotEmpty) ...extraAnswers,
+      if (strippedAnswers.isNotEmpty) ...strippedAnswers
+    ];
+  }
 
   Question.fromJson(Map<String, dynamic> json)
       : number = json['number'],
@@ -58,7 +83,7 @@ class Question {
         answers = json['answers'].cast<String>(),
         extraAnswers = json.containsKey('extra_answers')
             ? json['extra_answers'].cast<String>()
-            : [""],
+            : [],
         over65 = json.containsKey('over65') ? json['over65'] : false,
         mustAnswer = json.containsKey('must_answer') ? json['must_answer'] : 1;
 }
