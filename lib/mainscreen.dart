@@ -33,6 +33,59 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final _states = [
+    "Alabama",
+    "Alaska",
+    "Arizona",
+    "Arkansas",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "Delaware",
+    "Florida",
+    "Georgia",
+    "Hawaii",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Maine",
+    "Maryland",
+    "Massachusetts",
+    "Michigan",
+    "Minnesota",
+    "Mississippi",
+    "Missouri",
+    "Montana",
+    "Nebraska",
+    "Nevada",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "New York",
+    "North Carolina",
+    "North Dakota",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Vermont",
+    "Virginia",
+    "Washington",
+    "West Virginia",
+    "Wisconsin",
+    "Wyoming",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,21 +144,20 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
         ),
-        DropdownButton(value: 'foo', onChanged: (value) {}, items: [
-          DropdownMenuItem(
-            child: Text('foo'),
-            value: 'foo',
-          ),
-          DropdownMenuItem(
-            child: Text('bar'),
-            value: 'bar',
-          ),
-          DropdownMenuItem(
-            child: Text('baz'),
-            value: 'baz',
-          ),
-        ]),
-        Expanded(child: Text('Choose your region')),
+        Padding(
+          child: Text('Choose your region'),
+          padding: EdgeInsets.only(top: 16),
+        ),
+        DropdownButton(
+          value: 'California',
+          onChanged: (value) {},
+          items: _states.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ),
       ],
     );
   }
