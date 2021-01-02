@@ -55,6 +55,20 @@ class _MainScreenState extends State<MainScreen> {
             child: Column(
               children: <Widget>[
                 const ListTile(
+                  leading: Icon(Icons.pageview),
+                  title: Text('View'),
+                  subtitle: Text('View Questions'),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Card(
+          child: InkWell(
+            onTap: () {},
+            child: Column(
+              children: <Widget>[
+                const ListTile(
                   leading: Icon(Icons.assignment),
                   title: Text('Learn'),
                   subtitle: Text('Practice Citizenship Questions'),
