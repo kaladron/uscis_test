@@ -21,12 +21,13 @@
 // About
 
 import 'package:flutter/material.dart';
+import 'package:flag/flag.dart';
 
 Widget drawerMenu() {
   return Drawer(
     child: ListView(padding: EdgeInsets.zero, children: <Widget>[
       DrawerHeader(
-        child: Text('Drawer Header'),
+        child: Flag('us'),
         decoration: BoxDecoration(
           color: Colors.blue,
         ),
@@ -47,7 +48,7 @@ Widget drawerMenu() {
       SwitchListTile(
         title: const Text('Show only 65+ Questions'),
         value: false,
-        onChanged: (_) {},
+        onChanged: null,
       ),
       const Divider(
         color: Colors.black,

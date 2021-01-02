@@ -47,6 +47,8 @@ dependencies:
   speech_to_text: ^3.1.0
   stemmer: ^1.1.0
   collection: any
+  flag: ^3.1.0
+
 
 dev_dependencies:
   flutter_test:
