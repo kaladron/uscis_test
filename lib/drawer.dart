@@ -20,47 +20,50 @@
 import 'package:flutter/material.dart';
 import 'package:flag/flag.dart';
 
-Widget drawerMenu() {
-  return Drawer(
-    child: ListView(padding: EdgeInsets.zero, children: <Widget>[
-      DrawerHeader(
-        child: Flag('us'),
-        decoration: BoxDecoration(
-          color: Colors.blue,
+class DrawerMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(padding: EdgeInsets.zero, children: <Widget>[
+        DrawerHeader(
+          child: Flag('us'),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+          ),
         ),
-      ),
-      ListTile(title: Text('USCIS Exam')),
-      RadioListTile(
-        value: "2008",
-        title: Text('2008'),
-        onChanged: (String value) {},
-        groupValue: "2008",
-      ),
-      RadioListTile(
-        value: "2020",
-        title: Text('2020'),
-        onChanged: null,
-        groupValue: "2008",
-      ),
-      SwitchListTile(
-        title: const Text('Show only 65+ Questions'),
-        value: false,
-        onChanged: null,
-      ),
-      const Divider(
-        color: Colors.black,
-        height: 2,
-        thickness: 1,
-        indent: 0,
-        endIndent: 0,
-      ),
-      ListTile(
-        title: Text('About'),
-        onTap: () {
-          // Update the state of the app.
-          // ...
-        },
-      ),
-    ]),
-  );
+        ListTile(title: Text('USCIS Exam')),
+        RadioListTile(
+          value: "2008",
+          title: Text('2008'),
+          onChanged: (String value) {},
+          groupValue: "2008",
+        ),
+        RadioListTile(
+          value: "2020",
+          title: Text('2020'),
+          onChanged: null,
+          groupValue: "2008",
+        ),
+        SwitchListTile(
+          title: const Text('Show only 65+ Questions'),
+          value: false,
+          onChanged: null,
+        ),
+        const Divider(
+          color: Colors.black,
+          height: 2,
+          thickness: 1,
+          indent: 0,
+          endIndent: 0,
+        ),
+        ListTile(
+          title: Text('About'),
+          onTap: () {
+            // Update the state of the app.
+            // ...
+          },
+        ),
+      ]),
+    );
+  }
 }

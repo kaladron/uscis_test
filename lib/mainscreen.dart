@@ -92,7 +92,7 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         title: Text('US Citizenship Test'),
       ),
-      drawer: drawerMenu(),
+      drawer: DrawerMenu(),
       body: _body(),
     );
   }
