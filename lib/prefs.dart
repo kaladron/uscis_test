@@ -18,12 +18,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PrefsStorage extends ChangeNotifier {
   SharedPreferences _prefs;
 
-  bool _over65only;
+  bool _over65Only;
 
-  get over65Only => _over65only;
+  get over65Only => _over65Only;
 
   set over65Only(bool value) {
     _prefs.setBool('over65', value);
+    _over65Only = value;
+    notifyListeners();
   }
 
   PrefsStorage() {
@@ -32,6 +34,6 @@ class PrefsStorage extends ChangeNotifier {
 
   void _loadPrefs() async {
     _prefs = await SharedPreferences.getInstance();
-    _over65only = _prefs.getBool('over65') ?? false;
+    _over65Only = _prefs.getBool('over65') ?? false;
   }
 }

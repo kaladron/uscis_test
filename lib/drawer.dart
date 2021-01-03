@@ -19,6 +19,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flag/flag.dart';
+import 'package:provider/provider.dart';
+import 'package:uscis_test/prefs.dart';
 
 class DrawerMenu extends StatelessWidget {
   @override
@@ -46,8 +48,10 @@ class DrawerMenu extends StatelessWidget {
         ),
         SwitchListTile(
           title: const Text('Show only 65+ Questions'),
-          value: false,
-          onChanged: null,
+          value: context.watch<PrefsStorage>().over65Only,
+          onChanged: (bool newValue) {
+            context.read<PrefsStorage>().over65Only = newValue;
+          },
         ),
         const Divider(
           color: Colors.black,
