@@ -60,13 +60,7 @@ class DrawerMenu extends StatelessWidget {
           indent: 0,
           endIndent: 0,
         ),
-        ListTile(
-          title: Text('About'),
-          onTap: () {
-            // Update the state of the app.
-            // ...
-          },
-        ),
+        AboutListTile(),
       ]),
     );
   }
