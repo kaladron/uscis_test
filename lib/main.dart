@@ -15,12 +15,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/mainscreen.dart';
+import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/question.dart';
 import 'package:uscis_test/questionscreen.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(create: (_) => PrefsStorage(), lazy: false),
       Provider(create: (_) => QuestionStorage(), lazy: false),
     ],
     child: MyApp(),
