@@ -24,7 +24,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:uscis_test/drawer.dart';
+import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/questionscreen.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeName = '/';
@@ -149,8 +151,10 @@ class _MainScreenState extends State<MainScreen> {
           padding: EdgeInsets.only(top: 16),
         ),
         DropdownButton(
-          value: 'California',
-          onChanged: (value) {},
+          value: context.watch<PrefsStorage>().region,
+          onChanged: (newValue) {
+            context.read<PrefsStorage>().region = newValue;
+          },
           items: _states.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,

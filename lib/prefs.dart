@@ -19,12 +19,22 @@ class PrefsStorage extends ChangeNotifier {
   SharedPreferences _prefs;
 
   bool _over65Only;
+  String _region;
 
   get over65Only => _over65Only;
 
   set over65Only(bool value) {
     _prefs.setBool('over65', value);
     _over65Only = value;
+    notifyListeners();
+  }
+
+  get region => _region;
+
+  set region(String value) {
+    _prefs.setString('region', value);
+    print(value);
+    _region = value;
     notifyListeners();
   }
 
@@ -35,5 +45,6 @@ class PrefsStorage extends ChangeNotifier {
   void _loadPrefs() async {
     _prefs = await SharedPreferences.getInstance();
     _over65Only = _prefs.getBool('over65') ?? false;
+    _region = _prefs.getString('region') ?? 'California';
   }
 }
