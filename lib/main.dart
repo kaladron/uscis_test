@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:uscis_test/mainscreen.dart';
 import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/question.dart';
-import 'package:uscis_test/questionscreen.dart';
+import 'package:uscis_test/questionlistscreen.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         routes: {
           SplashScreen.routeName: (context) => SplashScreen(),
           MainScreen.routeName: (context) => MainScreen(),
-          QuestionScreen.routeName: (context) => QuestionScreen(),
+          QuestionListScreen.routeName: (context) => QuestionListScreen(),
         });
     return materialApp;
   }

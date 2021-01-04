@@ -206,13 +206,13 @@ class QuestionContext extends ChangeNotifier {
     "wouldn't"
   ]);
 
-  QuestionContext(this._context);
+  QuestionContext(this._context, this._cursor);
 
   Question get question => _context.read<QuestionStorage>().questions[_cursor];
 
   final _stripPunctuation = RegExp(r"[^\w\s']+");
 
-  int _cursor = 0;
+  int _cursor;
 
   void prevQuestion() {
     setQuestion(_cursor - 1);

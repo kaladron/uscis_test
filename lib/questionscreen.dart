@@ -26,11 +26,17 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 
 class QuestionScreen extends StatelessWidget {
   static const routeName = '/question';
+
+  final int _initialQuestion;
+
+  QuestionScreen(this._initialQuestion);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(
-          create: (context) => QuestionContext(context), lazy: false),
+          create: (context) => QuestionContext(context, _initialQuestion),
+          lazy: false),
     ], child: _QuestionScreenImpl());
   }
 }

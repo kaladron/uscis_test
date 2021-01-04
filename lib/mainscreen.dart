@@ -25,7 +25,7 @@
 import 'package:flutter/material.dart';
 import 'package:uscis_test/drawer.dart';
 import 'package:uscis_test/prefs.dart';
-import 'package:uscis_test/questionscreen.dart';
+import 'package:uscis_test/questionlistscreen.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
@@ -105,7 +105,7 @@ class _MainScreenState extends State<MainScreen> {
         Card(
           child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, QuestionScreen.routeName);
+              Navigator.pushNamed(context, QuestionListScreen.routeName);
             },
             child: Column(
               children: <Widget>[
