@@ -16,6 +16,7 @@ class QuestionListScreen extends StatelessWidget {
         itemCount: context.watch<QuestionStorage>().questions.length,
         itemBuilder: (context, index) {
           return ListTile(
+            leading: Icon(Icons.question_answer),
             title: Text(
                 context.watch<QuestionStorage>().questions[index].question),
             onTap: () {
