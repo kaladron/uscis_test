@@ -38,11 +38,7 @@ class PrefsStorage extends ChangeNotifier {
     notifyListeners();
   }
 
-  PrefsStorage() {
-    _loadPrefs();
-  }
-
-  void _loadPrefs() async {
+  Future<void> initState() async {
     _prefs = await SharedPreferences.getInstance();
     _over65Only = _prefs.getBool('over65') ?? false;
     _region = _prefs.getString('region') ?? 'California';

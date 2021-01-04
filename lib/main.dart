@@ -34,13 +34,41 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var materialApp = MaterialApp(
         title: 'USCIS Citizenship Test',
-        initialRoute: MainScreen.routeName,
+        initialRoute: SplashScreen.routeName,
         theme: ThemeData(),
         darkTheme: ThemeData.dark(),
         routes: {
+          SplashScreen.routeName: (context) => SplashScreen(),
           MainScreen.routeName: (context) => MainScreen(),
           QuestionScreen.routeName: (context) => QuestionScreen(),
         });
     return materialApp;
+  }
+}
+
+// TODO(jeffbailey): Surely we can do better than this!
+class SplashScreen extends StatefulWidget {
+  static const routeName = "/splash";
+
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  initState() {
+    super.initState();
+    onStart();
+  }
+
+  void onStart() async {
+    await context.read<PrefsStorage>().initState();
+    await context.read<QuestionStorage>().initState();
+    Navigator.pushReplacementNamed(context, MainScreen.routeName);
   }
 }

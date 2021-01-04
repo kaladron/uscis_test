@@ -21,11 +21,7 @@ class QuestionStorage {
 
   List<Question> get questions => _questions;
 
-  QuestionStorage() {
-    _readFile();
-  }
-
-  Future<List<Question>> _readFile() async {
+  Future<void> initState() async {
 //    try {
     var contents = await rootBundle.loadString('2008.json');
     var data = jsonDecode(contents);
@@ -33,10 +29,8 @@ class QuestionStorage {
     for (Map i in data) {
       _questions.add(Question.fromJson(i));
     }
-    return _questions;
 //    } catch (e) {
 //      // TODO(jeffbailey): Better error handling.
-//      return e.toString();
 //    }
   }
 }
