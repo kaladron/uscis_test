@@ -46,7 +46,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// TODO(jeffbailey): Surely we can do better than this!
+/// Handle synchronous initialization here.  It's called SplashScreen
+/// because if it suddenly starts to take a long time, we would add it here.
+/// But that's pretty unlikely in this case, so we don't bother.
 class SplashScreen extends StatefulWidget {
   static const routeName = "/splash";
 
