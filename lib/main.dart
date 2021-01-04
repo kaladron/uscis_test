@@ -20,10 +20,11 @@ import 'package:uscis_test/question.dart';
 import 'package:uscis_test/questionlistscreen.dart';
 
 void main() {
+  var prefs = PrefsStorage();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => PrefsStorage(), lazy: false),
-      Provider(create: (_) => QuestionStorage(), lazy: false),
+      ChangeNotifierProvider(create: (_) => prefs, lazy: false),
+      Provider(create: (_) => QuestionStorage(prefs), lazy: false),
     ],
     child: MyApp(),
   ));

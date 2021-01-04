@@ -15,11 +15,27 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:uscis_test/prefs.dart';
 
 class QuestionStorage {
+  final PrefsStorage _prefs;
+
   List<Question> _questions;
 
-  List<Question> get questions => _questions;
+  List<Question> get questions {
+    if (!_prefs.over65Only) {
+      return _questions;
+    }
+    var over65Questions = List<Question>();
+    for (var question in _questions) {
+      if (question.over65) {
+        over65Questions.add(question);
+      }
+    }
+    return over65Questions;
+  }
+
+  QuestionStorage(this._prefs);
 
   Future<void> initState() async {
 //    try {
