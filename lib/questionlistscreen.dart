@@ -42,13 +42,21 @@ class _QuestionListItemState extends State<QuestionListItem> {
       title: Text(
           context.watch<QuestionStorage>().questions[widget._index].question),
       subtitle: _showAnswer
-          ? Text(context
-              .watch<QuestionStorage>()
-              .questions[widget._index]
-              .answers[0])
+          ? Column(
+              children: [
+                ...context
+                    .watch<QuestionStorage>()
+                    .questions[widget._index]
+                    .answers
+                    .map<Text>((String value) {
+                  return Text(value);
+                })
+              ],
+            )
           : null,
       onTap: () {
         setState(() {
+          // TODO(jeffbailey): Animate this transition
           _showAnswer = !_showAnswer;
         });
       },
