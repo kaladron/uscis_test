@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/question.dart';
-import 'package:uscis_test/questionscreen.dart';
 
 class QuestionListScreen extends StatelessWidget {
   static const routeName = "/questionlistscreen";
