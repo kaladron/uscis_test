@@ -32,6 +32,8 @@ class QuestionListItem extends StatefulWidget {
 }
 
 class _QuestionListItemState extends State<QuestionListItem> {
+  bool _showAnswer = false;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -39,11 +41,16 @@ class _QuestionListItemState extends State<QuestionListItem> {
       trailing: Icon(Icons.star_outline),
       title: Text(
           context.watch<QuestionStorage>().questions[widget._index].question),
+      subtitle: _showAnswer
+          ? Text(context
+              .watch<QuestionStorage>()
+              .questions[widget._index]
+              .answers[0])
+          : null,
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => QuestionScreen(widget._index)));
+        setState(() {
+          _showAnswer = !_showAnswer;
+        });
       },
     );
   }
