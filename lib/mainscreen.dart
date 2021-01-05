@@ -27,6 +27,7 @@ import 'package:uscis_test/drawer.dart';
 import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/questionlistscreen.dart';
 import 'package:provider/provider.dart';
+import 'package:uscis_test/questionscreen.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeName = '/';
@@ -120,7 +121,10 @@ class _MainScreenState extends State<MainScreen> {
         ),
         Card(
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => QuestionScreen(0)));
+            },
             child: Column(
               children: <Widget>[
                 const ListTile(
