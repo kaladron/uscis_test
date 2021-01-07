@@ -18,6 +18,7 @@ import 'package:uscis_test/mainscreen.dart';
 import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/question.dart';
 import 'package:uscis_test/questionlistscreen.dart';
+import 'package:uscis_test/testscreen.dart';
 
 void main() {
   var prefs = PrefsStorage();
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           SplashScreen.routeName: (context) => SplashScreen(),
           MainScreen.routeName: (context) => MainScreen(),
           QuestionListScreen.routeName: (context) => QuestionListScreen(),
+          TestScreen.routeName: (context) => TestScreen(),
         });
     return materialApp;
   }
