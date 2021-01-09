@@ -10,7 +10,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="US Citizenship Test"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/united_states_of_america">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
