@@ -42,13 +42,14 @@ class _QuestionListItemState extends State<QuestionListItem> {
           context.watch<QuestionStorage>().questions[widget._index].question),
       subtitle: _showAnswer
           ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ...context
                     .watch<QuestionStorage>()
                     .questions[widget._index]
                     .answers
                     .map<Text>((String value) {
-                  return Text(value);
+                  return Text("• " + value);
                 })
               ],
             )
