@@ -233,7 +233,7 @@ class QuestionContext extends ChangeNotifier {
 
   // TODO(jeffbailey): Duplicate answers with and without parens contents
   bool checkAnswer(String origAnswer) {
-    List<String> answerTokens = List();
+    List<String> answerTokens = [];
 
     // Treat hyphenated words as two words for matching.
     var answer = origAnswer.replaceAll('-', ' ');
@@ -248,7 +248,7 @@ class QuestionContext extends ChangeNotifier {
     print("Answer: " + answerTokens.toString());
 
     for (var answer in question.allAnswers) {
-      List<String> keyTokens = List();
+      List<String> keyTokens = [];
       var key = answer.replaceAll('-', ' ');
       for (var token in key.split(' ')) {
         token = _prepToken(token);

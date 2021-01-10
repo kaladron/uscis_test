@@ -26,7 +26,7 @@ class QuestionStorage {
     if (!_prefs.over65Only) {
       return _questions;
     }
-    var over65Questions = List<Question>();
+    List<Question> over65Questions = [];
     for (var question in _questions) {
       if (question.over65) {
         over65Questions.add(question);
@@ -88,7 +88,7 @@ class Question {
   /// These are split into these groups so that only the official answers
   /// are ever shown to the user.  That is what they should be studying from.
   List<String> get allAnswers {
-    var strippedAnswers = List<String>();
+    List<String> strippedAnswers = [];
     for (var answer in answers) {
       if (answer.contains('(')) {
         var strippedAnswer = answer.replaceAll(_stripParens, '');
