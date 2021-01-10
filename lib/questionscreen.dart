@@ -135,13 +135,11 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   void _prevQuestion() {
     _resetQuestionState();
     context.read<QuestionContext>().prevQuestion();
-    setState(() {});
   }
 
   void _nextQuestion() {
     _resetQuestionState();
     context.read<QuestionContext>().nextQuestion();
-    setState(() {});
   }
 
   void _toggle() {
