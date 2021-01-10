@@ -74,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void onStart() async {
     await context.read<PrefsStorage>().initState();
     await context.read<QuestionStorage>().initState();
-    Navigator.pushNamedAndRemoveUntil(
+    await Navigator.pushNamedAndRemoveUntil(
         context, MainScreen.routeName, (Route<dynamic> route) => false);
   }
 }

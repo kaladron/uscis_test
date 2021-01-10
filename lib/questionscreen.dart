@@ -153,11 +153,13 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   Future<void> startListening() async {
     // TODO(jeffbailey): All the error handling!
     var hasSpeech = await speech.initialize(debugLogging: false);
-    _micButtonBackground = Colors.white;
-    _micButtonForeground = Colors.red;
-    setState(() {});
 
-    speech.listen(
+    setState(() {
+      _micButtonBackground = Colors.white;
+      _micButtonForeground = Colors.red;
+    });
+
+    await speech.listen(
         onResult: resultListener,
         listenFor: Duration(seconds: 5),
         pauseFor: Duration(seconds: 5),
@@ -167,32 +169,38 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   }
 
   void resultListener(SpeechRecognitionResult result) {
-    _micButtonBackground = Colors.red;
-    _micButtonForeground = Colors.white;
-    setState(() {});
+    setState(() {
+      _micButtonBackground = Colors.red;
+      _micButtonForeground = Colors.white;
+    });
+
     _resultText = result.recognizedWords;
-    if (context.read<QuestionContext>().checkAnswer(_resultText)) {
-      _showRight();
-    } else {
-      _showWrong();
-    }
-    setState(() {});
+    setState(() {
+      if (context.read<QuestionContext>().checkAnswer(_resultText)) {
+        _showRight();
+      } else {
+        _showWrong();
+      }
+    });
   }
 
   void _fadeOut() {
-    _show = false;
-    setState(() {});
+    setState(() {
+      _show = false;
+    });
   }
 
   void _showRight() {
-    _show = true;
-    _answerWasRight = true;
-    setState(() {});
+    setState(() {
+      _show = true;
+      _answerWasRight = true;
+    });
   }
 
   void _showWrong() {
-    _show = true;
-    _answerWasRight = false;
-    setState(() {});
+    setState(() {
+      _show = true;
+      _answerWasRight = false;
+    });
   }
 }
