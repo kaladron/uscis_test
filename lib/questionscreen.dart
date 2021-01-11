@@ -24,6 +24,8 @@ import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 
+import 'package:flutter_tts/flutter_tts.dart';
+
 class QuestionScreen extends StatelessWidget {
   static const routeName = '/question';
 
@@ -47,7 +49,8 @@ class _QuestionScreenImpl extends StatefulWidget {
 }
 
 class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
-  final SpeechToText speech = SpeechToText();
+  final speech = SpeechToText();
+  final flutterTts = FlutterTts();
 
   bool _show = false;
   bool _answerWasRight = false;
@@ -121,10 +124,18 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
               for (var i in context.watch<QuestionContext>().question.answers)
                 Text(i),
             ],
+            RaisedButton(
+                onPressed: _speakQuestion, child: Text('Speak Question')),
           ],
         ),
       ]),
     ));
+  }
+
+  void _speakQuestion() async {
+    await flutterTts.setLanguage("en-US");
+
+    await flutterTts.speak(context.read<QuestionContext>().question.question);
   }
 
   void _resetQuestionState() {
