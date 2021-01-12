@@ -125,7 +125,7 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
                 Text(i),
             ],
             RaisedButton(
-                onPressed: _speakQuestion, child: Text('Speak Question')),
+                onPressed: _speakQuestion, child: Text('Speak Answers')),
           ],
         ),
       ]),
@@ -135,7 +135,10 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
   void _speakQuestion() async {
     await flutterTts.setLanguage("en-US");
 
-    await flutterTts.speak(context.read<QuestionContext>().question.question);
+    for (var i in context.read<QuestionContext>().question.answers) {
+      // TODO(jeffbailey): Need to wait here for previous answers to get read before starting the next one.
+      await flutterTts.speak(i);
+    }
   }
 
   void _resetQuestionState() {
