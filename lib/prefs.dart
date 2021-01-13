@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:collection';
+
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,6 +22,7 @@ class PrefsStorage extends ChangeNotifier {
 
   bool _over65Only;
   String _region;
+  var _starredMap = SplayTreeMap<String, bool>();
 
   get over65Only => _over65Only;
 
@@ -38,9 +41,27 @@ class PrefsStorage extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool isStarred(int qnum) {
+    return _starredMap.containsKey(qnum.toString());
+  }
+
+  void setStar(int qnum, bool state) {
+    if (state) {
+      _starredMap[qnum.toString()] = true;
+    } else {
+      _starredMap.remove(qnum.toString());
+    }
+    _prefs.setStringList('starred', _starredMap.keys.toList());
+    notifyListeners();
+  }
+
   Future<void> initState() async {
     _prefs = await SharedPreferences.getInstance();
     _over65Only = _prefs.getBool('over65') ?? false;
     _region = _prefs.getString('region') ?? 'California';
+    var starredList = _prefs.getStringList('starred') ?? [];
+    for (var i in starredList) {
+      _starredMap[i] = true;
+    }
   }
 }
