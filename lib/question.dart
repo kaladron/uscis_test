@@ -35,6 +35,9 @@ class QuestionStorage {
     return over65Questions;
   }
 
+  // TODO(jeffbailey): Could isStarred and toggle be mix-ins on the question?
+  // That way callers don't have to think about it, they're just changing state
+  // of the question and then maybe calling something to persist the change.
   bool isStarred(int qnum) {
     return _prefs.isStarred(qnum);
   }
