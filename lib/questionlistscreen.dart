@@ -33,9 +33,6 @@ class QuestionListItem extends StatefulWidget {
 class _QuestionListItemState extends State<QuestionListItem> {
   bool _showAnswer = false;
 
-  // TODO(jeffbailey): Push this up into the question and persist it
-  bool _isStarred = false;
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -43,10 +40,18 @@ class _QuestionListItemState extends State<QuestionListItem> {
       trailing: GestureDetector(
         onTap: () {
           setState(() {
-            _isStarred = !_isStarred;
+            context.read<QuestionStorage>().toggle(context
+                .read<QuestionStorage>()
+                .questions[widget._index]
+                .number);
           });
         },
-        child: _isStarred ? Icon(Icons.star) : Icon(Icons.star_outline),
+        child: context.watch<QuestionStorage>().isStarred(context
+                .watch<QuestionStorage>()
+                .questions[widget._index]
+                .number)
+            ? Icon(Icons.star)
+            : Icon(Icons.star_outline),
       ),
       title: Text(
           context.watch<QuestionStorage>().questions[widget._index].question),

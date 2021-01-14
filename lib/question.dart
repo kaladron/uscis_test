@@ -35,6 +35,14 @@ class QuestionStorage {
     return over65Questions;
   }
 
+  bool isStarred(int qnum) {
+    return _prefs.isStarred(qnum);
+  }
+
+  void toggle(int qnum) {
+    _prefs.toggle(qnum);
+  }
+
   QuestionStorage(this._prefs);
 
   // TODO(jeffbailey):
