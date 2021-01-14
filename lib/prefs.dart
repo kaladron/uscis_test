@@ -45,7 +45,9 @@ class PrefsStorage extends ChangeNotifier {
     return _starredMap.containsKey(qnum.toString());
   }
 
-  void setStar(int qnum, bool state) {
+  void toggle(int qnum) {
+    var state = !isStarred(qnum);
+
     if (state) {
       _starredMap[qnum.toString()] = true;
     } else {
