@@ -35,6 +35,14 @@ class QuestionStorage {
     return over65Questions;
   }
 
+  List<Question> get starredQuestions {
+    List<Question> starredQuestions = [];
+    for (var question in _prefs.starredList) {
+      starredQuestions.add(question);
+    }
+    return starredQuestions;
+  }
+
   // TODO(jeffbailey): Could isStarred and toggle be mix-ins on the question?
   // That way callers don't have to think about it, they're just changing state
   // of the question and then maybe calling something to persist the change.
