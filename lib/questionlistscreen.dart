@@ -9,14 +9,23 @@ class QuestionListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Questions"),
+        title: Text("View"),
       ),
-      body: ListView.builder(
-        itemCount: context.watch<QuestionStorage>().questions.length,
-        itemBuilder: (context, index) {
-          return QuestionListItem(index);
-        },
-      ),
+      body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        Text('Starred',
+            style: Theme.of(context).textTheme.headline4,
+            textAlign: TextAlign.left),
+        Text('Not implemented yet'),
+        Text('Questions', style: Theme.of(context).textTheme.headline4),
+        Expanded(
+          child: ListView.builder(
+            itemCount: context.watch<QuestionStorage>().questions.length,
+            itemBuilder: (context, index) {
+              return QuestionListItem(index);
+            },
+          ),
+        ),
+      ]),
     );
   }
 }
