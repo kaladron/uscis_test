@@ -168,12 +168,12 @@ class _MainScreenState extends State<MainScreen> {
           onChanged: (newValue) {
             context.read<PrefsStorage>().region = newValue;
           },
-          items: _states.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
+          items: _states
+              .map((e) => DropdownMenuItem(
+                    value: e,
+                    child: Text(e),
+                  ))
+              .toList(),
         ),
       ],
     );
