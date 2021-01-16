@@ -12,9 +12,10 @@ class QuestionListScreen extends StatelessWidget {
         title: Text("View"),
       ),
       body: ListView(children: [
-        Text('Starred',
-            style: Theme.of(context).textTheme.headline4,
-            textAlign: TextAlign.left),
+        if (context.watch<QuestionStorage>().starredQuestions.isNotEmpty)
+          Text('Starred',
+              style: Theme.of(context).textTheme.headline4,
+              textAlign: TextAlign.left),
         ...context
             .watch<QuestionStorage>()
             .starredQuestions
