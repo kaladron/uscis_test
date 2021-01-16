@@ -39,6 +39,6 @@ jobs:
       #- name: Run tests
       #  run: dart test
       - name: Build app
-        run: flutter build appbundle
+        run: flutter build appbundle --debug
         
         
