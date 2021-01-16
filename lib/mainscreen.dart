@@ -30,13 +30,9 @@ import 'package:provider/provider.dart';
 import 'package:uscis_test/questionscreen.dart';
 import 'package:uscis_test/testscreen.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   static const routeName = '/';
-  @override
-  _MainScreenState createState() => _MainScreenState();
-}
 
-class _MainScreenState extends State<MainScreen> {
   final _states = [
     "Alabama",
     "Alaska",
@@ -97,85 +93,69 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('US Citizenship Test'),
-      ),
-      drawer: DrawerMenu(),
-      body: _body(),
-    );
-  }
-
-  Widget _body() {
-    return Column(
-      children: [
-        Card(
-          child: InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, QuestionListScreen.routeName);
-            },
-            child: Column(
-              children: <Widget>[
-                const ListTile(
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text('US Citizenship Test'),
+        ),
+        drawer: DrawerMenu(),
+        body: Column(
+          children: [
+            Card(
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, QuestionListScreen.routeName);
+                },
+                child: ListTile(
                   leading: Icon(Icons.pageview),
                   title: Text('View'),
                   subtitle: Text('View Questions'),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-        Card(
-          child: InkWell(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => QuestionScreen(0)));
-            },
-            child: Column(
-              children: <Widget>[
-                const ListTile(
+            Card(
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => QuestionScreen(0)));
+                },
+                child: ListTile(
                   leading: Icon(Icons.assignment),
                   title: Text('Learn'),
                   subtitle: Text('Practice Citizenship Questions'),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-        Card(
-          child: InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, TestScreen.routeName);
-            },
-            child: Column(
-              children: <Widget>[
-                const ListTile(
+            Card(
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, TestScreen.routeName);
+                },
+                child: ListTile(
                   leading: Icon(Icons.psychology),
                   title: Text('Test'),
                   subtitle: Text('Simulate a test'),
                 ),
-              ],
+              ),
             ),
-          ),
+            Padding(
+              child: Text('Choose your region'),
+              padding: EdgeInsets.only(top: 16),
+            ),
+            DropdownButton(
+              value: context.watch<PrefsStorage>().region,
+              onChanged: (newValue) {
+                context.read<PrefsStorage>().region = newValue;
+              },
+              items: _states
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+            ),
+          ],
         ),
-        Padding(
-          child: Text('Choose your region'),
-          padding: EdgeInsets.only(top: 16),
-        ),
-        DropdownButton(
-          value: context.watch<PrefsStorage>().region,
-          onChanged: (newValue) {
-            context.read<PrefsStorage>().region = newValue;
-          },
-          items: _states
-              .map((e) => DropdownMenuItem(
-                    value: e,
-                    child: Text(e),
-                  ))
-              .toList(),
-        ),
-      ],
-    );
-  }
+      );
 }
