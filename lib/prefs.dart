@@ -25,7 +25,8 @@ class PrefsStorage extends ChangeNotifier {
   var _starredMap = SplayTreeMap<String, bool>();
 
   get over65Only => _over65Only;
-  get starredList => _starredMap.keys.toList();
+  // Dart can't detect the type for some reason
+  List<String> get starredList => _starredMap.keys.toList();
 
   set over65Only(bool value) {
     _prefs.setBool('over65', value);

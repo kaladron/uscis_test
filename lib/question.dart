@@ -38,7 +38,7 @@ class QuestionStorage {
   List<Question> get starredQuestions {
     List<Question> starredQuestions = [];
     for (var question in _prefs.starredList) {
-      starredQuestions.add(question);
+      starredQuestions.add(_questions[int.parse(question)]);
     }
     return starredQuestions;
   }
