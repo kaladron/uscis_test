@@ -24,46 +24,44 @@ import 'package:uscis_test/prefs.dart';
 
 class DrawerMenu extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(padding: EdgeInsets.zero, children: <Widget>[
-        DrawerHeader(
-          child: Flag('us'),
-          decoration: BoxDecoration(
-            color: Colors.blue,
+  Widget build(BuildContext context) => Drawer(
+        child: ListView(padding: EdgeInsets.zero, children: [
+          DrawerHeader(
+            child: Flag('us'),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
           ),
-        ),
-        ListTile(title: Text('USCIS Exam')),
-        RadioListTile(
-          value: "2008",
-          title: Text('2008'),
-          onChanged: (String value) {},
-          groupValue: "2008",
-        ),
-        RadioListTile(
-          value: "2020",
-          title: Text('2020'),
-          onChanged: null,
-          groupValue: "2008",
-        ),
-        SwitchListTile(
-          title: const Text('Show only 65+ Questions'),
-          value: context.watch<PrefsStorage>().over65Only,
-          onChanged: (bool newValue) {
-            context.read<PrefsStorage>().over65Only = newValue;
-          },
-        ),
-        const Divider(
-          color: Colors.black,
-          height: 2,
-          thickness: 1,
-          indent: 0,
-          endIndent: 0,
-        ),
-        // TODO(jeffbailey): Add license attribution for app icon:
-        // <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-        AboutListTile(),
-      ]),
-    );
-  }
+          ListTile(title: Text('USCIS Exam')),
+          RadioListTile(
+            value: "2008",
+            title: Text('2008'),
+            onChanged: (value) {},
+            groupValue: "2008",
+          ),
+          RadioListTile(
+            value: "2020",
+            title: Text('2020'),
+            onChanged: null,
+            groupValue: "2008",
+          ),
+          SwitchListTile(
+            title: Text('Show only 65+ Questions'),
+            value: context.watch<PrefsStorage>().over65Only,
+            onChanged: (newValue) {
+              context.read<PrefsStorage>().over65Only = newValue;
+            },
+          ),
+          Divider(
+            color: Colors.black,
+            height: 2,
+            thickness: 1,
+            indent: 0,
+            endIndent: 0,
+          ),
+          // TODO(jeffbailey): Add license attribution for app icon:
+          // <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+          AboutListTile(),
+        ]),
+      );
 }
