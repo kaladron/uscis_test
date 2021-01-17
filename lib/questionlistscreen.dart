@@ -5,6 +5,8 @@ import 'package:uscis_test/question.dart';
 class QuestionListScreen extends StatelessWidget {
   static const routeName = "/questionlistscreen";
 
+  // TODO(jeffbailey): Write a UI test that toggles the first and last star in
+  // the list.
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -18,7 +20,7 @@ class QuestionListScreen extends StatelessWidget {
           ...context
               .watch<QuestionStorage>()
               .starredQuestions
-              .map((e) => QuestionListItem(e.number - 2))
+              .map((e) => QuestionListItem(e.number - 1))
               .toList(),
           Text('Questions', style: Theme.of(context).textTheme.headline4),
           ...context

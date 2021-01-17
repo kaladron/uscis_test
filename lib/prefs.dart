@@ -38,7 +38,6 @@ class PrefsStorage extends ChangeNotifier {
 
   set region(String value) {
     _prefs.setString('region', value);
-    print(value);
     _region = value;
     notifyListeners();
   }
