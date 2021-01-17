@@ -28,69 +28,11 @@ import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/questionlistscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/questionscreen.dart';
+import 'package:uscis_test/states.dart';
 import 'package:uscis_test/testscreen.dart';
 
 class MainScreen extends StatelessWidget {
   static const routeName = '/';
-
-  final _states = [
-    "Alabama",
-    "Alaska",
-    "American Samoa",
-    "Arizona",
-    "Arkansas",
-    "California",
-    "Colorado",
-    "Connecticut",
-    "Delaware",
-    "District of Columbia",
-    "Florida",
-    "Georgia",
-    "Guam",
-    "Hawaii",
-    "Idaho",
-    "Illinois",
-    "Indiana",
-    "Iowa",
-    "Kansas",
-    "Kentucky",
-    "Louisiana",
-    "Maine",
-    "Maryland",
-    "Massachusetts",
-    "Michigan",
-    "Minnesota",
-    "Mississippi",
-    "Missouri",
-    "Montana",
-    "Nebraska",
-    "Nevada",
-    "New Hampshire",
-    "New Jersey",
-    "New Mexico",
-    "New York",
-    "North Carolina",
-    "North Dakota",
-    "Northern Mariana Islands",
-    "Ohio",
-    "Oklahoma",
-    "Oregon",
-    "Pennsylvania",
-    "Puerto Rico",
-    "Rhode Island",
-    "South Carolina",
-    "South Dakota",
-    "Tennessee",
-    "Texas",
-    "Utah",
-    "US Virgin Islands",
-    "Vermont",
-    "Virginia",
-    "Washington",
-    "West Virginia",
-    "Wisconsin",
-    "Wyoming",
-  ];
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -148,7 +90,7 @@ class MainScreen extends StatelessWidget {
               onChanged: (newValue) {
                 context.read<PrefsStorage>().region = newValue;
               },
-              items: _states
+              items: States.states
                   .map((e) => DropdownMenuItem(
                         value: e,
                         child: Text(e),
