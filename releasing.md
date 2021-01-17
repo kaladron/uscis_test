@@ -8,4 +8,4 @@
 1. ```git push```
 1. ```git push --tags```
 1. ```flutter build appbundle```
-1. Use this for the update log in the console: ```git log "$OLDVERSION"..."$VERSION" --pretty=format:"%h - %s"```
+1. Use this for the update log in the console: ```git log "v$OLDVERSION"..."v$VERSION" --pretty=format:"%h - %s"```
