@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flag/flag.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/prefs.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class DrawerMenu extends StatelessWidget {
   @override
@@ -59,9 +60,15 @@ class DrawerMenu extends StatelessWidget {
             indent: 0,
             endIndent: 0,
           ),
-          // TODO(jeffbailey): Add license attribution for app icon:
-          // <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-          AboutListTile(),
+          AboutListTile(
+            applicationName: "US Citizenship Test",
+            aboutBoxChildren: [
+              Html(
+                data:
+                    'Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
+              )
+            ],
+          ),
         ]),
       );
 }
