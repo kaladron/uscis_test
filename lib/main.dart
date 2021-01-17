@@ -25,7 +25,8 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => prefs, lazy: false),
-      Provider(create: (_) => QuestionStorage(prefs), lazy: false),
+      ChangeNotifierProvider(
+          create: (_) => QuestionStorage(prefs), lazy: false),
     ],
     child: MyApp(),
   ));

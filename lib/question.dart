@@ -14,10 +14,11 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:uscis_test/prefs.dart';
 
-class QuestionStorage {
+class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
 
   List<Question> _questions;
@@ -52,6 +53,7 @@ class QuestionStorage {
 
   void toggle(int qnum) {
     _prefs.toggle(qnum);
+    notifyListeners();
   }
 
   QuestionStorage(this._prefs);
