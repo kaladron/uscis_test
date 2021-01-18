@@ -164,7 +164,7 @@ class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
 
   Future<void> startListening() async {
     // TODO(jeffbailey): All the error handling!
-    var hasSpeech = await speech.initialize(debugLogging: false);
+    await speech.initialize(debugLogging: false);
 
     setState(() {
       _micButtonBackground = Colors.white;
