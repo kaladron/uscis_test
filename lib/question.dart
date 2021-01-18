@@ -44,12 +44,7 @@ class QuestionStorage extends ChangeNotifier {
     return starredQuestions;
   }
 
-  // TODO(jeffbailey): Could isStarred and toggle be mix-ins on the question?
-  // That way callers don't have to think about it, they're just changing state
-  // of the question and then maybe calling something to persist the change.
-  bool isStarred(int qnum) {
-    return _prefs.isStarred(qnum);
-  }
+  bool isStarred(int qnum) => _prefs.isStarred(qnum);
 
   void toggle(int qnum) {
     _prefs.toggle(qnum);
