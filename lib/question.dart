@@ -73,7 +73,7 @@ class QuestionStorage extends ChangeNotifier {
     var contents = await rootBundle.loadString('2008.json');
     var data = jsonDecode(contents);
     _questions = [];
-    for (Map i in data) {
+    for (Map<String, dynamic> i in data) {
       _questions.add(Question.fromJson(i));
     }
 //    } catch (e) {

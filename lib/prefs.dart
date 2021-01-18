@@ -24,8 +24,8 @@ class PrefsStorage extends ChangeNotifier {
   String _region;
   var _starredMap = SplayTreeMap<String, bool>();
 
-  get over65Only => _over65Only;
-  // Dart can't detect the type for some reason
+  bool get over65Only => _over65Only;
+
   List<String> get starredList => _starredMap.keys.toList();
 
   set over65Only(bool value) {
@@ -34,7 +34,7 @@ class PrefsStorage extends ChangeNotifier {
     notifyListeners();
   }
 
-  get region => _region;
+  String get region => _region;
 
   set region(String value) {
     _prefs.setString('region', value);
@@ -60,9 +60,13 @@ class PrefsStorage extends ChangeNotifier {
 
   Future<void> initState() async {
     _prefs = await SharedPreferences.getInstance();
-    _over65Only = _prefs.getBool('over65') ?? false;
-    _region = _prefs.getString('region') ?? 'California';
-    var starredList = _prefs.getStringList('starred') ?? [];
+    _over65Only =
+        _prefs.containsKey('over65') ? _prefs.getBool('over65') : false;
+    _region = _prefs.containsKey('region')
+        ? _prefs.getString('region')
+        : 'California';
+    var starredList =
+        _prefs.containsKey('starred') ? _prefs.getStringList('starred') : [];
     for (var i in starredList) {
       _starredMap[i] = true;
     }
