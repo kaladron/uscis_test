@@ -15,13 +15,14 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsStorage extends ChangeNotifier {
-  SharedPreferences _prefs;
+  late SharedPreferences _prefs;
 
-  bool _over65Only;
-  String _region;
+  late bool _over65Only;
+  String? _region;
   var _starredMap = SplayTreeMap<String, bool>();
 
   bool get over65Only => _over65Only;
@@ -34,9 +35,9 @@ class PrefsStorage extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get region => _region;
+  String? get region => _region;
 
-  set region(String value) {
+  set region(String? value) {
     _prefs.setString('region', value);
     _region = value;
     notifyListeners();

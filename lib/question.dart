@@ -21,7 +21,7 @@ import 'package:uscis_test/prefs.dart';
 class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
 
-  List<Question> _questions;
+  late List<Question> _questions;
 
   List<Question> get questions {
     if (!_prefs.over65Only) {

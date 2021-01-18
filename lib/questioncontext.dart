@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/question.dart';
 import 'package:collection/collection.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:stemmer/stemmer.dart';
 
 class QuestionContext extends ChangeNotifier {
@@ -239,9 +240,9 @@ class QuestionContext extends ChangeNotifier {
     var answer = origAnswer.replaceAll('-', ' ');
 
     for (var token in answer.split(' ')) {
-      token = _prepToken(token);
-      if (token != null) {
-        answerTokens.add(token);
+      var newToken = _prepToken(token);
+      if (newToken != null) {
+        answerTokens.add(newToken);
       }
     }
 
@@ -251,9 +252,9 @@ class QuestionContext extends ChangeNotifier {
       List<String> keyTokens = [];
       var key = answer.replaceAll('-', ' ');
       for (var token in key.split(' ')) {
-        token = _prepToken(token);
-        if (token != null) {
-          keyTokens.add(token);
+        var newToken = _prepToken(token);
+        if (newToken != null) {
+          keyTokens.add(newToken);
         }
       }
 
@@ -265,7 +266,7 @@ class QuestionContext extends ChangeNotifier {
   }
 
   // TODO(jeffbailey): Handle 4th vs 4
-  String _prepToken(String token) {
+  String? _prepToken(String token) {
     // 1. Lower Case
     token = token.toLowerCase();
 

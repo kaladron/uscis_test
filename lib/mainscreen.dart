@@ -87,7 +87,7 @@ class MainScreen extends StatelessWidget {
             ),
             DropdownButton(
               value: context.watch<PrefsStorage>().region,
-              onChanged: (newValue) {
+              onChanged: (String? newValue) {
                 context.read<PrefsStorage>().region = newValue;
               },
               items: States.states
