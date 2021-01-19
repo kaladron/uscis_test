@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 import 'package:uscis_test/mainscreen.dart';
 import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/question.dart';
-import 'package:uscis_test/questionlistscreen.dart';
+import 'package:uscis_test/viewscreen.dart';
 import 'package:uscis_test/testscreen.dart';
 
 void main() {
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         routes: {
           SplashScreen.routeName: (context) => SplashScreen(),
           MainScreen.routeName: (context) => MainScreen(),
-          QuestionListScreen.routeName: (context) => QuestionListScreen(),
+          ViewScreen.routeName: (context) => ViewScreen(),
           TestScreen.routeName: (context) => TestScreen(),
         });
     return materialApp;

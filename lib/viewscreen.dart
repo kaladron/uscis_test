@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/question.dart';
 
-class QuestionListScreen extends StatelessWidget {
+class ViewScreen extends StatelessWidget {
   static const routeName = "/questionlistscreen";
 
   // TODO(jeffbailey): Write a UI test that toggles the first and last star in

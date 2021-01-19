@@ -25,7 +25,7 @@
 import 'package:flutter/material.dart';
 import 'package:uscis_test/drawer.dart';
 import 'package:uscis_test/prefs.dart';
-import 'package:uscis_test/questionlistscreen.dart';
+import 'package:uscis_test/viewscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/questionscreen.dart';
 import 'package:uscis_test/states.dart';
@@ -45,7 +45,7 @@ class MainScreen extends StatelessWidget {
             Card(
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, QuestionListScreen.routeName);
+                  Navigator.pushNamed(context, ViewScreen.routeName);
                 },
                 child: ListTile(
                   leading: Icon(Icons.pageview),
