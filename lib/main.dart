@@ -31,24 +31,17 @@ void main() {
       ChangeNotifierProvider(
           create: (_) => QuestionStorage(prefs), lazy: false),
     ],
-    child: MyApp(),
+    child: MaterialApp(
+      title: 'USCIS Citizenship Test',
+      initialRoute: SplashScreen.routeName,
+      theme: ThemeData(),
+      darkTheme: ThemeData.dark(),
+      routes: {
+        SplashScreen.routeName: (context) => SplashScreen(),
+        MainScreen.routeName: (context) => MainScreen(),
+        ViewScreen.routeName: (context) => ViewScreen(),
+        TestScreen.routeName: (context) => TestScreen(),
+      },
+    ),
   ));
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var materialApp = MaterialApp(
-        title: 'USCIS Citizenship Test',
-        initialRoute: SplashScreen.routeName,
-        theme: ThemeData(),
-        darkTheme: ThemeData.dark(),
-        routes: {
-          SplashScreen.routeName: (context) => SplashScreen(),
-          MainScreen.routeName: (context) => MainScreen(),
-          ViewScreen.routeName: (context) => ViewScreen(),
-          TestScreen.routeName: (context) => TestScreen(),
-        });
-    return materialApp;
-  }
 }
