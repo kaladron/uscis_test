@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 import 'package:uscis_test/mainscreen.dart';
 import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/question.dart';
+import 'package:uscis_test/splashscreen.dart';
 import 'package:uscis_test/viewscreen.dart';
 import 'package:uscis_test/testscreen.dart';
 
@@ -49,35 +50,5 @@ class MyApp extends StatelessWidget {
           TestScreen.routeName: (context) => TestScreen(),
         });
     return materialApp;
-  }
-}
-
-/// Handle synchronous initialization here.  It's called SplashScreen
-/// because if it suddenly starts to take a long time, we would add it here.
-/// But that's pretty unlikely in this case, so we don't bother.
-class SplashScreen extends StatefulWidget {
-  static const routeName = "/splash";
-
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-
-  @override
-  initState() {
-    super.initState();
-    onStart();
-  }
-
-  void onStart() async {
-    await context.read<PrefsStorage>().initState();
-    await context.read<QuestionStorage>().initState();
-    await Navigator.pushNamedAndRemoveUntil(
-        context, MainScreen.routeName, (Route<dynamic> route) => false);
   }
 }
