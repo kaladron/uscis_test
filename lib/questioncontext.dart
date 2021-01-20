@@ -18,12 +18,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/question.dart';
 import 'package:collection/collection.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:stemmer/stemmer.dart';
+import 'package:uscis_test/stemmer/SnowballStemmer.dart';
 
 class QuestionContext extends ChangeNotifier {
   final BuildContext _context;
-  final PorterStemmer _stemmer = PorterStemmer();
+  final _stemmer = SnowballStemmer();
 
   final Set<String> _stopWords = HashSet.from([
     'i',
@@ -267,12 +266,6 @@ class QuestionContext extends ChangeNotifier {
 
   // TODO(jeffbailey): Handle 4th vs 4
   String? _prepToken(String token) {
-    // 1. Lower Case
-    token = token.toLowerCase();
-
-    // 2. Regularize Apostrophes
-    token = token.replaceAll('\u2019', "'");
-
     // 3. Strip punctuation
     token = token.replaceAll(_stripPunctuation, '');
 
