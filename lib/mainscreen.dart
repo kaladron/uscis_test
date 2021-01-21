@@ -57,10 +57,8 @@ class MainScreen extends StatelessWidget {
             Card(
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => QuestionScreen(0)));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LearnScreen(0)));
                 },
                 child: ListTile(
                   leading: Icon(Icons.assignment),

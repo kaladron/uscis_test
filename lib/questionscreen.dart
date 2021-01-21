@@ -29,12 +29,12 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_tts/flutter_tts.dart';
 
-class QuestionScreen extends StatelessWidget {
+class LearnScreen extends StatelessWidget {
   static const routeName = '/question';
 
   final int _initialQuestion;
 
-  QuestionScreen(this._initialQuestion);
+  LearnScreen(this._initialQuestion);
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +42,16 @@ class QuestionScreen extends StatelessWidget {
       ChangeNotifierProvider(
           create: (context) => QuestionContext(context, _initialQuestion),
           lazy: false),
-    ], child: _QuestionScreenImpl());
+    ], child: _LearnScreenImpl());
   }
 }
 
-class _QuestionScreenImpl extends StatefulWidget {
+class _LearnScreenImpl extends StatefulWidget {
   @override
-  _QuestionScreenImplState createState() => _QuestionScreenImplState();
+  _LearnScreenImplState createState() => _LearnScreenImplState();
 }
 
-class _QuestionScreenImplState extends State<_QuestionScreenImpl> {
+class _LearnScreenImplState extends State<_LearnScreenImpl> {
   final speech = SpeechToText();
   final flutterTts = FlutterTts();
 
