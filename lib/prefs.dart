@@ -17,6 +17,7 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uscis_test/states.dart';
 
 class PrefsStorage extends ChangeNotifier {
   late SharedPreferences _prefs;
@@ -38,7 +39,7 @@ class PrefsStorage extends ChangeNotifier {
   String? get region => _region;
 
   set region(String? value) {
-    _prefs.setString('region', value);
+    _prefs.setString('region', value ?? States.defaultState);
     _region = value;
     notifyListeners();
   }
@@ -65,7 +66,7 @@ class PrefsStorage extends ChangeNotifier {
         _prefs.containsKey('over65') ? _prefs.getBool('over65') : false;
     _region = _prefs.containsKey('region')
         ? _prefs.getString('region')
-        : 'California';
+        : States.defaultState;
     var starredList =
         _prefs.containsKey('starred') ? _prefs.getStringList('starred') : [];
     for (var i in starredList) {
