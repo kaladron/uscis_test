@@ -69,7 +69,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   Widget build(BuildContext context) {
     return (Scaffold(
       appBar: AppBar(
-        title: Text("Question"),
+        title: Text("Learn"),
       ),
       body: Stack(children: [
         // TODO(jeffbailey): This is aligned poorly, too far down
