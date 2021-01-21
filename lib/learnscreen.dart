@@ -72,21 +72,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         title: Text("Learn"),
       ),
       body: Stack(children: [
-        // TODO(jeffbailey): This is aligned poorly, too far down
-        AnimatedOpacity(
-          opacity: _show ? 1.0 : 0.0,
-          onEnd: _fadeOut,
-          duration: Duration(milliseconds: 500),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Center(
-                child: Text(
-              _answerWasRight ? '✓' : '✗',
-              style: TextStyle(
-                  fontSize: 112,
-                  color: _answerWasRight ? Colors.green : Colors.red),
-            ))
-          ]),
-        ),
+        rightWrong(),
         Column(
           children: [
             Container(
@@ -134,6 +120,22 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
       ]),
     ));
   }
+
+  // TODO(jeffbailey): This is aligned poorly, too far down
+  Widget rightWrong() => AnimatedOpacity(
+        opacity: _show ? 1.0 : 0.0,
+        onEnd: _fadeOut,
+        duration: Duration(milliseconds: 500),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Center(
+              child: Text(
+            _answerWasRight ? '✓' : '✗',
+            style: TextStyle(
+                fontSize: 112,
+                color: _answerWasRight ? Colors.green : Colors.red),
+          ))
+        ]),
+      );
 
   void _speakQuestion() async {
     await flutterTts.setLanguage("en-US");
