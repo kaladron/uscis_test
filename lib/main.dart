@@ -27,7 +27,7 @@ void main() {
   var prefs = PrefsStorage();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => prefs, lazy: false),
+      ChangeNotifierProvider.value(value: prefs),
       ChangeNotifierProvider(
           create: (_) => QuestionStorage(prefs), lazy: false),
     ],
