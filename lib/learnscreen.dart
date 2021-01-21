@@ -37,13 +37,11 @@ class LearnScreen extends StatelessWidget {
   LearnScreen(this._initialQuestion);
 
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(
-          create: (context) => QuestionContext(context, _initialQuestion),
-          lazy: false),
-    ], child: _LearnScreenImpl());
-  }
+  Widget build(BuildContext context) => MultiProvider(providers: [
+        ChangeNotifierProvider(
+            create: (context) => QuestionContext(context, _initialQuestion),
+            lazy: false),
+      ], child: _LearnScreenImpl());
 }
 
 class _LearnScreenImpl extends StatefulWidget {
@@ -66,60 +64,58 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   bool _showAnswer = false;
 
   @override
-  Widget build(BuildContext context) {
-    return (Scaffold(
-      appBar: AppBar(
-        title: Text("Learn"),
-      ),
-      body: Stack(children: [
-        rightWrong(),
-        Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                children: [
-                  MaterialButton(
-                    onPressed: _prevQuestion,
-                    child: Text('<'),
-                    shape: CircleBorder(),
-                    color: Colors.blue,
-                  ),
-                  Expanded(
-                    child: Text(
-                      '${context.watch<QuestionContext>().question.question}',
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: _nextQuestion,
-                    child: Text('>'),
-                    shape: CircleBorder(),
-                    color: Colors.blue,
-                  ),
-                ],
-              ),
-            ),
-            Text('$_resultText'),
-            MaterialButton(
-              onPressed: startListening,
-              child: Icon(Icons.mic_none_outlined,
-                  size: 24, color: _micButtonForeground),
-              shape: CircleBorder(),
-              padding: EdgeInsets.all(16),
-              color: _micButtonBackground,
-            ),
-            RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
-            if (_showAnswer) ...[
-              for (var i in context.watch<QuestionContext>().question.answers)
-                Text(i),
-            ],
-            RaisedButton(
-                onPressed: _speakQuestion, child: Text('Speak Answers')),
-          ],
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text("Learn"),
         ),
-      ]),
-    ));
-  }
+        body: Stack(children: [
+          rightWrong(),
+          Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  children: [
+                    MaterialButton(
+                      onPressed: _prevQuestion,
+                      child: Text('<'),
+                      shape: CircleBorder(),
+                      color: Colors.blue,
+                    ),
+                    Expanded(
+                      child: Text(
+                        '${context.watch<QuestionContext>().question.question}',
+                      ),
+                    ),
+                    MaterialButton(
+                      onPressed: _nextQuestion,
+                      child: Text('>'),
+                      shape: CircleBorder(),
+                      color: Colors.blue,
+                    ),
+                  ],
+                ),
+              ),
+              Text('$_resultText'),
+              MaterialButton(
+                onPressed: startListening,
+                child: Icon(Icons.mic_none_outlined,
+                    size: 24, color: _micButtonForeground),
+                shape: CircleBorder(),
+                padding: EdgeInsets.all(16),
+                color: _micButtonBackground,
+              ),
+              RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
+              if (_showAnswer) ...[
+                for (var i in context.watch<QuestionContext>().question.answers)
+                  Text(i),
+              ],
+              RaisedButton(
+                  onPressed: _speakQuestion, child: Text('Speak Answers')),
+            ],
+          ),
+        ]),
+      );
 
   // TODO(jeffbailey): This is aligned poorly, too far down
   Widget rightWrong() => AnimatedOpacity(
