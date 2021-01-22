@@ -18,7 +18,7 @@
 // Bottom bar with Home, Prev, Next
 
 import 'package:flutter/material.dart';
-import 'package:uscis_test/questioncontext.dart';
+import 'package:uscis_test/learnlogic.dart';
 import 'package:provider/provider.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -39,7 +39,7 @@ class LearnScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(providers: [
         ChangeNotifierProvider(
-            create: (context) => QuestionContext(context, _initialQuestion),
+            create: (context) => LearnLogic(context, _initialQuestion),
             lazy: false),
       ], child: _LearnScreenImpl());
 }
@@ -84,7 +84,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                     ),
                     Expanded(
                       child: Text(
-                        '${context.watch<QuestionContext>().question.question}',
+                        '${context.watch<LearnLogic>().question.question}',
                       ),
                     ),
                     MaterialButton(
@@ -107,7 +107,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
               ),
               RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
               if (_showAnswer) ...[
-                for (var i in context.watch<QuestionContext>().question.answers)
+                for (var i in context.watch<LearnLogic>().question.answers)
                   Text(i),
               ],
               RaisedButton(
@@ -136,7 +136,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   void _speakQuestion() async {
     await flutterTts.setLanguage("en-US");
 
-    for (var i in context.read<QuestionContext>().question.answers) {
+    for (var i in context.read<LearnLogic>().question.answers) {
       // TODO(jeffbailey): Need to wait here for previous answers to get read before starting the next one.
       await flutterTts.speak(i);
     }
@@ -149,12 +149,12 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
   void _prevQuestion() {
     _resetQuestionState();
-    context.read<QuestionContext>().prevQuestion();
+    context.read<LearnLogic>().prevQuestion();
   }
 
   void _nextQuestion() {
     _resetQuestionState();
-    context.read<QuestionContext>().nextQuestion();
+    context.read<LearnLogic>().nextQuestion();
   }
 
   void _toggle() {
@@ -189,7 +189,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
     _resultText = result.recognizedWords;
     setState(() {
-      if (context.read<QuestionContext>().checkAnswer(_resultText)) {
+      if (context.read<LearnLogic>().checkAnswer(_resultText)) {
         _showRight();
       } else {
         _showWrong();

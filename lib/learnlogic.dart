@@ -17,10 +17,10 @@ import 'package:provider/provider.dart';
 import 'package:uscis_test/question.dart';
 import 'package:uscis_test/questionchecker.dart';
 
-class QuestionContext extends ChangeNotifier {
+class LearnLogic extends ChangeNotifier {
   final BuildContext _context;
 
-  QuestionContext(this._context, this._cursor);
+  LearnLogic(this._context, this._cursor);
 
   Question get question => _context.read<QuestionStorage>().questions[_cursor];
 
