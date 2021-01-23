@@ -16,6 +16,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uscis_test/learnscreen.dart';
 import 'package:uscis_test/mainscreen.dart';
 import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/question.dart';
@@ -40,6 +41,7 @@ void main() {
       darkTheme: ThemeData.dark(),
       routes: {
         SplashScreen.routeName: (context) => SplashScreen(),
+        LearnScreen.routeName: (context) => LearnScreen(),
         MainScreen.routeName: (context) => MainScreen(),
         ViewScreen.routeName: (context) => ViewScreen(),
         TestScreen.routeName: (context) => TestScreen(),
