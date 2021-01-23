@@ -22,6 +22,8 @@ class LearnLogic extends ChangeNotifier {
 
   LearnLogic(this._context);
 
+  double get progress => 0.5;
+
   Question get question => _context.read<QuestionStorage>().questions[_cursor];
 
   int _cursor = 0;

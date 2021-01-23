@@ -111,6 +111,9 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
               ],
               RaisedButton(
                   onPressed: _speakQuestion, child: Text('Speak Answers')),
+              Text('Progresss'),
+              LinearProgressIndicator(
+                  value: context.watch<LearnLogic>().progress),
             ],
           ),
         ]),
