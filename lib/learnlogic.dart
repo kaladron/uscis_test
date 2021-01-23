@@ -49,6 +49,7 @@ class LearnLogic extends ChangeNotifier {
     notifyListeners();
   }
 
+  // TODO(jeffbailey): Handle more than one answer needed.
   bool checkAnswer(String origAnswer) {
     return _context.read<QuestionChecker>().checkAnswer(question, origAnswer);
   }
