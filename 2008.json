@@ -880,6 +880,11 @@
             "Liberty Island",
             "[Also acceptable are New Jersey, near New York City, and on the Hudson (River).]"
         ],
+        "extra_answers": [
+            "New Jersey",
+            "near New York City",
+            "on the Hudson (River)"
+        ],
         "over65": true
     },
     {
