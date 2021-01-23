@@ -20,11 +20,20 @@ import 'package:uscis_test/questionchecker.dart';
 class LearnLogic extends ChangeNotifier {
   final BuildContext _context;
 
-  LearnLogic(this._context);
+  List<Question> _questions;
+
+  LearnLogic(this._context)
+      : _questions =
+            List<Question>.from(_context.read<QuestionStorage>().questions) {
+    // Initialize local question array
+    //   Get from prefs, init and persist if it doesn't exist
+
+    _questions.shuffle();
+  }
 
   double get progress => 0.5;
 
-  Question get question => _context.read<QuestionStorage>().questions[_cursor];
+  Question get question => _questions[_cursor];
 
   int _cursor = 0;
 
