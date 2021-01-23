@@ -71,12 +71,6 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Row(
                   children: [
-                    MaterialButton(
-                      onPressed: _prevQuestion,
-                      child: Text('<'),
-                      shape: CircleBorder(),
-                      color: Colors.blue,
-                    ),
                     Expanded(
                       child: Text(
                         '${context.watch<LearnLogic>().question.question}',
@@ -143,11 +137,6 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   void _resetQuestionState() {
     _showAnswer = false;
     _resultText = '';
-  }
-
-  void _prevQuestion() {
-    _resetQuestionState();
-    context.read<LearnLogic>().prevQuestion();
   }
 
   void _nextQuestion() {

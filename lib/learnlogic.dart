@@ -37,10 +37,6 @@ class LearnLogic extends ChangeNotifier {
 
   int _cursor = 0;
 
-  void prevQuestion() {
-    setQuestion(_cursor - 1);
-  }
-
   void nextQuestion() {
     setQuestion(_cursor + 1);
   }
