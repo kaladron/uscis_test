@@ -45,10 +45,10 @@ class LearnLogic extends ChangeNotifier {
   int _cursor = 0;
 
   void nextQuestion() {
-    setQuestion(_random.nextInt(_workingSet.length));
+    _setQuestion(_random.nextInt(_workingSet.length));
   }
 
-  void setQuestion(int cursor) {
+  void _setQuestion(int cursor) {
     if (cursor < 0) return;
     if (_workingSet.length < (cursor + 1)) {
       return;
