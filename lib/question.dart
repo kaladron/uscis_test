@@ -105,16 +105,27 @@ class Question {
   /// are ever shown to the user.  That is what they should be studying from.
   List<String> get allAnswers {
     List<String> strippedAnswers = [];
+    List<String> strippedExtraAnswers = [];
+
     for (var answer in answers) {
       if (answer.contains('(')) {
         var strippedAnswer = answer.replaceAll(_stripParens, '');
         strippedAnswers.add(strippedAnswer);
       }
     }
+
+    for (var answer in extraAnswers) {
+      if (answer.contains('(')) {
+        var strippedAnswer = answer.replaceAll(_stripParens, '');
+        strippedExtraAnswers.add(strippedAnswer);
+      }
+    }
+
     return [
       ...answers,
       if (extraAnswers.isNotEmpty) ...extraAnswers,
-      if (strippedAnswers.isNotEmpty) ...strippedAnswers
+      if (strippedAnswers.isNotEmpty) ...strippedAnswers,
+      if (strippedExtraAnswers.isNotEmpty) ...strippedExtraAnswers,
     ];
   }
 
