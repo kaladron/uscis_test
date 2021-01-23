@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/question.dart';
@@ -19,6 +21,7 @@ import 'package:uscis_test/questionchecker.dart';
 
 class LearnLogic extends ChangeNotifier {
   final BuildContext _context;
+  final _random = Random();
 
   List<Question> _questions;
   List<Question> _workingSet = [];
@@ -42,7 +45,7 @@ class LearnLogic extends ChangeNotifier {
   int _cursor = 0;
 
   void nextQuestion() {
-    setQuestion(_cursor + 1);
+    setQuestion(_random.nextInt(_workingSet.length));
   }
 
   void setQuestion(int cursor) {
