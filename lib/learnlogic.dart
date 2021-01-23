@@ -21,6 +21,7 @@ class LearnLogic extends ChangeNotifier {
   final BuildContext _context;
 
   List<Question> _questions;
+  List<Question> _workingSet = [];
 
   LearnLogic(this._context)
       : _questions =
@@ -29,11 +30,14 @@ class LearnLogic extends ChangeNotifier {
     //   Get from prefs, init and persist if it doesn't exist
 
     _questions.shuffle();
+    for (var _ in Iterable<int>.generate(10)) {
+      _workingSet.add(_questions.removeLast());
+    }
   }
 
   double get progress => 0.5;
 
-  Question get question => _questions[_cursor];
+  Question get question => _workingSet[_cursor];
 
   int _cursor = 0;
 
@@ -43,7 +47,7 @@ class LearnLogic extends ChangeNotifier {
 
   void setQuestion(int cursor) {
     if (cursor < 0) return;
-    if (_context.read<QuestionStorage>().questions.length < (cursor + 1)) {
+    if (_workingSet.length < (cursor + 1)) {
       return;
     }
     _cursor = cursor;
