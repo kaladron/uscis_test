@@ -32,10 +32,6 @@ import 'package:flutter_tts/flutter_tts.dart';
 class LearnScreen extends StatelessWidget {
   static const routeName = '/question';
 
-  final int _initialQuestion;
-
-  LearnScreen(this._initialQuestion);
-
   @override
   Widget build(BuildContext context) => MultiProvider(providers: [
         ChangeNotifierProvider(
