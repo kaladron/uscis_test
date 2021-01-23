@@ -20,11 +20,11 @@ import 'package:uscis_test/questionchecker.dart';
 class LearnLogic extends ChangeNotifier {
   final BuildContext _context;
 
-  LearnLogic(this._context, this._cursor);
+  LearnLogic(this._context);
 
   Question get question => _context.read<QuestionStorage>().questions[_cursor];
 
-  int _cursor;
+  int _cursor = 0;
 
   void prevQuestion() {
     setQuestion(_cursor - 1);

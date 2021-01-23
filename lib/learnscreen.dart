@@ -39,8 +39,7 @@ class LearnScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(providers: [
         ChangeNotifierProvider(
-            create: (context) => LearnLogic(context, _initialQuestion),
-            lazy: false),
+            create: (context) => LearnLogic(context), lazy: false),
       ], child: _LearnScreenImpl());
 }
 
