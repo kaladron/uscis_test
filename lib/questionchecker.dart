@@ -205,37 +205,27 @@ class QuestionChecker {
 
   final _stripPunctuation = RegExp(r"[^\w\s']+");
 
-  // TODO(jeffbailey): Duplicate answers with and without parens contents
   bool checkAnswer(Question question, String origAnswer) {
-    List<String> answerTokens = [];
+    var answerTokens = getTokens(origAnswer);
 
+    for (var answer in question.allAnswers) {
+      var keyTokens = getTokens(answer);
+      if (ListEquality().equals(answerTokens, keyTokens)) return true;
+    }
+    return false;
+  }
+
+  List<String> getTokens(String input) {
     // Treat hyphenated words as two words for matching.
-    var answer = origAnswer.replaceAll('-', ' ');
-
+    var answer = input.replaceAll('-', ' ');
+    List<String> answerTokens = [];
     for (var token in answer.split(' ')) {
       var newToken = _prepToken(token);
       if (newToken != null) {
         answerTokens.add(newToken);
       }
     }
-
-    print("Answer: " + answerTokens.toString());
-
-    for (var answer in question.allAnswers) {
-      List<String> keyTokens = [];
-      var key = answer.replaceAll('-', ' ');
-      for (var token in key.split(' ')) {
-        var newToken = _prepToken(token);
-        if (newToken != null) {
-          keyTokens.add(newToken);
-        }
-      }
-
-      print("Key: " + keyTokens.toString());
-
-      if (ListEquality().equals(answerTokens, keyTokens)) return true;
-    }
-    return false;
+    return answerTokens;
   }
 
   // TODO(jeffbailey): Handle 4th vs 4
