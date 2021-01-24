@@ -82,6 +82,7 @@ class QuestionStorage extends ChangeNotifier {
   }
 }
 
+@immutable
 class Question {
   final int number;
   final String question;
