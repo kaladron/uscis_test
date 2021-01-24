@@ -20,13 +20,12 @@ import 'package:uscis_test/question.dart';
 import 'package:uscis_test/questionchecker.dart';
 
 class LearnLogic extends ChangeNotifier {
-  final BuildContext _context;
   final _random = Random();
 
   List<Question> _questions;
   List<Question> _workingSet = [];
 
-  LearnLogic(this._context)
+  LearnLogic(BuildContext _context)
       : _questions =
             List<Question>.from(_context.read<QuestionStorage>().questions) {
     // Initialize local question array
@@ -36,23 +35,27 @@ class LearnLogic extends ChangeNotifier {
     for (var _ in Iterable<int>.generate(10)) {
       _workingSet.add(_questions.removeLast());
     }
+
+    _questionChecker = QuestionChecker(_workingSet[_cursor]);
   }
 
   double get progress => 0.5;
 
   Question get question => _workingSet[_cursor];
 
+  late QuestionChecker _questionChecker;
+
   int _cursor = 0;
 
   void nextQuestion() {
     _cursor = _random.nextInt(_workingSet.length);
+    _questionChecker = QuestionChecker(_workingSet[_cursor]);
     notifyListeners();
   }
 
   // TODO(jeffbailey): Handle more than one answer needed.
   QuestionStatus checkAnswer(String origAnswer) {
-    var status =
-        _context.read<QuestionChecker>().checkAnswer(question, origAnswer);
+    var status = _questionChecker.checkAnswer(origAnswer);
 
     if (status == QuestionStatus.correct) {
       _workingSet.removeAt(_cursor);

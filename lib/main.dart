@@ -20,7 +20,6 @@ import 'package:uscis_test/learnscreen.dart';
 import 'package:uscis_test/mainscreen.dart';
 import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/question.dart';
-import 'package:uscis_test/questionchecker.dart';
 import 'package:uscis_test/splashscreen.dart';
 import 'package:uscis_test/viewscreen.dart';
 import 'package:uscis_test/testscreen.dart';
@@ -32,7 +31,6 @@ void main() {
       ChangeNotifierProvider.value(value: prefs),
       ChangeNotifierProvider(
           create: (_) => QuestionStorage(prefs), lazy: false),
-      Provider(create: (_) => QuestionChecker()),
     ],
     child: MaterialApp(
       title: 'USCIS Citizenship Test',

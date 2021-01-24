@@ -40,40 +40,34 @@ void main() {
 
     final Map<String, dynamic> data = jsonDecode(contents);
     final question = Question.fromJson(data);
-    final checker = QuestionChecker();
+    final checker = QuestionChecker(question);
 
     test('Test without parens', () {
-      expect(checker.checkAnswer(question, "new york"), QuestionStatus.correct);
+      expect(checker.checkAnswer("new york"), QuestionStatus.correct);
     });
 
     test('Test with parens', () {
-      expect(checker.checkAnswer(question, "new york harbor"),
-          QuestionStatus.correct);
+      expect(checker.checkAnswer("new york harbor"), QuestionStatus.correct);
     });
 
     test('Test second answer', () {
-      expect(checker.checkAnswer(question, "liberty island"),
-          QuestionStatus.correct);
+      expect(checker.checkAnswer("liberty island"), QuestionStatus.correct);
     });
 
     test('Test extra answer', () {
-      expect(
-          checker.checkAnswer(question, "new jersey"), QuestionStatus.correct);
+      expect(checker.checkAnswer("new jersey"), QuestionStatus.correct);
     });
 
     test('Test extra answer without parens', () {
-      expect(checker.checkAnswer(question, "on the hudson"),
-          QuestionStatus.correct);
+      expect(checker.checkAnswer("on the hudson"), QuestionStatus.correct);
     });
 
     test('Test extra answer with parens', () {
-      expect(checker.checkAnswer(question, "hudson river"),
-          QuestionStatus.correct);
+      expect(checker.checkAnswer("hudson river"), QuestionStatus.correct);
     });
 
     test('Test wrong answer', () {
-      expect(checker.checkAnswer(question, "san fransisco"),
-          QuestionStatus.incorrect);
+      expect(checker.checkAnswer("san fransisco"), QuestionStatus.incorrect);
     });
   });
 }

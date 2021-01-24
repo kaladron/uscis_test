@@ -26,6 +26,10 @@ enum QuestionStatus {
 }
 
 class QuestionChecker {
+  final Question _question;
+
+  QuestionChecker(Question question) : _question = question;
+
   final _stemmer = SnowballStemmer();
 
   final Set<String> _stopWords = HashSet.from([
@@ -210,12 +214,13 @@ class QuestionChecker {
     "wouldn't"
   ]);
 
+  // I don't love reinitializing this per question.
   final _stripPunctuation = RegExp(r"[^\w\s']+");
 
-  QuestionStatus checkAnswer(Question question, String origAnswer) {
+  QuestionStatus checkAnswer(String origAnswer) {
     var answerTokens = getTokens(origAnswer);
 
-    for (var answer in question.allAnswers) {
+    for (var answer in _question.allAnswers) {
       var keyTokens = getTokens(answer);
       if (ListEquality().equals(answerTokens, keyTokens)) {
         return QuestionStatus.correct;
