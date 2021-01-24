@@ -180,6 +180,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
       if (context.read<LearnLogic>().checkAnswer(_resultText) ==
           QuestionStatus.correct) {
         _showRight();
+        _resetQuestionState();
       } else {
         _showWrong();
       }
