@@ -28,6 +28,7 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:uscis_test/questionchecker.dart';
 
 class LearnScreen extends StatelessWidget {
   static const routeName = '/question';
@@ -176,7 +177,8 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
     _resultText = result.recognizedWords;
     setState(() {
-      if (context.read<LearnLogic>().checkAnswer(_resultText)) {
+      if (context.read<LearnLogic>().checkAnswer(_resultText) ==
+          QuestionStatus.correct) {
         _showRight();
       } else {
         _showWrong();

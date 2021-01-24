@@ -18,6 +18,13 @@ import 'package:collection/collection.dart';
 import 'package:uscis_test/question.dart';
 import 'package:uscis_test/stemmer/SnowballStemmer.dart';
 
+enum QuestionStatus {
+  correct,
+  incorrect,
+  moreNeeded,
+  cancelled,
+}
+
 class QuestionChecker {
   final _stemmer = SnowballStemmer();
 
@@ -205,14 +212,16 @@ class QuestionChecker {
 
   final _stripPunctuation = RegExp(r"[^\w\s']+");
 
-  bool checkAnswer(Question question, String origAnswer) {
+  QuestionStatus checkAnswer(Question question, String origAnswer) {
     var answerTokens = getTokens(origAnswer);
 
     for (var answer in question.allAnswers) {
       var keyTokens = getTokens(answer);
-      if (ListEquality().equals(answerTokens, keyTokens)) return true;
+      if (ListEquality().equals(answerTokens, keyTokens)) {
+        return QuestionStatus.correct;
+      }
     }
-    return false;
+    return QuestionStatus.incorrect;
   }
 
   List<String> getTokens(String input) {

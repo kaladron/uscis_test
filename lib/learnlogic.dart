@@ -50,16 +50,16 @@ class LearnLogic extends ChangeNotifier {
   }
 
   // TODO(jeffbailey): Handle more than one answer needed.
-  bool checkAnswer(String origAnswer) {
-    var isRight =
+  QuestionStatus checkAnswer(String origAnswer) {
+    var status =
         _context.read<QuestionChecker>().checkAnswer(question, origAnswer);
 
-    if (isRight) {
+    if (status == QuestionStatus.correct) {
       _workingSet.removeAt(_cursor);
       // Need to send a message to unset showAnswer and the result text
       nextQuestion();
     }
 
-    return isRight;
+    return status;
   }
 }

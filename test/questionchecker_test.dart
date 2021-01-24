@@ -43,31 +43,37 @@ void main() {
     final checker = QuestionChecker();
 
     test('Test without parens', () {
-      expect(checker.checkAnswer(question, "new york"), true);
+      expect(checker.checkAnswer(question, "new york"), QuestionStatus.correct);
     });
 
     test('Test with parens', () {
-      expect(checker.checkAnswer(question, "new york harbor"), true);
+      expect(checker.checkAnswer(question, "new york harbor"),
+          QuestionStatus.correct);
     });
 
     test('Test second answer', () {
-      expect(checker.checkAnswer(question, "liberty island"), true);
+      expect(checker.checkAnswer(question, "liberty island"),
+          QuestionStatus.correct);
     });
 
     test('Test extra answer', () {
-      expect(checker.checkAnswer(question, "new jersey"), true);
+      expect(
+          checker.checkAnswer(question, "new jersey"), QuestionStatus.correct);
     });
 
     test('Test extra answer without parens', () {
-      expect(checker.checkAnswer(question, "on the hudson"), true);
+      expect(checker.checkAnswer(question, "on the hudson"),
+          QuestionStatus.correct);
     });
 
     test('Test extra answer with parens', () {
-      expect(checker.checkAnswer(question, "hudson river"), true);
+      expect(checker.checkAnswer(question, "hudson river"),
+          QuestionStatus.correct);
     });
 
     test('Test wrong answer', () {
-      expect(checker.checkAnswer(question, "san fransisco"), false);
+      expect(checker.checkAnswer(question, "san fransisco"),
+          QuestionStatus.incorrect);
     });
   });
 }
