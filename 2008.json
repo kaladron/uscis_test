@@ -568,6 +568,9 @@
         "question": "When was the Declaration of Independence adopted?",
         "answers": [
             "July 4, 1776"
+        ],
+        "extra_answers": [
+            "July 4th, 1776"
         ]
     },
     {
