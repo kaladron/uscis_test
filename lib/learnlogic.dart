@@ -25,6 +25,8 @@ class LearnLogic extends ChangeNotifier {
   List<Question> _questions;
   List<Question> _workingSet = [];
 
+  int mastered = 0;
+
   LearnLogic(BuildContext _context)
       : _questions =
             List<Question>.from(_context.read<QuestionStorage>().questions) {
@@ -39,7 +41,7 @@ class LearnLogic extends ChangeNotifier {
     _questionChecker = QuestionChecker(_workingSet[_cursor]);
   }
 
-  double get progress => 0.5;
+  double get progress => mastered / _questions.length;
 
   Question get question => _workingSet[_cursor];
 
@@ -58,8 +60,12 @@ class LearnLogic extends ChangeNotifier {
     var status = _questionChecker.checkAnswer(origAnswer);
 
     if (status == QuestionStatus.correct) {
+      mastered++;
       _workingSet.removeAt(_cursor);
-      // Need to send a message to unset showAnswer and the result text
+      if (_questions.isNotEmpty) {
+        _workingSet.add(_questions.removeLast());
+      }
+
       nextQuestion();
     }
 
