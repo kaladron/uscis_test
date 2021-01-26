@@ -255,7 +255,7 @@ class QuestionChecker {
     // 6. Stem.
     token = _stemmer.stem(token);
 
-    // 5. Remove Stopwords
+    // 5. Remove Stopwords - This should happen as part of stemming.
     // TODO(jeffbailey): filter not from stopwords, it's semantically important
     if (_stopWords.contains(token)) return null;
 
