@@ -102,9 +102,8 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
               ],
               RaisedButton(
                   onPressed: _speakQuestion, child: Text('Speak Answers')),
-              Text('Progress'),
-              LinearProgressIndicator(
-                  value: context.watch<LearnLogic>().progress),
+              Spacer(),
+              ProgressCard(),
             ],
           ),
         ]),
@@ -206,4 +205,19 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
       _answerWasRight = false;
     });
   }
+}
+
+class ProgressCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Card(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text('Progress'),
+        Row(children: [
+          Expanded(
+              child: LinearProgressIndicator(
+                  value: context.watch<LearnLogic>().progress)),
+          Icon(Icons.info),
+        ]),
+      ]));
 }
