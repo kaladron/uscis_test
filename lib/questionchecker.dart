@@ -219,9 +219,11 @@ class QuestionChecker {
 
   QuestionStatus checkAnswer(String origAnswer) {
     var answerTokens = getTokens(origAnswer);
+    print("Key: ${answerTokens.toString()}");
 
     for (var answer in _question.allAnswers) {
       var keyTokens = getTokens(answer);
+      print("Answer: ${answerTokens.toString()}");
       if (ListEquality().equals(answerTokens, keyTokens)) {
         return QuestionStatus.correct;
       }
@@ -250,12 +252,13 @@ class QuestionChecker {
     // 4. Filter empty words
     if (token.isEmpty) return null;
 
+    // 6. Stem.
+    token = _stemmer.stem(token);
+
     // 5. Remove Stopwords
     // TODO(jeffbailey): filter not from stopwords, it's semantically important
     if (_stopWords.contains(token)) return null;
 
-    // 6. Stem.
-    token = _stemmer.stem(token);
     return token;
   }
 }
