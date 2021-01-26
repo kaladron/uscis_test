@@ -210,14 +210,19 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 class ProgressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Card(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text('Progress'),
-        Row(children: [
-          Expanded(
-              child: LinearProgressIndicator(
-                  value: context.watch<LearnLogic>().progress)),
+        child: Row(mainAxisSize: MainAxisSize.min, children: [
+          Flexible(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text('Progress'),
+              Row(children: [
+                Flexible(
+                    child: LinearProgressIndicator(
+                        value: context.watch<LearnLogic>().progress)),
+              ]),
+            ]),
+          ),
           Icon(Icons.info),
         ]),
-      ]));
+      );
 }
