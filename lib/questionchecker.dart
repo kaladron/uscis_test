@@ -223,7 +223,7 @@ class QuestionChecker {
 
     for (var answer in _question.allAnswers) {
       var keyTokens = getTokens(answer);
-      print("Answer: ${answerTokens.toString()}");
+      print("Answer: ${keyTokens.toString()}");
       if (ListEquality().equals(answerTokens, keyTokens)) {
         return QuestionStatus.correct;
       }
