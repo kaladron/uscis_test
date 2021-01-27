@@ -173,7 +173,7 @@ packages:
       name: flutter_layout_grid
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.3"
+    version: "0.10.5"
   flutter_svg:
     dependency: transitive
     description:
@@ -316,7 +316,7 @@ packages:
       name: node_preamble
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.12"
+    version: "1.4.13"
   package_config:
     dependency: transitive
     description:
@@ -546,13 +546,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0-nullsafety.6"
-  stemmer:
-    dependency: "direct main"
-    description:
-      name: stemmer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   stream_channel:
     dependency: transitive
     description:
@@ -575,7 +568,7 @@ packages:
     source: hosted
     version: "1.2.0-nullsafety.3"
   test:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: test
       url: "https://pub.dartlang.org"

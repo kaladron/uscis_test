@@ -43,7 +43,6 @@ dependencies:
   cupertino_icons: ^1.0.0
   provider: ^5.0.0-nullsafety.3
   speech_to_text: ^3.1.0
-  stemmer: ^1.1.0
   collection: any
   flag: ^3.1.0
   shared_preferences: '>=0.5.12+4 <2.0.0'
@@ -52,6 +51,7 @@ dependencies:
 
 
 dev_dependencies:
+  test: ^1.16.0-nullsafety.16
   pedantic: ^1.10.0-nullsafety.3
   flutter_test:
     sdk: flutter
