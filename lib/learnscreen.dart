@@ -49,7 +49,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   final speech = SpeechToText();
   final flutterTts = FlutterTts();
 
-  bool _show = false;
+  bool _showAnswerMark = false;
   bool _answerWasRight = false;
 
   Color _micButtonBackground = Colors.red;
@@ -75,7 +75,6 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
-              Text('$_resultText'),
               Column(children: [
                 MaterialButton(
                   onPressed: startListening,
@@ -99,17 +98,15 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                   endIndent: 5,
                 ),
               ),
-              RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
+              if (!_showAnswer)
+                RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
               if (_showAnswer) ...[
-                for (var i in context.watch<LearnLogic>().question.answers)
-                  Text(i),
+                RaisedButton(
+                  onPressed: _nextQuestion,
+                  child: Text('Next Question'),
+                ),
+                incorrectAnswer(),
               ],
-              RaisedButton(
-                  onPressed: _speakQuestion, child: Text('Speak Answers')),
-              RaisedButton(
-                onPressed: _nextQuestion,
-                child: Text('Next Question'),
-              ),
               Spacer(),
               ProgressCard(),
             ],
@@ -117,9 +114,15 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         ]),
       );
 
+  Widget incorrectAnswer() => Column(children: [
+        if (_resultText != '') Text('You said: ${_resultText}'),
+        for (var i in context.watch<LearnLogic>().question.answers) Text(i),
+        RaisedButton(onPressed: _speakQuestion, child: Text('Speak Answers')),
+      ]);
+
   // TODO(jeffbailey): This is aligned poorly, too far down
   Widget rightWrong() => AnimatedOpacity(
-        opacity: _show ? 1.0 : 0.0,
+        opacity: _showAnswerMark ? 1.0 : 0.0,
         onEnd: _fadeOut,
         duration: Duration(milliseconds: 500),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -196,20 +199,21 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
   void _fadeOut() {
     setState(() {
-      _show = false;
+      _showAnswerMark = false;
     });
   }
 
   void _showRight() {
     setState(() {
-      _show = true;
+      _showAnswerMark = true;
       _answerWasRight = true;
     });
   }
 
   void _showWrong() {
     setState(() {
-      _show = true;
+      _showAnswerMark = true;
+      _showAnswer = true;
       _answerWasRight = false;
     });
   }
