@@ -69,31 +69,35 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
           Column(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${context.watch<LearnLogic>().question.question}',
-                      ),
-                    ),
-                    MaterialButton(
-                      onPressed: _nextQuestion,
-                      child: Text('>'),
-                      shape: CircleBorder(),
-                      color: Colors.blue,
-                    ),
-                  ],
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  '${context.watch<LearnLogic>().question.question}',
+                  style: Theme.of(context).textTheme.headline6,
                 ),
               ),
               Text('$_resultText'),
-              MaterialButton(
-                onPressed: startListening,
-                child: Icon(Icons.mic_none_outlined,
-                    size: 24, color: _micButtonForeground),
-                shape: CircleBorder(),
-                padding: EdgeInsets.all(16),
-                color: _micButtonBackground,
+              Column(children: [
+                MaterialButton(
+                  onPressed: startListening,
+                  child: Icon(Icons.mic_none_outlined,
+                      size: 24, color: _micButtonForeground),
+                  shape: CircleBorder(),
+                  padding: EdgeInsets.all(16),
+                  color: _micButtonBackground,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Text('Tap mic to answer'),
+                ),
+              ]),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+                child: Divider(
+                  height: 2,
+                  thickness: 1,
+                  indent: 5,
+                  endIndent: 5,
+                ),
               ),
               RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
               if (_showAnswer) ...[
@@ -102,6 +106,10 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
               ],
               RaisedButton(
                   onPressed: _speakQuestion, child: Text('Speak Answers')),
+              RaisedButton(
+                onPressed: _nextQuestion,
+                child: Text('Next Question'),
+              ),
               Spacer(),
               ProgressCard(),
             ],
