@@ -56,7 +56,6 @@ class DrawerMenu extends StatelessWidget {
             },
           ),
           Divider(
-            color: Colors.black,
             height: 2,
             thickness: 1,
             indent: 0,
