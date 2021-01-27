@@ -209,20 +209,34 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
 class ProgressCard extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Card(
-        child: Row(mainAxisSize: MainAxisSize.min, children: [
-          Flexible(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('Progress'),
-              Row(children: [
-                Flexible(
-                    child: LinearProgressIndicator(
-                        value: context.watch<LearnLogic>().progress)),
-              ]),
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.all(8),
+        child: Card(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Row(mainAxisSize: MainAxisSize.min, children: [
+              Flexible(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 16),
+                        child: Text('Progress'),
+                      ),
+                      Row(children: [
+                        Flexible(
+                            child: LinearProgressIndicator(
+                                value: context.watch<LearnLogic>().progress)),
+                      ]),
+                    ]),
+              ),
+              // TODO(jeffbailey): Add gesture detector and info screen.
+              Padding(
+                padding: EdgeInsets.only(left: 16),
+                child: Icon(Icons.info, size: 32),
+              ),
             ]),
           ),
-          Icon(Icons.info),
-        ]),
+        ),
       );
 }
