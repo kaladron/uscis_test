@@ -115,8 +115,11 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
       );
 
   Widget incorrectAnswer() => Column(children: [
-        if (_resultText != '') Text('You said: ${_resultText}'),
-        for (var i in context.watch<LearnLogic>().question.answers) Text(i),
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          if (_resultText != '') Text('You said: ${_resultText}'),
+          for (var i in context.watch<LearnLogic>().question.answers)
+            Text("• " + i),
+        ]),
         RaisedButton(onPressed: _speakQuestion, child: Text('Speak Answers')),
       ]);
 
