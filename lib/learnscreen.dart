@@ -114,13 +114,25 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         ]),
       );
 
-  Widget incorrectAnswer() => Column(children: [
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          if (_resultText != '') Text('You said: ${_resultText}'),
-          for (var i in context.watch<LearnLogic>().question.answers)
-            Text("• " + i),
-        ]),
-        RaisedButton(onPressed: _speakQuestion, child: Text('Speak Answers')),
+  Widget incorrectAnswer() => Row(children: [
+        Flexible(
+          fit: FlexFit.tight,
+          child: Row(children: [
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 10,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (_resultText != '') Text('You said: ${_resultText}'),
+                    for (var i in context.watch<LearnLogic>().question.answers)
+                      Text("• " + i),
+                  ]),
+            ),
+            RaisedButton(
+                onPressed: _speakQuestion, child: Text('Speak Answers')),
+          ]),
+        ),
       ]);
 
   // TODO(jeffbailey): This is aligned poorly, too far down
