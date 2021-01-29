@@ -114,26 +114,35 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         ]),
       );
 
-  Widget incorrectAnswer() => Row(children: [
-        Flexible(
-          fit: FlexFit.tight,
-          child: Row(children: [
-            Flexible(
-              fit: FlexFit.tight,
-              flex: 10,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (_resultText != '') Text('You said: ${_resultText}'),
-                    for (var i in context.watch<LearnLogic>().question.answers)
-                      Text("• " + i),
-                  ]),
-            ),
-            RaisedButton(
-                onPressed: _speakQuestion, child: Text('Speak Answers')),
-          ]),
-        ),
-      ]);
+  Widget incorrectAnswer() => Padding(
+        padding: EdgeInsets.all(12),
+        child: Row(children: [
+          Flexible(
+            fit: FlexFit.tight,
+            child: Row(children: [
+              Flexible(
+                fit: FlexFit.tight,
+                flex: 2,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (_resultText != '') Text('You said: ${_resultText}'),
+                      for (var i
+                          in context.watch<LearnLogic>().question.answers)
+                        Text("• " + i),
+                    ]),
+              ),
+              Flexible(
+                flex: 1,
+                child: RaisedButton(
+                    onPressed: _speakQuestion,
+                    padding: EdgeInsets.all(4),
+                    child: Icon(Icons.play_circle_filled_rounded, size: 32)),
+              ),
+            ]),
+          ),
+        ]),
+      );
 
   // TODO(jeffbailey): This is aligned poorly, too far down
   Widget rightWrong() => AnimatedOpacity(
