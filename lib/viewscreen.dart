@@ -14,15 +14,22 @@ class ViewScreen extends StatelessWidget {
         ),
         body: ListView(children: [
           if (context.watch<QuestionStorage>().starredQuestions.isNotEmpty)
-            Text('Starred',
-                style: Theme.of(context).textTheme.headline4,
-                textAlign: TextAlign.left),
+            Padding(
+              padding: EdgeInsets.only(left: 8, top: 8),
+              child: Text('Starred',
+                  style: Theme.of(context).textTheme.headline5,
+                  textAlign: TextAlign.left),
+            ),
           ...context
               .watch<QuestionStorage>()
               .starredQuestions
               .map((e) => QuestionListItem(e.number - 1))
               .toList(),
-          Text('Questions', style: Theme.of(context).textTheme.headline4),
+          Padding(
+            padding: EdgeInsets.only(left: 8, top: 8),
+            child:
+                Text('Questions', style: Theme.of(context).textTheme.headline5),
+          ),
           ...context
               .watch<QuestionStorage>()
               .questions
