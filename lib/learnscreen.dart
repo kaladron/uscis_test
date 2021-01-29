@@ -290,10 +290,13 @@ class QuestionInfoDialog extends StatelessWidget {
   Widget build(BuildContext context) => AlertDialog(
         content: SingleChildScrollView(
           child: ListBody(children: [
-            Text('Currently Testing'),
-            Text('Got right once'),
-            Text('Got right twice'),
-            Text('Mastered')
+            Text('Currently Testing',
+                style: Theme.of(context).textTheme.headline6),
+            Text('Got right once',
+                style: Theme.of(context).textTheme.headline6),
+            Text('Got right twice',
+                style: Theme.of(context).textTheme.headline6),
+            Text('Mastered', style: Theme.of(context).textTheme.headline6)
           ]),
         ),
         actions: [
