@@ -484,14 +484,14 @@ packages:
       name: shelf_packages_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   shelf_static:
     dependency: transitive
     description:
       name: shelf_static
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.9+1"
+    version: "0.2.9+2"
   shelf_web_socket:
     dependency: transitive
     description:
@@ -573,7 +573,7 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.16.0-nullsafety.16"
+    version: "1.16.0-nullsafety.17"
   test_api:
     dependency: transitive
     description:
