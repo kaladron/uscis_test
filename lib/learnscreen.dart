@@ -266,13 +266,42 @@ class ProgressCard extends StatelessWidget {
                       ]),
                     ]),
               ),
-              // TODO(jeffbailey): Add gesture detector and info screen.
-              Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Icon(Icons.info, size: 32),
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => QuestionInfoDialog(),
+                  );
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: Icon(Icons.info, size: 32),
+                ),
               ),
             ]),
           ),
         ),
+      );
+}
+
+// TODO(jeffbailey): Fill this in.  Maybe also put it in the drawer.
+class QuestionInfoDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+        content: SingleChildScrollView(
+          child: ListBody(children: [
+            Text('Currently Testing'),
+            Text('Got right once'),
+            Text('Got right twice'),
+            Text('Mastered')
+          ]),
+        ),
+        actions: [
+          TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              })
+        ],
       );
 }
