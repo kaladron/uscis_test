@@ -22,6 +22,7 @@ class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
 
   List<Question> _questions = [];
+  Map<String, UsAnswer> _usAnswers = {};
 
   List<Question> get questions {
     if (!_prefs.over65Only) {
@@ -69,17 +70,39 @@ class QuestionStorage extends ChangeNotifier {
   //      "question": "What is the capital of your state?",
 
   Future<void> initState() async {
-//    try {
+    await initQuestions();
+    await initUsAnswers();
+  }
+
+  Future<void> initUsAnswers() async {
+    var contents = await rootBundle.loadString('us.json');
+    var data = jsonDecode(contents);
+    for (Map<String, dynamic> i in data) {
+      String key = i['key']!;
+      List<String> answers = i['answers'].cast<String>();
+      List<String> extraAnswers = i.containsKey('extra_answers')
+          ? i['extra_answers'].cast<String>()
+          : [];
+      _usAnswers[key] = (UsAnswer(answers, extraAnswers));
+    }
+  }
+
+  Future<void> initQuestions() async {
     var contents = await rootBundle.loadString('2008.json');
     var data = jsonDecode(contents);
     _questions = [];
     for (Map<String, dynamic> i in data) {
       _questions.add(Question.fromJson(i));
     }
-//    } catch (e) {
-//      // TODO(jeffbailey): Better error handling.
-//    }
   }
+}
+
+@immutable
+class UsAnswer {
+  final List<String> answers;
+  final List<String> extraAnswers;
+
+  UsAnswer(this.answers, this.extraAnswers);
 }
 
 @immutable
