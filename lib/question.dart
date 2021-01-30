@@ -86,6 +86,7 @@ class QuestionStorage extends ChangeNotifier {
 class Question {
   final int number;
   final String question;
+  final String? usAnswer;
   final List<String> answers;
   final List<String> extraAnswers;
   final bool over65;
@@ -133,6 +134,7 @@ class Question {
   Question.fromJson(Map<String, dynamic> json)
       : number = json['number'],
         question = json['question'],
+        usAnswer = json.containsKey('us_answer') ? json['us_answer'] : null,
         answers = json['answers'].cast<String>(),
         extraAnswers = json.containsKey('extra_answers')
             ? json['extra_answers'].cast<String>()
