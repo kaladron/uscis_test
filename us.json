@@ -1,0 +1,41 @@
+{
+    "president": {
+        "answers": [
+            "Joseph R. Biden, Jr.",
+            "Joe Biden",
+            "Biden"
+        ]
+    },
+    "vice_president": {
+        "answers": [
+            "Kamala D. Harris",
+            "Kamala Harris",
+            "Harris"
+        ]
+    },
+    "number_justices": {
+        "answers": [
+            "nine (9)"
+        ],
+        "extra_answers": [
+            "9"
+        ]
+    },
+    "chief_justice": {
+        "answers": [
+            "John Roberts",
+            "John G. Roberts, Jr."
+        ]
+    },
+    "president_party": {
+        "answers": [
+            "Democratic (Party)"
+        ]
+    },
+    "speaker_house": {
+        "answers": [
+            "Nancy Pelosi",
+            "Pelosi"
+        ]
+    }
+}

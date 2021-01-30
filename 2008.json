@@ -241,6 +241,7 @@
     {
         "number": 28,
         "question": "What is the name of the President of the United States now?",
+        "us_answer": "president",
         "answers": [
             "Visit uscis.gov/citizenship/testupdates for the name of the President of the United States."
         ],
@@ -249,6 +250,7 @@
     {
         "number": 29,
         "question": "What is the name of the Vice President of the United States now?",
+        "us_answer": "vice_president",
         "answers": [
             "Visit uscis.gov/citizenship/testupdates for the name of the Vice President of the United States."
         ]
@@ -338,6 +340,7 @@
     {
         "number": 39,
         "question": "How many justices are on the Supreme Court?",
+        "us_answer": "number_justices",
         "answers": [
             "Visit uscis.gov/citizenship/testupdates for the number of justices on the Supreme Court."
         ]
@@ -345,6 +348,7 @@
     {
         "number": 40,
         "question": "Who is the Chief Justice of the United States now?",
+        "us_answer": "chief_justice",
         "answers": [
             "Visit uscis.gov/citizenship/testupdates for the name of the Chief Justice of the United States."
         ]
@@ -396,6 +400,7 @@
     {
         "number": 46,
         "question": "What is the political party of the President now?",
+        "us_answer": "president_party",
         "answers": [
             "Visit uscis.gov/citizenship/testupdates for the political party of the President."
         ]
@@ -403,6 +408,7 @@
     {
         "number": 47,
         "question": "What is the name of the Speaker of the House of Representatives now?",
+        "us_answer": "speaker_house",
         "answers": [
             "Visit uscis.gov/citizenship/testupdates for the name of the Speaker of the House of Representatives."
         ]
