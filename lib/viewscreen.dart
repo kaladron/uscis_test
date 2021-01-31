@@ -60,25 +60,19 @@ class QuestionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ExpansionTile(
-        leading: Icon(Icons.question_answer),
+        leading: _star(context),
         title:
             Text(context.watch<QuestionStorage>().questions[_index].question),
         expandedAlignment: Alignment.centerLeft,
         children: [
-          ListTile(
-            trailing: _star(context),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ...context
-                    .watch<QuestionStorage>()
-                    .questions[_index]
-                    .answers
-                    .map<Text>((String value) {
-                  return Text("• " + value);
-                })
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...context.watch<QuestionStorage>().questions[_index].answers.map(
+                  (String value) => Padding(
+                      padding: EdgeInsets.only(left: 32, bottom: 12, right: 8),
+                      child: Text("• ${value}")))
+            ],
           ),
         ],
       );
