@@ -54,20 +54,7 @@ class QuestionStorage extends ChangeNotifier {
 
   QuestionStorage(this._prefs);
 
-  // TODO(jeffbailey):
-  // https://uscis.gov/citizenship/testupdates to update:
-  //      "question": "What is the name of the President of the United States now?",
-  //      "question": "What is the name of the Vice President of the United States now?",
-  //      "question": "How many justices are on the Supreme Court?",
-  //      "question": "Who is the Chief Justice of the United States now?",
-  //      "question": "What is the political party of the President now?",
-  //      "question": "What is the name of the Speaker of the House of Representatives now?",
-
-  // https://www.usa.gov/states-and-territories to update:
-  //      "question": "Who is one of your state’s U.S. Senators now?",
-  //      "question": "Name your U.S. Representative.",
-  //      "question": "Who is the Governor of your state now?",
-  //      "question": "What is the capital of your state?",
+  // TODO(jeffbailey): Finish state-specific questions.
 
   Future<void> initState() async {
     await initUsAnswers();
