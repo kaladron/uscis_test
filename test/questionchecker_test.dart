@@ -39,7 +39,8 @@ void main() {
     }''';
 
     final Map<String, dynamic> data = jsonDecode(contents);
-    final question = Question.fromJson(data);
+    final Map<String, UsAnswer> usAnswers = {};
+    final question = Question.fromJson(data, usAnswers);
     final checker = QuestionChecker(question);
 
     test('Test without parens', () {

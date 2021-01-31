@@ -70,8 +70,8 @@ class QuestionStorage extends ChangeNotifier {
   //      "question": "What is the capital of your state?",
 
   Future<void> initState() async {
-    await initQuestions();
     await initUsAnswers();
+    await initQuestions();
   }
 
   Future<void> initUsAnswers() async {
@@ -92,7 +92,7 @@ class QuestionStorage extends ChangeNotifier {
     var data = jsonDecode(contents);
     _questions = [];
     for (Map<String, dynamic> i in data) {
-      _questions.add(Question.fromJson(i));
+      _questions.add(Question.fromJson(i, _usAnswers));
     }
   }
 }
@@ -109,7 +109,6 @@ class UsAnswer {
 class Question {
   final int number;
   final String question;
-  final String? usAnswer;
   final List<String> answers;
   final List<String> extraAnswers;
   final bool over65;
@@ -154,14 +153,17 @@ class Question {
     ];
   }
 
-  Question.fromJson(Map<String, dynamic> json)
+  Question.fromJson(Map<String, dynamic> json, Map<String, UsAnswer> usAnswers)
       : number = json['number'],
         question = json['question'],
-        usAnswer = json.containsKey('us_answer') ? json['us_answer'] : null,
-        answers = json['answers'].cast<String>(),
-        extraAnswers = json.containsKey('extra_answers')
-            ? json['extra_answers'].cast<String>()
-            : [],
+        answers = (json['us_answer'] == null)
+            ? json['answers'].cast<String>()
+            : usAnswers[json['us_answer']]!.answers,
+        extraAnswers = (json['us_answer'] == null)
+            ? json.containsKey('extra_answers')
+                ? json['extra_answers'].cast<String>()
+                : []
+            : usAnswers[json['us_answer']]!.extraAnswers,
         over65 = json.containsKey('over65') ? json['over65'] : false,
         mustAnswer = json.containsKey('must_answer') ? json['must_answer'] : 1;
 }
