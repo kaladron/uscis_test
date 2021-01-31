@@ -49,8 +49,6 @@ class QuestionListItem extends StatefulWidget {
 }
 
 class _QuestionListItemState extends State<QuestionListItem> {
-  bool _showAnswer = false;
-
   // Pulled this out because reading nested onTap was confusing.
   Widget _star() => GestureDetector(
         onTap: () {
@@ -70,30 +68,25 @@ class _QuestionListItemState extends State<QuestionListItem> {
       );
 
   @override
-  Widget build(BuildContext context) => ListTile(
+  Widget build(BuildContext context) => ExpansionTile(
         leading: Icon(Icons.question_answer),
         trailing: _star(),
         title: Text(
             context.watch<QuestionStorage>().questions[widget._index].question),
-        subtitle: _showAnswer
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...context
-                      .watch<QuestionStorage>()
-                      .questions[widget._index]
-                      .answers
-                      .map<Text>((String value) {
-                    return Text("• " + value);
-                  })
-                ],
-              )
-            : null,
-        onTap: () {
-          setState(() {
-            // TODO(jeffbailey): Animate this transition
-            _showAnswer = !_showAnswer;
-          });
-        },
+        expandedAlignment: Alignment.centerLeft,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...context
+                  .watch<QuestionStorage>()
+                  .questions[widget._index]
+                  .answers
+                  .map<Text>((String value) {
+                return Text("• " + value);
+              })
+            ],
+          ),
+        ],
       );
 }
