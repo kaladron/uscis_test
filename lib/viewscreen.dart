@@ -23,7 +23,8 @@ class ViewScreen extends StatelessWidget {
           ...context
               .watch<QuestionStorage>()
               .starredQuestions
-              .map((e) => QuestionListItem(e.number - 1))
+              .map((e) => QuestionListItem(
+                  e.number - 1, ValueKey("starred ${e.number - 1}")))
               .toList(),
           Padding(
             padding: EdgeInsets.only(left: 8, top: 8),
@@ -33,59 +34,52 @@ class ViewScreen extends StatelessWidget {
           ...context
               .watch<QuestionStorage>()
               .questions
-              .map((e) => QuestionListItem(e.number - 1))
+              .map((e) => QuestionListItem(
+                  e.number - 1, ValueKey("questions ${e.number - 1}")))
               .toList(),
         ]),
       );
 }
 
-class QuestionListItem extends StatefulWidget {
+class QuestionListItem extends StatelessWidget {
   final int _index;
 
-  const QuestionListItem(this._index);
+  const QuestionListItem(this._index, Key key) : super(key: key);
 
-  @override
-  _QuestionListItemState createState() => _QuestionListItemState();
-}
-
-class _QuestionListItemState extends State<QuestionListItem> {
-  // Pulled this out because reading nested onTap was confusing.
-  Widget _star() => GestureDetector(
+  Widget _star(BuildContext context) => GestureDetector(
         onTap: () {
-          setState(() {
-            context.read<QuestionStorage>().toggle(context
-                .read<QuestionStorage>()
-                .questions[widget._index]
-                .number);
-          });
+          context
+              .read<QuestionStorage>()
+              .toggle(context.read<QuestionStorage>().questions[_index].number);
         },
-        child: context.watch<QuestionStorage>().isStarred(context
-                .watch<QuestionStorage>()
-                .questions[widget._index]
-                .number)
+        child: context.watch<QuestionStorage>().isStarred(
+                context.watch<QuestionStorage>().questions[_index].number)
             ? Icon(Icons.star)
             : Icon(Icons.star_outline),
       );
 
   @override
   Widget build(BuildContext context) => ExpansionTile(
+        maintainState: true,
         leading: Icon(Icons.question_answer),
-        trailing: _star(),
-        title: Text(
-            context.watch<QuestionStorage>().questions[widget._index].question),
+        title:
+            Text(context.watch<QuestionStorage>().questions[_index].question),
         expandedAlignment: Alignment.centerLeft,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ...context
-                  .watch<QuestionStorage>()
-                  .questions[widget._index]
-                  .answers
-                  .map<Text>((String value) {
-                return Text("• " + value);
-              })
-            ],
+          ListTile(
+            trailing: _star(context),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ...context
+                    .watch<QuestionStorage>()
+                    .questions[_index]
+                    .answers
+                    .map<Text>((String value) {
+                  return Text("• " + value);
+                })
+              ],
+            ),
           ),
         ],
       );
