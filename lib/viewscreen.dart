@@ -60,7 +60,6 @@ class QuestionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ExpansionTile(
-        maintainState: true,
         leading: Icon(Icons.question_answer),
         title:
             Text(context.watch<QuestionStorage>().questions[_index].question),
