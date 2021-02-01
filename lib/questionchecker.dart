@@ -33,7 +33,7 @@ class QuestionChecker {
 
   final _stemmer = SnowballStemmer();
 
-  final List<List<String>> _rightAnswers = [[]];
+  final List<List<String>> _rightAnswers = [];
 
   bool _cancelled = false;
 
