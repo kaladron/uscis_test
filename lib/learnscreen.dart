@@ -57,7 +57,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
   String _resultText = '';
 
-  bool _showAnswer = false;
+  bool _answerVisible = false;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -98,9 +98,10 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                   endIndent: 5,
                 ),
               ),
-              if (!_showAnswer)
-                RaisedButton(onPressed: _toggle, child: Text('Show Answer')),
-              if (_showAnswer) ...[
+              if (!_answerVisible)
+                RaisedButton(
+                    onPressed: _showAnswer, child: Text('Show Answer')),
+              if (_answerVisible) ...[
                 RaisedButton(
                   onPressed: _nextQuestion,
                   child: Text('Next Question'),
@@ -170,7 +171,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   }
 
   void _resetQuestionState() {
-    _showAnswer = false;
+    _answerVisible = false;
     _resultText = '';
   }
 
@@ -179,9 +180,9 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
     context.read<LearnLogic>().nextQuestion();
   }
 
-  void _toggle() {
+  void _showAnswer() {
     setState(() {
-      _showAnswer = true;
+      _answerVisible = true;
     });
   }
 
@@ -237,7 +238,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   void _showWrong() {
     setState(() {
       _showAnswerMark = true;
-      _showAnswer = true;
+      _answerVisible = true;
       _answerWasRight = false;
     });
   }
