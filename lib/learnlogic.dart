@@ -67,7 +67,12 @@ class LearnLogic extends ChangeNotifier {
       }
 
       nextQuestion();
+      return QuestionStatus.correct;
     }
+
+    if (status == QuestionStatus.cancelled) return QuestionStatus.correct;
+    if (status == QuestionStatus.duplicate) return QuestionStatus.correct;
+    if (status == QuestionStatus.moreNeeded) return QuestionStatus.correct;
 
     return status;
   }

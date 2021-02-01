@@ -33,6 +33,14 @@ class QuestionChecker {
 
   final _stemmer = SnowballStemmer();
 
+  final List<List<String>> _rightAnswers = [[]];
+
+  bool _cancelled = false;
+
+  set cancelled(bool value) {
+    _cancelled = value;
+  }
+
   final Set<String> _stopWords = HashSet.from([
     'i',
     'me',
@@ -226,6 +234,21 @@ class QuestionChecker {
       var keyTokens = getTokens(answer);
       print("Answer: ${keyTokens.toString()}");
       if (ListEquality().equals(answerTokens, keyTokens)) {
+        // Check if we've been cancelled (view answer or similar selected)
+        if (_cancelled) return QuestionStatus.cancelled;
+
+        // Check if we've seen the answer before
+        if (_rightAnswers.contains(keyTokens)) return QuestionStatus.duplicate;
+
+        // Add the answer to the seen set
+        _rightAnswers.add(keyTokens);
+
+        // Check if there's more needed to complete
+        if (_rightAnswers.length != _question.mustAnswer) {
+          return QuestionStatus.moreNeeded;
+        }
+
+        // Return correct
         return QuestionStatus.correct;
       }
     }
