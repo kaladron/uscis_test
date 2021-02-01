@@ -55,9 +55,16 @@ class LearnLogic extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Used for any time that a right answer shouldn't count as "Right",
+  // such as if "show answer" is displayed, or a duplicate answer, etc.
+  void cancelQuestion() {
+    _questionChecker.cancelled = true;
+  }
+
   // TODO(jeffbailey): Handle more than one answer needed.
   QuestionStatus checkAnswer(String origAnswer) {
     var status = _questionChecker.checkAnswer(origAnswer);
+    print(status.toString());
 
     if (status == QuestionStatus.correct) {
       mastered++;

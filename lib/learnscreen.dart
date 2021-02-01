@@ -181,6 +181,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   }
 
   void _showAnswer() {
+    context.read<LearnLogic>().cancelQuestion();
     setState(() {
       _answerVisible = true;
     });
