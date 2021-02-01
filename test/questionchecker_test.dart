@@ -41,33 +41,39 @@ void main() {
     final Map<String, dynamic> data = jsonDecode(contents);
     final Map<String, UsAnswer> usAnswers = {};
     final question = Question.fromJson(data, usAnswers);
-    final checker = QuestionChecker(question);
 
     test('Test without parens', () {
+      final checker = QuestionChecker(question);
       expect(checker.checkAnswer("new york"), QuestionStatus.correct);
     });
 
     test('Test with parens', () {
+      final checker = QuestionChecker(question);
       expect(checker.checkAnswer("new york harbor"), QuestionStatus.correct);
     });
 
     test('Test second answer', () {
+      final checker = QuestionChecker(question);
       expect(checker.checkAnswer("liberty island"), QuestionStatus.correct);
     });
 
     test('Test extra answer', () {
+      final checker = QuestionChecker(question);
       expect(checker.checkAnswer("new jersey"), QuestionStatus.correct);
     });
 
     test('Test extra answer without parens', () {
+      final checker = QuestionChecker(question);
       expect(checker.checkAnswer("on the hudson"), QuestionStatus.correct);
     });
 
     test('Test extra answer with parens', () {
+      final checker = QuestionChecker(question);
       expect(checker.checkAnswer("hudson river"), QuestionStatus.correct);
     });
 
     test('Test wrong answer', () {
+      final checker = QuestionChecker(question);
       expect(checker.checkAnswer("san fransisco"), QuestionStatus.incorrect);
     });
   });
