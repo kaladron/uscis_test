@@ -19,10 +19,11 @@ import 'package:uscis_test/question.dart';
 import 'package:uscis_test/stemmer/SnowballStemmer.dart';
 
 enum QuestionStatus {
+  cancelled,
   correct,
+  duplicate,
   incorrect,
   moreNeeded,
-  cancelled,
 }
 
 class QuestionChecker {
