@@ -211,12 +211,17 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
     _resultText = result.recognizedWords;
     setState(() {
-      if (context.read<LearnLogic>().checkAnswer(_resultText) ==
-          QuestionStatus.correct) {
-        _showRight();
-        _resetQuestionState();
-      } else {
-        _showWrong();
+      switch (context.read<LearnLogic>().checkAnswer(_resultText)) {
+        case QuestionStatus.correct:
+          _showRight();
+          _resetQuestionState();
+          context.read<LearnLogic>().nextQuestion();
+          break;
+        case QuestionStatus.cancelled:
+          _showRight();
+          break;
+        default:
+          _showWrong();
       }
     });
   }

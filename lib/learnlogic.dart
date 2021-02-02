@@ -66,21 +66,20 @@ class LearnLogic extends ChangeNotifier {
     var status = _questionChecker.checkAnswer(origAnswer);
     print(status.toString());
 
-    if (status == QuestionStatus.correct) {
-      mastered++;
-      _workingSet.removeAt(_cursor);
-      if (_questions.isNotEmpty) {
-        _workingSet.add(_questions.removeLast());
-      }
-
-      nextQuestion();
-      return QuestionStatus.correct;
+    switch (status) {
+      case QuestionStatus.correct:
+        mastered++;
+        _workingSet.removeAt(_cursor);
+        if (_questions.isNotEmpty) {
+          _workingSet.add(_questions.removeLast());
+        }
+        return status;
+      case QuestionStatus.duplicate:
+        return QuestionStatus.correct;
+      case QuestionStatus.moreNeeded:
+        return QuestionStatus.correct;
+      default:
+        return status;
     }
-
-    if (status == QuestionStatus.cancelled) return QuestionStatus.correct;
-    if (status == QuestionStatus.duplicate) return QuestionStatus.correct;
-    if (status == QuestionStatus.moreNeeded) return QuestionStatus.correct;
-
-    return status;
   }
 }
