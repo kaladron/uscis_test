@@ -136,7 +136,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
               Flexible(
                 flex: 1,
                 child: RaisedButton(
-                    onPressed: _speakQuestion,
+                    onPressed: _speakAnswers,
                     padding: EdgeInsets.all(4),
                     child: Icon(Icons.play_circle_filled_rounded, size: 32)),
               ),
@@ -161,13 +161,11 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         ]),
       );
 
-  void _speakQuestion() async {
+  void _speakAnswers() async {
     await flutterTts.setLanguage("en-US");
 
-    for (var i in context.read<LearnLogic>().question.answers) {
-      // TODO(jeffbailey): Need to wait here for previous answers to get read before starting the next one.
-      await flutterTts.speak(i);
-    }
+    var spokenAnswers = context.read<LearnLogic>().question.answers.join(".  ");
+    await flutterTts.speak(spokenAnswers);
   }
 
   void _resetQuestionState() {
