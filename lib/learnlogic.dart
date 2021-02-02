@@ -74,6 +74,9 @@ class LearnLogic extends ChangeNotifier {
           _workingSet.add(_questions.removeLast());
         }
         return status;
+      case QuestionStatus.incorrect:
+        cancelQuestion();
+        return status;
       case QuestionStatus.duplicate:
         return QuestionStatus.correct;
       case QuestionStatus.moreNeeded:
