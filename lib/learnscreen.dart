@@ -145,7 +145,6 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         ]),
       );
 
-  // TODO(jeffbailey): This is aligned poorly, too far down
   Widget rightWrong() => AnimatedOpacity(
         opacity: _showAnswerMark ? 1.0 : 0.0,
         onEnd: _fadeOut,
