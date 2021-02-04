@@ -20,7 +20,9 @@ import 'package:uscis_test/stemmer/SnowballStemmer.dart';
 
 enum QuestionStatus {
   cancelled,
-  correct,
+  correctOnce,
+  correctTwice,
+  correctThrice,
   duplicate,
   incorrect,
   moreNeeded,
@@ -249,7 +251,7 @@ class QuestionChecker {
         }
 
         // Return correct
-        return QuestionStatus.correct;
+        return QuestionStatus.correctOnce;
       }
     }
     return QuestionStatus.incorrect;

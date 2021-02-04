@@ -45,19 +45,39 @@ class _LearnScreenImpl extends StatefulWidget {
   _LearnScreenImplState createState() => _LearnScreenImplState();
 }
 
+const Widget _wrongMark = Text(
+  '✗',
+  style: TextStyle(fontSize: 112, color: Colors.red),
+);
+
+const _rightOnceMark = Text(
+  '✓',
+  style: TextStyle(fontSize: 112, color: Colors.green),
+);
+
+const _rightTwiceMark = Text(
+  '✓ ✓',
+  style: TextStyle(fontSize: 112, color: Colors.green),
+);
+
+const _rightThriceMark = Text(
+  '✓ ✓ ✓',
+  style: TextStyle(fontSize: 112, color: Colors.green),
+);
+
 class _LearnScreenImplState extends State<_LearnScreenImpl> {
   final speech = SpeechToText();
   final flutterTts = FlutterTts();
 
-  bool _showAnswerMark = false;
-  bool _answerWasRight = false;
+  var _showAnswerMark = false;
+  var _answerWasRight = _wrongMark;
 
   Color _micButtonBackground = Colors.red;
   Color _micButtonForeground = Colors.white;
 
-  String _resultText = '';
+  var _resultText = '';
 
-  bool _answerVisible = false;
+  var _answerVisible = false;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -149,15 +169,9 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         opacity: _showAnswerMark ? 1.0 : 0.0,
         onEnd: _fadeOut,
         duration: Duration(milliseconds: 500),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Center(
-              child: Text(
-            _answerWasRight ? '✓' : '✗',
-            style: TextStyle(
-                fontSize: 112,
-                color: _answerWasRight ? Colors.green : Colors.red),
-          ))
-        ]),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Center(child: _answerWasRight)]),
       );
 
   void _speakAnswers() async {
@@ -211,13 +225,23 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
     _resultText = result.recognizedWords;
     setState(() {
       switch (context.read<LearnLogic>().checkAnswer(_resultText)) {
-        case QuestionStatus.correct:
-          _showRight();
+        case QuestionStatus.correctOnce:
+          _showRightOnce();
+          _resetQuestionState();
+          context.read<LearnLogic>().nextQuestion();
+          break;
+        case QuestionStatus.correctTwice:
+          _showRightTwice();
+          _resetQuestionState();
+          context.read<LearnLogic>().nextQuestion();
+          break;
+        case QuestionStatus.correctThrice:
+          _showRightThrice();
           _resetQuestionState();
           context.read<LearnLogic>().nextQuestion();
           break;
         case QuestionStatus.cancelled:
-          _showRight();
+          _showRightOnce();
           break;
         default:
           _showWrong();
@@ -231,10 +255,24 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
     });
   }
 
-  void _showRight() {
+  void _showRightOnce() {
     setState(() {
       _showAnswerMark = true;
-      _answerWasRight = true;
+      _answerWasRight = _rightOnceMark;
+    });
+  }
+
+  void _showRightTwice() {
+    setState(() {
+      _showAnswerMark = true;
+      _answerWasRight = _rightTwiceMark;
+    });
+  }
+
+  void _showRightThrice() {
+    setState(() {
+      _showAnswerMark = true;
+      _answerWasRight = _rightThriceMark;
     });
   }
 
@@ -242,7 +280,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
     setState(() {
       _showAnswerMark = true;
       _answerVisible = true;
-      _answerWasRight = false;
+      _answerWasRight = _wrongMark;
     });
   }
 }

@@ -67,7 +67,7 @@ class LearnLogic extends ChangeNotifier {
     print(status.toString());
 
     switch (status) {
-      case QuestionStatus.correct:
+      case QuestionStatus.correctThrice:
         mastered++;
         _workingSet.removeAt(_cursor);
         if (_questions.isNotEmpty) {
@@ -78,9 +78,9 @@ class LearnLogic extends ChangeNotifier {
         cancelQuestion();
         return status;
       case QuestionStatus.duplicate:
-        return QuestionStatus.correct;
+        return QuestionStatus.correctOnce;
       case QuestionStatus.moreNeeded:
-        return QuestionStatus.correct;
+        return QuestionStatus.correctOnce;
       default:
         return status;
     }
