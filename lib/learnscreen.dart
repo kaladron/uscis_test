@@ -124,10 +124,10 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                 ),
               ),
               if (!_answerVisible)
-                RaisedButton(
+                ElevatedButton(
                     onPressed: _showAnswer, child: Text('Show Answer')),
               if (_answerVisible) ...[
-                RaisedButton(
+                ElevatedButton(
                   onPressed: _nextQuestion,
                   child: Text('Next Question'),
                 ),
@@ -160,10 +160,12 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
               ),
               Flexible(
                 flex: 1,
-                child: RaisedButton(
-                    onPressed: _speakAnswers,
-                    padding: EdgeInsets.all(4),
-                    child: Icon(Icons.play_circle_filled_rounded, size: 32)),
+                child: Padding(
+                  padding: EdgeInsets.all(4),
+                  child: ElevatedButton(
+                      onPressed: _speakAnswers,
+                      child: Icon(Icons.play_circle_filled_rounded, size: 32)),
+                ),
               ),
             ]),
           ),
