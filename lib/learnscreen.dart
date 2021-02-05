@@ -55,6 +55,11 @@ const _rightOnceMark = Text(
   style: TextStyle(fontSize: 112, color: Colors.green),
 );
 
+const _cancelledRightMark = Text(
+  '✓',
+  style: TextStyle(fontSize: 112, color: Colors.blueGrey),
+);
+
 const _rightTwiceMark = Text(
   '✓ ✓',
   style: TextStyle(fontSize: 112, color: Colors.green),
@@ -225,7 +230,9 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
     _resultText = result.recognizedWords;
     setState(() {
       switch (context.read<LearnLogic>().checkAnswer(_resultText)) {
+        case QuestionStatus.moreNeeded:
         case QuestionStatus.correctOnce:
+        case QuestionStatus.duplicate:
           _showRightOnce();
           _resetQuestionState();
           context.read<LearnLogic>().nextQuestion();
@@ -240,10 +247,15 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
           _resetQuestionState();
           context.read<LearnLogic>().nextQuestion();
           break;
+
         case QuestionStatus.cancelled:
-          _showRightOnce();
+          _showAnswerMark = true;
+          _answerWasRight = _cancelledRightMark;
+          _resetQuestionState();
+          context.read<LearnLogic>().nextQuestion();
           break;
-        default:
+
+        case QuestionStatus.incorrect:
           _showWrong();
       }
     });
