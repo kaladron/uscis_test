@@ -75,7 +75,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   final flutterTts = FlutterTts();
 
   var _showAnswerMark = false;
-  var _answerWasRight = _wrongMark;
+  var _answerMark = _wrongMark;
 
   Color _micButtonBackground = Colors.red;
   Color _micButtonForeground = Colors.white;
@@ -176,7 +176,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         duration: Duration(milliseconds: 500),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Center(child: _answerWasRight)]),
+            children: [Center(child: _answerMark)]),
       );
 
   void _speakAnswers() async {
@@ -233,30 +233,29 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         case QuestionStatus.moreNeeded:
         case QuestionStatus.correctOnce:
         case QuestionStatus.duplicate:
-          _showRightOnce();
-          _resetQuestionState();
-          context.read<LearnLogic>().nextQuestion();
+          _showResult(_rightOnceMark);
+          _nextQuestion();
           break;
+
         case QuestionStatus.correctTwice:
-          _showRightTwice();
-          _resetQuestionState();
-          context.read<LearnLogic>().nextQuestion();
+          _showResult(_rightTwiceMark);
+          _nextQuestion();
           break;
+
         case QuestionStatus.correctThrice:
-          _showRightThrice();
-          _resetQuestionState();
-          context.read<LearnLogic>().nextQuestion();
+          _showResult(_rightThriceMark);
+          _nextQuestion();
           break;
 
         case QuestionStatus.cancelled:
-          _showAnswerMark = true;
-          _answerWasRight = _cancelledRightMark;
-          _resetQuestionState();
-          context.read<LearnLogic>().nextQuestion();
+          _showResult(_cancelledRightMark);
+          _nextQuestion();
           break;
 
         case QuestionStatus.incorrect:
-          _showWrong();
+          _answerVisible = true;
+          _showResult(_wrongMark);
+          break;
       }
     });
   }
@@ -267,33 +266,9 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
     });
   }
 
-  void _showRightOnce() {
-    setState(() {
-      _showAnswerMark = true;
-      _answerWasRight = _rightOnceMark;
-    });
-  }
-
-  void _showRightTwice() {
-    setState(() {
-      _showAnswerMark = true;
-      _answerWasRight = _rightTwiceMark;
-    });
-  }
-
-  void _showRightThrice() {
-    setState(() {
-      _showAnswerMark = true;
-      _answerWasRight = _rightThriceMark;
-    });
-  }
-
-  void _showWrong() {
-    setState(() {
-      _showAnswerMark = true;
-      _answerVisible = true;
-      _answerWasRight = _wrongMark;
-    });
+  void _showResult(final Widget newMark) {
+    _showAnswerMark = true;
+    _answerMark = newMark;
   }
 }
 
