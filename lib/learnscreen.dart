@@ -85,7 +85,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   var _answerVisible = false;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text("Learn"),
         ),
@@ -221,7 +221,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         listenMode: ListenMode.confirmation);
   }
 
-  void resultListener(SpeechRecognitionResult result) {
+  void resultListener(final SpeechRecognitionResult result) {
     setState(() {
       _micButtonBackground = Colors.red;
       _micButtonForeground = Colors.white;
@@ -316,7 +316,7 @@ class ProgressCard extends StatelessWidget {
 // TODO(jeffbailey): Fill this in.  Maybe also put it in the drawer.
 class QuestionInfoDialog extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => AlertDialog(
+  Widget build(final BuildContext context) => AlertDialog(
         content: SingleChildScrollView(
           child: ListBody(children: [
             Text('Currently Testing',
