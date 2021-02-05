@@ -27,7 +27,7 @@ import 'package:flutter_html/flutter_html.dart';
 
 class DrawerMenu extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Drawer(
+  Widget build(final BuildContext context) => Drawer(
         child: ListView(padding: EdgeInsets.zero, children: [
           DrawerHeader(
             child: Flag('us'),

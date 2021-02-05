@@ -39,7 +39,7 @@ class QuestionChecker {
 
   bool _cancelled = false;
 
-  set cancelled(bool value) {
+  set cancelled(final bool value) {
     _cancelled = value;
   }
 
@@ -228,7 +228,7 @@ class QuestionChecker {
   // I don't love reinitializing this per question.
   final _stripPunctuation = RegExp(r"[^\w\s']+");
 
-  QuestionStatus checkAnswer(String origAnswer) {
+  QuestionStatus checkAnswer(final String origAnswer) {
     var answerTokens = getTokens(origAnswer);
     print("Key: ${answerTokens.toString()}");
 
@@ -257,7 +257,7 @@ class QuestionChecker {
     return QuestionStatus.incorrect;
   }
 
-  List<String> getTokens(String input) {
+  List<String> getTokens(final String input) {
     // Treat hyphenated words as two words for matching.
     var answer = input.replaceAll('-', ' ');
     List<String> answerTokens = [];

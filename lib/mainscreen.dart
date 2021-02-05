@@ -35,7 +35,7 @@ class MainScreen extends StatelessWidget {
   static const routeName = '/';
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text('US Citizenship Test'),
         ),

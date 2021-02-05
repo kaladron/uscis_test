@@ -25,7 +25,7 @@ import 'package:uscis_test/viewscreen.dart';
 import 'package:uscis_test/testscreen.dart';
 
 void main() {
-  var prefs = PrefsStorage();
+  final prefs = PrefsStorage();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider.value(value: prefs),

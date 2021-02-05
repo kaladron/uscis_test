@@ -27,7 +27,7 @@ class LearnLogic extends ChangeNotifier {
 
   int mastered = 0;
 
-  LearnLogic(BuildContext _context)
+  LearnLogic(final BuildContext _context)
       : _questions =
             List<Question>.from(_context.read<QuestionStorage>().questions) {
     // Initialize local question array
@@ -62,7 +62,7 @@ class LearnLogic extends ChangeNotifier {
   }
 
   // TODO(jeffbailey): Handle more than one answer needed.
-  QuestionStatus checkAnswer(String origAnswer) {
+  QuestionStatus checkAnswer(final String origAnswer) {
     var status = _questionChecker.checkAnswer(origAnswer);
     print(status.toString());
 

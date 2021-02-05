@@ -45,9 +45,9 @@ class QuestionStorage extends ChangeNotifier {
     return starredQuestions;
   }
 
-  bool isStarred(int qnum) => _prefs.isStarred(qnum);
+  bool isStarred(final int qnum) => _prefs.isStarred(qnum);
 
-  void toggle(int qnum) {
+  void toggle(final int qnum) {
     _prefs.toggle(qnum);
     notifyListeners();
   }
@@ -140,7 +140,8 @@ class Question {
     ];
   }
 
-  Question.fromJson(Map<String, dynamic> json, Map<String, UsAnswer> usAnswers)
+  Question.fromJson(
+      final Map<String, dynamic> json, final Map<String, UsAnswer> usAnswers)
       : number = json['number'],
         question = json['question'],
         answers = (json['us_answer'] == null)

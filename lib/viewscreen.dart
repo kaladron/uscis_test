@@ -8,7 +8,7 @@ class ViewScreen extends StatelessWidget {
   // TODO(jeffbailey): Write a UI test that toggles the first and last star in
   // the list.
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text("View"),
         ),
@@ -46,7 +46,7 @@ class QuestionListItem extends StatelessWidget {
 
   const QuestionListItem(this._index, Key key) : super(key: key);
 
-  Widget _star(BuildContext context) => GestureDetector(
+  Widget _star(final BuildContext context) => GestureDetector(
         onTap: () {
           context
               .read<QuestionStorage>()
@@ -59,7 +59,7 @@ class QuestionListItem extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) => ExpansionTile(
+  Widget build(final BuildContext context) => ExpansionTile(
         leading: _star(context),
         title:
             Text(context.watch<QuestionStorage>().questions[_index].question),

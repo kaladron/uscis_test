@@ -30,7 +30,7 @@ class PrefsStorage extends ChangeNotifier {
 
   List<String> get starredList => _starredMap.keys.toList();
 
-  set over65Only(bool value) {
+  set over65Only(final bool value) {
     _prefs.setBool('over65', value);
     _over65Only = value;
     notifyListeners();
@@ -38,13 +38,13 @@ class PrefsStorage extends ChangeNotifier {
 
   String? get region => _region;
 
-  set region(String? value) {
+  set region(final String? value) {
     _prefs.setString('region', value ?? States.defaultState);
     _region = value;
     notifyListeners();
   }
 
-  bool isStarred(int qnum) {
+  bool isStarred(final int qnum) {
     return _starredMap.containsKey(qnum.toString());
   }
 
@@ -58,7 +58,7 @@ class PrefsStorage extends ChangeNotifier {
   // setMastered
   // getMastered
 
-  void toggle(int qnum) {
+  void toggle(final int qnum) {
     var state = !isStarred(qnum);
 
     if (state) {
@@ -77,7 +77,7 @@ class PrefsStorage extends ChangeNotifier {
     _region = _prefs.containsKey('region')
         ? _prefs.getString('region')
         : States.defaultState;
-    var starredList =
+    final starredList =
         _prefs.containsKey('starred') ? _prefs.getStringList('starred') : [];
     for (var i in starredList) {
       _starredMap[i] = true;

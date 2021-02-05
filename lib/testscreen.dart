@@ -12,7 +12,5 @@ class TestScreen extends StatelessWidget {
   static const routeName = '/test';
 
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  Widget build(final BuildContext context) => Container();
 }
