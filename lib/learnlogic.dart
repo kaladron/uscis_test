@@ -24,8 +24,9 @@ class LearnLogic extends ChangeNotifier {
 
   List<Question> _questions;
   List<Question> _workingSet = [];
-
-  int mastered = 0;
+  Set<Question> _rightOnce = {};
+  Set<Question> _rightTwice = {};
+  Set<Question> _mastered = {};
 
   LearnLogic(final BuildContext _context)
       : _questions =
@@ -41,7 +42,7 @@ class LearnLogic extends ChangeNotifier {
     _questionChecker = QuestionChecker(_workingSet[_cursor]);
   }
 
-  double get progress => mastered / _questions.length;
+  double get progress => _mastered.length / _questions.length;
 
   Question get question => _workingSet[_cursor];
 
@@ -67,13 +68,25 @@ class LearnLogic extends ChangeNotifier {
     print(status.toString());
 
     switch (status) {
-      case QuestionStatus.correctThrice:
-        mastered++;
-        _workingSet.removeAt(_cursor);
-        if (_questions.isNotEmpty) {
-          _workingSet.add(_questions.removeLast());
+      case QuestionStatus.correctOnce:
+        if (_rightTwice.contains(_workingSet[_cursor])) {
+          _rightTwice.remove(_workingSet[_cursor]);
+          _mastered.add(_workingSet[_cursor]);
+          _workingSet.removeAt(_cursor);
+          if (_questions.isNotEmpty) {
+            _workingSet.add(_questions.removeLast());
+          }
+          return QuestionStatus.correctThrice;
         }
-        return status;
+
+        if (_rightOnce.contains(_workingSet[_cursor])) {
+          _rightOnce.remove(_workingSet[_cursor]);
+          _rightTwice.add(_workingSet[_cursor]);
+          return QuestionStatus.correctTwice;
+        }
+
+        _rightOnce.add(_workingSet[_cursor]);
+        return QuestionStatus.correctOnce;
       case QuestionStatus.incorrect:
         cancelQuestion();
         return status;
