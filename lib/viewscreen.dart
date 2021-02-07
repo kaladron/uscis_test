@@ -23,8 +23,8 @@ class ViewScreen extends StatelessWidget {
           ...context
               .watch<QuestionStorage>()
               .starredQuestions
-              .map((e) => QuestionListItem(
-                  e.number - 1, ValueKey("starred ${e.number - 1}")))
+              .map((e) =>
+                  QuestionListItem(e.number, ValueKey("starred ${e.number}")))
               .toList(),
           Padding(
             padding: EdgeInsets.only(left: 8, top: 8),
@@ -34,8 +34,9 @@ class ViewScreen extends StatelessWidget {
           ...context
               .watch<QuestionStorage>()
               .questions
-              .map((e) => QuestionListItem(
-                  e.number - 1, ValueKey("questions ${e.number - 1}")))
+              .keys
+              .toList()
+              .map((e) => QuestionListItem(e, ValueKey("questions ${e}")))
               .toList(),
         ]),
       );
@@ -48,12 +49,11 @@ class QuestionListItem extends StatelessWidget {
 
   Widget _star(final BuildContext context) => GestureDetector(
         onTap: () {
-          context
-              .read<QuestionStorage>()
-              .toggle(context.read<QuestionStorage>().questions[_index].number);
+          context.read<QuestionStorage>().toggle(
+              context.read<QuestionStorage>().questions[_index]!.number);
         },
         child: context.watch<QuestionStorage>().isStarred(
-                context.watch<QuestionStorage>().questions[_index].number)
+                context.watch<QuestionStorage>().questions[_index]!.number)
             ? Icon(Icons.star)
             : Icon(Icons.star_outline),
       );
@@ -62,14 +62,17 @@ class QuestionListItem extends StatelessWidget {
   Widget build(final BuildContext context) => ExpansionTile(
         leading: _star(context),
         title:
-            Text(context.watch<QuestionStorage>().questions[_index].question),
+            Text(context.watch<QuestionStorage>().questions[_index]!.question),
         expandedAlignment: Alignment.centerLeft,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ...context.watch<QuestionStorage>().questions[_index].answers.map(
-                  (String value) => Padding(
+              ...context
+                  .watch<QuestionStorage>()
+                  .questions[_index]!
+                  .answers
+                  .map((String value) => Padding(
                       padding: EdgeInsets.only(left: 32, bottom: 12, right: 8),
                       child: Text("• ${value}")))
             ],

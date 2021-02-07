@@ -22,7 +22,8 @@ import 'package:uscis_test/questionchecker.dart';
 class LearnLogic extends ChangeNotifier {
   final _random = Random();
 
-  List<Question> _questions;
+  Map<int, Question> _questions;
+  List<int> _randomizedQuestions;
   List<Question> _workingSet = [];
   Set<Question> _rightOnce = {};
   Set<Question> _rightTwice = {};
@@ -30,13 +31,15 @@ class LearnLogic extends ChangeNotifier {
 
   LearnLogic(final BuildContext _context)
       : _questions =
-            List<Question>.from(_context.read<QuestionStorage>().questions) {
+            Map<int, Question>.from(_context.read<QuestionStorage>().questions),
+        _randomizedQuestions =
+            _context.read<QuestionStorage>().questions.keys.toList() {
     // Initialize local question array
     //   Get from prefs, init and persist if it doesn't exist
 
-    _questions.shuffle();
+    _randomizedQuestions.shuffle();
     for (var _ in Iterable<int>.generate(10)) {
-      _workingSet.add(_questions.removeLast());
+      _workingSet.add(_questions[_randomizedQuestions.removeLast()]!);
     }
 
     _questionChecker = QuestionChecker(_workingSet[_cursor]);
@@ -74,7 +77,7 @@ class LearnLogic extends ChangeNotifier {
           _mastered.add(_workingSet[_cursor]);
           _workingSet.removeAt(_cursor);
           if (_questions.isNotEmpty) {
-            _workingSet.add(_questions.removeLast());
+            _workingSet.add(_questions[_randomizedQuestions.removeLast()]!);
           }
           return QuestionStatus.correctThrice;
         }

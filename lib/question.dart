@@ -24,16 +24,16 @@ class QuestionStorage extends ChangeNotifier {
   Map<int, Question> _questions = {};
   Map<String, UsAnswer> _usAnswers = {};
 
-  List<Question> get questions {
+  Map<int, Question> get questions {
     if (!_prefs.over65Only) {
-      return _questions.values.toList();
+      return _questions;
     }
-    List<Question> over65Questions = [];
-    for (var question in _questions.values.toList()) {
+    Map<int, Question> over65Questions = {};
+    _questions.forEach((number, question) {
       if (question.over65) {
-        over65Questions.add(question);
+        over65Questions[number] = question;
       }
-    }
+    });
     return over65Questions;
   }
 
