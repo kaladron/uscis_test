@@ -21,15 +21,15 @@ import 'package:uscis_test/prefs.dart';
 class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
 
-  List<Question> _questions = [];
+  Map<int, Question> _questions = {};
   Map<String, UsAnswer> _usAnswers = {};
 
   List<Question> get questions {
     if (!_prefs.over65Only) {
-      return _questions;
+      return _questions.values.toList();
     }
     List<Question> over65Questions = [];
-    for (var question in _questions) {
+    for (var question in _questions.values.toList()) {
       if (question.over65) {
         over65Questions.add(question);
       }
@@ -40,7 +40,7 @@ class QuestionStorage extends ChangeNotifier {
   List<Question> get starredQuestions {
     List<Question> starredQuestions = [];
     for (var question in _prefs.starredList) {
-      starredQuestions.add(_questions[int.parse(question) - 1]);
+      starredQuestions.add(_questions[int.parse(question)]!);
     }
     return starredQuestions;
   }
@@ -77,9 +77,10 @@ class QuestionStorage extends ChangeNotifier {
   Future<void> initQuestions() async {
     var contents = await rootBundle.loadString('2008.json');
     var data = jsonDecode(contents);
-    _questions = [];
+    _questions.clear();
     for (Map<String, dynamic> i in data) {
-      _questions.add(Question.fromJson(i, _usAnswers));
+      var q = Question.fromJson(i, _usAnswers);
+      _questions[q.number] = q;
     }
   }
 }
