@@ -22,12 +22,12 @@ import 'package:uscis_test/questionchecker.dart';
 class LearnLogic extends ChangeNotifier {
   final _random = Random();
 
-  Map<int, Question> _questions;
+  final Map<int, Question> _questions;
   List<int> _randomizedQuestions;
-  List<Question> _workingSet = [];
-  Set<Question> _rightOnce = {};
-  Set<Question> _rightTwice = {};
-  Set<Question> _mastered = {};
+  List<int> _workingSet = [];
+  Set<int> _rightOnce = {};
+  Set<int> _rightTwice = {};
+  Set<int> _mastered = {};
 
   LearnLogic(final BuildContext _context)
       : _questions =
@@ -39,15 +39,15 @@ class LearnLogic extends ChangeNotifier {
 
     _randomizedQuestions.shuffle();
     for (var _ in Iterable<int>.generate(10)) {
-      _workingSet.add(_questions[_randomizedQuestions.removeLast()]!);
+      _workingSet.add(_randomizedQuestions.removeLast());
     }
 
-    _questionChecker = QuestionChecker(_workingSet[_cursor]);
+    _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
   }
 
   double get progress => _mastered.length / _questions.length;
 
-  Question get question => _workingSet[_cursor];
+  Question get question => _questions[_workingSet[_cursor]]!;
 
   late QuestionChecker _questionChecker;
 
@@ -55,7 +55,7 @@ class LearnLogic extends ChangeNotifier {
 
   void nextQuestion() {
     _cursor = _random.nextInt(_workingSet.length);
-    _questionChecker = QuestionChecker(_workingSet[_cursor]);
+    _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
     notifyListeners();
   }
 
@@ -77,7 +77,7 @@ class LearnLogic extends ChangeNotifier {
           _mastered.add(_workingSet[_cursor]);
           _workingSet.removeAt(_cursor);
           if (_questions.isNotEmpty) {
-            _workingSet.add(_questions[_randomizedQuestions.removeLast()]!);
+            _workingSet.add(_randomizedQuestions.removeLast());
           }
           return QuestionStatus.correctThrice;
         }
