@@ -48,6 +48,26 @@ class PrefsStorage extends ChangeNotifier {
     return _starredMap.containsKey(qnum.toString());
   }
 
+  List<int>? get randomizedQuestions {
+    return null;
+  }
+
+  List<int>? get workingSet {
+    return null;
+  }
+
+  Set<int> get rightOnce {
+    return {};
+  }
+
+  Set<int> get rightTwice {
+    return {};
+  }
+
+  Set<int> get mastered {
+    return {};
+  }
+
   // clearAllLearning
   // setLearningWorkingSet
   // getLearningWorkingSet

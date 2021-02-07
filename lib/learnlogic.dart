@@ -16,6 +16,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/question.dart';
 import 'package:uscis_test/questionchecker.dart';
 
@@ -23,24 +24,38 @@ class LearnLogic extends ChangeNotifier {
   final _random = Random();
 
   final Map<int, Question> _questions;
-  List<int> _randomizedQuestions;
+  late List<int> _randomizedQuestions;
   List<int> _workingSet = [];
   Set<int> _rightOnce = {};
   Set<int> _rightTwice = {};
   Set<int> _mastered = {};
 
   LearnLogic(final BuildContext _context)
-      : _questions =
-            Map<int, Question>.from(_context.read<QuestionStorage>().questions),
-        _randomizedQuestions =
-            _context.read<QuestionStorage>().questions.keys.toList() {
+      : _questions = Map<int, Question>.from(
+            _context.read<QuestionStorage>().questions) {
     // Initialize local question array
     //   Get from prefs, init and persist if it doesn't exist
 
-    _randomizedQuestions.shuffle();
-    for (var _ in Iterable<int>.generate(10)) {
-      _workingSet.add(_randomizedQuestions.removeLast());
-    }
+    // Doing this inline confuses the compiler, it thinks the return type is Object
+    var generateRandomizedQuestions = () {
+      List<int> tmp = _context.read<QuestionStorage>().questions.keys.toList();
+      tmp.shuffle();
+      return tmp;
+    };
+
+    _randomizedQuestions = _context.read<PrefsStorage>().randomizedQuestions ??
+        generateRandomizedQuestions();
+
+    var generateWorkingSet = () {
+      List<int> tmp = [];
+      for (var _ in Iterable<int>.generate(10)) {
+        tmp.add(_randomizedQuestions.removeLast());
+      }
+      return tmp;
+    };
+
+    _workingSet =
+        _context.read<PrefsStorage>().workingSet ?? generateWorkingSet();
 
     _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
   }
