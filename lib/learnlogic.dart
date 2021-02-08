@@ -25,10 +25,10 @@ class LearnLogic extends ChangeNotifier {
 
   final Map<int, Question> _questions;
   late List<int> _randomizedQuestions;
-  List<int> _workingSet = [];
-  Set<int> _rightOnce = {};
-  Set<int> _rightTwice = {};
-  Set<int> _mastered = {};
+  late List<int> _workingSet;
+  late Set<int> _rightOnce;
+  late Set<int> _rightTwice;
+  late Set<int> _mastered;
 
   LearnLogic(final BuildContext _context)
       : _questions = Map<int, Question>.from(
@@ -56,6 +56,10 @@ class LearnLogic extends ChangeNotifier {
 
     _workingSet =
         _context.read<PrefsStorage>().workingSet ?? generateWorkingSet();
+
+    _rightOnce = _context.read<PrefsStorage>().rightOnce;
+    _rightTwice = _context.read<PrefsStorage>().rightTwice;
+    _mastered = _context.read<PrefsStorage>().mastered;
 
     _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
   }
