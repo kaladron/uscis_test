@@ -26,6 +26,8 @@ class PrefsStorage extends ChangeNotifier {
   String? _region;
   var _starredMap = SplayTreeMap<String, bool>();
 
+  late List<int>? _workingSet;
+
   bool get over65Only => _over65Only;
 
   List<String> get starredList => _starredMap.keys.toList();
@@ -53,7 +55,13 @@ class PrefsStorage extends ChangeNotifier {
   }
 
   List<int>? get workingSet {
-    return null;
+    return _workingSet;
+  }
+
+  set workingSet(final List<int>? newSet) {
+    _workingSet = newSet;
+    _prefs.setStringList(
+        'workingset', newSet?.map((el) => el.toString()).toList());
   }
 
   Set<int> get rightOnce {
@@ -102,5 +110,9 @@ class PrefsStorage extends ChangeNotifier {
     for (var i in starredList) {
       _starredMap[i] = true;
     }
+
+    _workingSet = _prefs.containsKey('workingset')
+        ? _prefs.getStringList('workingset').map(int.parse).toList()
+        : null;
   }
 }
