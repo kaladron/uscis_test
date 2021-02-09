@@ -98,6 +98,7 @@ class LearnLogic extends ChangeNotifier {
           if (_questions.isNotEmpty) {
             _workingSet.add(_randomizedQuestions.removeLast());
           }
+
           return QuestionStatus.correctThrice;
         }
 
