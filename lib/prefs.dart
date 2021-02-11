@@ -111,8 +111,14 @@ class PrefsStorage extends ChangeNotifier {
       _starredMap[i] = true;
     }
 
+    // TODO(jeffbailey): Load randomized questions
+
     _workingSet = _prefs.containsKey('workingset')
         ? _prefs.getStringList('workingset').map(int.parse).toList()
         : null;
+
+    // TODO(jeffbailey): Load rightOnce
+    // TODO(jeffbailey): Load rightTwice
+    // TODO(jeffbailey): Load mastered
   }
 }
