@@ -142,34 +142,37 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
   Widget incorrectAnswer() => Padding(
         padding: EdgeInsets.all(12),
-        child: Row(children: [
-          Flexible(
-            fit: FlexFit.tight,
-            child: Row(children: [
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 2,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (_resultText != '') Text('You said: ${_resultText}'),
-                      for (var i
-                          in context.watch<LearnLogic>().question.answers)
-                        Text("• " + i),
-                    ]),
-              ),
-              Flexible(
-                flex: 1,
-                child: Padding(
-                  padding: EdgeInsets.all(4),
-                  child: ElevatedButton(
-                      onPressed: _speakAnswers,
-                      child: Icon(Icons.play_circle_filled_rounded, size: 32)),
+        child: SingleChildScrollView(
+          child: Row(children: [
+            Flexible(
+              fit: FlexFit.tight,
+              child: Row(children: [
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (_resultText != '') Text('You said: ${_resultText}'),
+                        for (var i
+                            in context.watch<LearnLogic>().question.answers)
+                          Text("• " + i),
+                      ]),
                 ),
-              ),
-            ]),
-          ),
-        ]),
+                Flexible(
+                  flex: 1,
+                  child: Padding(
+                    padding: EdgeInsets.all(4),
+                    child: ElevatedButton(
+                        onPressed: _speakAnswers,
+                        child:
+                            Icon(Icons.play_circle_filled_rounded, size: 32)),
+                  ),
+                ),
+              ]),
+            ),
+          ]),
+        ),
       );
 
   Widget rightWrong() => AnimatedOpacity(
@@ -323,11 +326,15 @@ class QuestionInfoDialog extends StatelessWidget {
           child: ListBody(children: [
             Text('Currently Testing',
                 style: Theme.of(context).textTheme.headline6),
+            //Text(context.watch<LearnLogic>().workingSet.toString()),
             Text('Got right once',
                 style: Theme.of(context).textTheme.headline6),
+            //Text(context.watch<LearnLogic>().rightOnce.toString()),
             Text('Got right twice',
                 style: Theme.of(context).textTheme.headline6),
-            Text('Mastered', style: Theme.of(context).textTheme.headline6)
+            //Text(context.watch<LearnLogic>().rightTwice.toString()),
+            Text('Mastered', style: Theme.of(context).textTheme.headline6),
+            //Text(context.watch<LearnLogic>().mastered.toString()),
           ]),
         ),
         actions: [
