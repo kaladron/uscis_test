@@ -51,6 +51,8 @@ class LearnLogic extends ChangeNotifier {
     _randomizedQuestions = _context.read<PrefsStorage>().randomizedQuestions ??
         generateRandomizedQuestions();
 
+    print("Questions: ${_randomizedQuestions.toString()}");
+
     var generateWorkingSet = () {
       List<int> tmp = [];
       for (var _ in Iterable<int>.generate(10)) {
@@ -62,9 +64,16 @@ class LearnLogic extends ChangeNotifier {
     _workingSet =
         _context.read<PrefsStorage>().workingSet ?? generateWorkingSet();
 
+    print("Working Set: ${_workingSet.toString()}");
+
     _rightOnce = _context.read<PrefsStorage>().rightOnce;
+    print("Right Once: ${_rightOnce.toString()}");
+
     _rightTwice = _context.read<PrefsStorage>().rightTwice;
+    print("Right Twice: ${_rightTwice.toString()}");
+
     _mastered = _context.read<PrefsStorage>().mastered;
+    print("Mastered: ${_mastered.toString()}");
 
     _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
   }
