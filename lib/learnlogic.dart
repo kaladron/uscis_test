@@ -30,6 +30,11 @@ class LearnLogic extends ChangeNotifier {
   late Set<int> _rightTwice;
   late Set<int> _mastered;
 
+  List<int> get workingSet => _workingSet;
+  get rightOnce => _rightOnce;
+  get rightTwice => _rightTwice;
+  get mastered => _mastered;
+
   LearnLogic(final BuildContext _context)
       : _questions = Map<int, Question>.from(
             _context.read<QuestionStorage>().questions) {
