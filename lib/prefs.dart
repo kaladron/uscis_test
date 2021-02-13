@@ -27,6 +27,10 @@ class PrefsStorage extends ChangeNotifier {
   var _starredMap = SplayTreeMap<String, bool>();
 
   late List<int>? _workingSet;
+  late List<int>? _randomizedQuestions;
+  late Set<int> _rightOnce;
+  late Set<int> _rightTwice;
+  late Set<int> _mastered;
 
   bool get over65Only => _over65Only;
 
@@ -50,41 +54,27 @@ class PrefsStorage extends ChangeNotifier {
     return _starredMap.containsKey(qnum.toString());
   }
 
-  List<int>? get randomizedQuestions {
-    return null;
-  }
+  List<int>? get workingSet => _workingSet;
+  set workingSet(final List<int>? input) => _itToPrefs(input, 'workingset');
 
-  List<int>? get workingSet {
-    return _workingSet;
-  }
+  List<int>? get randomizedQuestions => _randomizedQuestions;
+  set randomizedQuestions(final List<int>? input) =>
+      _itToPrefs(input, 'randomizedQuestions');
 
-  set workingSet(final List<int>? newSet) {
-    _workingSet = newSet;
-    _prefs.setStringList(
-        'workingset', newSet?.map((el) => el.toString()).toList());
-  }
+  Set<int> get rightOnce => _rightOnce;
+  set rightOnce(final Set<int> input) => _itToPrefs(input, 'rightonce');
 
-  Set<int> get rightOnce {
-    return {};
-  }
+  Set<int> get rightTwice => _rightTwice;
+  set rightTwice(final Set<int> input) => _itToPrefs(input, 'rightwice');
 
-  Set<int> get rightTwice {
-    return {};
-  }
+  Set<int> get mastered => _mastered;
+  set mastered(final Set<int> input) => _itToPrefs(input, 'mastered');
 
-  Set<int> get mastered {
-    return {};
+  void _itToPrefs(final Iterable<int>? input, final String key) {
+    _prefs.setStringList(key, input?.map((el) => el.toString()).toList());
   }
 
   // clearAllLearning
-  // setLearningWorkingSet
-  // getLearningWorkingSet
-  // setGotRightOnce
-  // getGotRightOnce
-  // setGotRightTwice
-  // getGotRightTwice
-  // setMastered
-  // getMastered
 
   void toggle(final int qnum) {
     var state = !isStarred(qnum);
@@ -102,23 +92,35 @@ class PrefsStorage extends ChangeNotifier {
     _prefs = await SharedPreferences.getInstance();
     _over65Only =
         _prefs.containsKey('over65') ? _prefs.getBool('over65') : false;
+
     _region = _prefs.containsKey('region')
         ? _prefs.getString('region')
         : States.defaultState;
+
     final starredList =
         _prefs.containsKey('starred') ? _prefs.getStringList('starred') : [];
     for (var i in starredList) {
       _starredMap[i] = true;
     }
 
-    // TODO(jeffbailey): Load randomized questions
-
     _workingSet = _prefs.containsKey('workingset')
         ? _prefs.getStringList('workingset').map(int.parse).toList()
         : null;
 
-    // TODO(jeffbailey): Load rightOnce
-    // TODO(jeffbailey): Load rightTwice
-    // TODO(jeffbailey): Load mastered
+    _randomizedQuestions = _prefs.containsKey('randomizedquestions')
+        ? _prefs.getStringList('randomizedquestions').map(int.parse).toList()
+        : null;
+
+    _rightOnce = _prefs.containsKey('rightonce')
+        ? _prefs.getStringList('rightonce').map(int.parse).toSet()
+        : {};
+
+    _rightTwice = _prefs.containsKey('righttwice')
+        ? _prefs.getStringList('righttwice').map(int.parse).toSet()
+        : {};
+
+    _mastered = _prefs.containsKey('mastered')
+        ? _prefs.getStringList('mastered').map(int.parse).toSet()
+        : {};
   }
 }
