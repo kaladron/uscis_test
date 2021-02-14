@@ -21,6 +21,7 @@ import 'package:uscis_test/question.dart';
 import 'package:uscis_test/questionchecker.dart';
 
 class LearnLogic extends ChangeNotifier {
+  final PrefsStorage _prefs;
   final _random = Random();
 
   final Map<int, Question> _questions;
@@ -36,8 +37,9 @@ class LearnLogic extends ChangeNotifier {
   get mastered => _mastered;
 
   LearnLogic(final BuildContext _context)
-      : _questions = Map<int, Question>.from(
-            _context.read<QuestionStorage>().questions) {
+      : _questions =
+            Map<int, Question>.from(_context.read<QuestionStorage>().questions),
+        _prefs = _context.read<PrefsStorage>() {
     // Initialize local question array
     //   Get from prefs, init and persist if it doesn't exist
 
@@ -45,12 +47,12 @@ class LearnLogic extends ChangeNotifier {
     var generateRandomizedQuestions = () {
       List<int> tmp = _context.read<QuestionStorage>().questions.keys.toList();
       tmp.shuffle();
-      _context.read<PrefsStorage>().randomizedQuestions = tmp;
+      _prefs.randomizedQuestions = tmp;
       return tmp;
     };
 
-    _randomizedQuestions = _context.read<PrefsStorage>().randomizedQuestions ??
-        generateRandomizedQuestions();
+    _randomizedQuestions =
+        _prefs.randomizedQuestions ?? generateRandomizedQuestions();
 
     print("Questions: ${_randomizedQuestions.toString()}");
 
@@ -59,22 +61,21 @@ class LearnLogic extends ChangeNotifier {
       for (var _ in Iterable<int>.generate(10)) {
         tmp.add(_randomizedQuestions.removeLast());
       }
-      _context.read<PrefsStorage>().workingSet = tmp;
+      _prefs.workingSet = tmp;
       return tmp;
     };
 
-    _workingSet =
-        _context.read<PrefsStorage>().workingSet ?? generateWorkingSet();
+    _workingSet = _prefs.workingSet ?? generateWorkingSet();
 
     print("Working Set: ${_workingSet.toString()}");
 
-    _rightOnce = _context.read<PrefsStorage>().rightOnce;
+    _rightOnce = _prefs.rightOnce;
     print("Right Once: ${_rightOnce.toString()}");
 
-    _rightTwice = _context.read<PrefsStorage>().rightTwice;
+    _rightTwice = _prefs.rightTwice;
     print("Right Twice: ${_rightTwice.toString()}");
 
-    _mastered = _context.read<PrefsStorage>().mastered;
+    _mastered = _prefs.mastered;
     print("Mastered: ${_mastered.toString()}");
 
     _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
@@ -98,6 +99,14 @@ class LearnLogic extends ChangeNotifier {
   // such as if "show answer" is displayed, or a duplicate answer, etc.
   void cancelQuestion() {
     _questionChecker.cancelled = true;
+    if (_rightOnce.contains(_workingSet[_cursor])) {
+      _rightOnce.remove(_workingSet[_cursor]);
+      _prefs.rightOnce = _rightOnce;
+    }
+    if (_rightTwice.contains(_workingSet[_cursor])) {
+      _rightTwice.remove(_workingSet[_cursor]);
+      _prefs.rightTwice = _rightTwice;
+    }
   }
 
   // TODO(jeffbailey): Handle more than one answer needed.
@@ -114,6 +123,9 @@ class LearnLogic extends ChangeNotifier {
           if (_questions.isNotEmpty) {
             _workingSet.add(_randomizedQuestions.removeLast());
           }
+          _prefs.rightTwice = _rightTwice;
+          _prefs.mastered = _mastered;
+          _prefs.workingSet = _workingSet;
 
           return QuestionStatus.correctThrice;
         }
@@ -121,10 +133,13 @@ class LearnLogic extends ChangeNotifier {
         if (_rightOnce.contains(_workingSet[_cursor])) {
           _rightOnce.remove(_workingSet[_cursor]);
           _rightTwice.add(_workingSet[_cursor]);
+          _prefs.rightOnce = _rightOnce;
+          _prefs.rightTwice = _rightTwice;
           return QuestionStatus.correctTwice;
         }
 
         _rightOnce.add(_workingSet[_cursor]);
+        _prefs.rightOnce = _rightOnce;
         return QuestionStatus.correctOnce;
       case QuestionStatus.incorrect:
         cancelQuestion();
