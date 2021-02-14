@@ -32,9 +32,9 @@ class LearnLogic extends ChangeNotifier {
   Set<int> _mastered;
 
   List<int> get workingSet => _workingSet;
-  get rightOnce => _rightOnce;
-  get rightTwice => _rightTwice;
-  get mastered => _mastered;
+  Set<int> get rightOnce => _rightOnce;
+  Set<int> get rightTwice => _rightTwice;
+  Set<int> get mastered => _mastered;
 
   LearnLogic._(
       final BuildContext _context,
@@ -55,7 +55,7 @@ class LearnLogic extends ChangeNotifier {
 
     // Doing this inline confuses the compiler, it thinks the return type is Object
     var generateRandomizedQuestions = () {
-      List<int> tmp = context.read<QuestionStorage>().questions.keys.toList();
+      var tmp = context.read<QuestionStorage>().questions.keys.toList();
       tmp.shuffle();
       prefs.randomizedQuestions = tmp;
       return tmp;
@@ -64,10 +64,10 @@ class LearnLogic extends ChangeNotifier {
     var randomizedQuestions =
         prefs.randomizedQuestions ?? generateRandomizedQuestions();
 
-    print("Questions: ${randomizedQuestions.toString()}");
+    print('Questions: ${randomizedQuestions.toString()}');
 
     var generateWorkingSet = () {
-      List<int> tmp = [];
+      var tmp = <int>[];
       for (var _ in Iterable<int>.generate(10)) {
         tmp.add(randomizedQuestions.removeLast());
       }
@@ -77,16 +77,16 @@ class LearnLogic extends ChangeNotifier {
 
     var workingSet = prefs.workingSet ?? generateWorkingSet();
 
-    print("Working Set: ${workingSet.toString()}");
+    print('Working Set: ${workingSet.toString()}');
 
     var rightOnce = prefs.rightOnce;
-    print("Right Once: ${rightOnce.toString()}");
+    print('Right Once: ${rightOnce.toString()}');
 
     var rightTwice = prefs.rightTwice;
-    print("Right Twice: ${rightTwice.toString()}");
+    print('Right Twice: ${rightTwice.toString()}');
 
     var mastered = prefs.mastered;
-    print("Mastered: ${mastered.toString()}");
+    print('Mastered: ${mastered.toString()}');
 
     var questions =
         Map<int, Question>.from(context.read<QuestionStorage>().questions);

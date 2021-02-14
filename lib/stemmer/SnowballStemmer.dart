@@ -18,121 +18,121 @@
 /// http://snowball.tartarus.org/algorithms/english/stemmer.html
 
 class SnowballStemmer {
-  final _vowels = "aeiouy";
+  final _vowels = 'aeiouy';
   final _doubleConsonants = [
-    "bb",
-    "dd",
-    "ff",
-    "gg",
-    "mm",
-    "nn",
-    "pp",
-    "rr",
-    "tt"
+    'bb',
+    'dd',
+    'ff',
+    'gg',
+    'mm',
+    'nn',
+    'pp',
+    'rr',
+    'tt'
   ];
-  final _liEnding = "cdeghkmnrt";
+  final _liEnding = 'cdeghkmnrt';
   final _step0Suffixes = ["'s'", "'s", "'"];
-  final _step1aSuffixes = ["sses", "ied", "ies", "us", "ss", "s"];
-  final _step1bSuffixes = ["eedly", "ingly", "edly", "eed", "ing", "ed"];
+  final _step1aSuffixes = ['sses', 'ied', 'ies', 'us', 'ss', 's'];
+  final _step1bSuffixes = ['eedly', 'ingly', 'edly', 'eed', 'ing', 'ed'];
   final _step2Suffixes = [
-    "ization",
-    "ational",
-    "fulness",
-    "ousness",
-    "iveness",
-    "tional",
-    "biliti",
-    "lessli",
-    "entli",
-    "ation",
-    "alism",
-    "aliti",
-    "ousli",
-    "iviti",
-    "fulli",
-    "enci",
-    "anci",
-    "abli",
-    "izer",
-    "ator",
-    "alli",
-    "bli",
-    "ogi",
-    "li",
+    'ization',
+    'ational',
+    'fulness',
+    'ousness',
+    'iveness',
+    'tional',
+    'biliti',
+    'lessli',
+    'entli',
+    'ation',
+    'alism',
+    'aliti',
+    'ousli',
+    'iviti',
+    'fulli',
+    'enci',
+    'anci',
+    'abli',
+    'izer',
+    'ator',
+    'alli',
+    'bli',
+    'ogi',
+    'li',
   ];
   final _step3Suffixes = [
-    "ational",
-    "tional",
-    "alize",
-    "icate",
-    "iciti",
-    "ative",
-    "ical",
-    "ness",
-    "ful",
+    'ational',
+    'tional',
+    'alize',
+    'icate',
+    'iciti',
+    'ative',
+    'ical',
+    'ness',
+    'ful',
   ];
   final _step4Suffixes = [
-    "ement",
-    "ance",
-    "ence",
-    "able",
-    "ible",
-    "ment",
-    "ant",
-    "ent",
-    "ism",
-    "ate",
-    "iti",
-    "ous",
-    "ive",
-    "ize",
-    "ion",
-    "al",
-    "er",
-    "ic",
+    'ement',
+    'ance',
+    'ence',
+    'able',
+    'ible',
+    'ment',
+    'ant',
+    'ent',
+    'ism',
+    'ate',
+    'iti',
+    'ous',
+    'ive',
+    'ize',
+    'ion',
+    'al',
+    'er',
+    'ic',
   ];
 
   final Map<String, String> _specialWords = {
-    "skis": "ski",
-    "skies": "sky",
-    "dying": "die",
-    "lying": "lie",
-    "tying": "tie",
-    "idly": "idl",
-    "gently": "gentl",
-    "ugly": "ugli",
-    "early": "earli",
-    "only": "onli",
-    "singly": "singl",
-    "sky": "sky",
-    "news": "news",
-    "howe": "howe",
-    "atlas": "atlas",
-    "cosmos": "cosmos",
-    "bias": "bias",
-    "andes": "andes",
-    "inning": "inning",
-    "innings": "inning",
-    "outing": "outing",
-    "outings": "outing",
-    "canning": "canning",
-    "cannings": "canning",
-    "herring": "herring",
-    "herrings": "herring",
-    "earring": "earring",
-    "earrings": "earring",
-    "proceed": "proceed",
-    "proceeds": "proceed",
-    "proceeded": "proceed",
-    "proceeding": "proceed",
-    "exceed": "exceed",
-    "exceeds": "exceed",
-    "exceeded": "exceed",
-    "exceeding": "exceed",
-    "succeed": "succeed",
-    "succeeds": "succeed",
-    "succeeded": "succeed",
-    "succeeding": "succeed",
+    'skis': 'ski',
+    'skies': 'sky',
+    'dying': 'die',
+    'lying': 'lie',
+    'tying': 'tie',
+    'idly': 'idl',
+    'gently': 'gentl',
+    'ugly': 'ugli',
+    'early': 'earli',
+    'only': 'onli',
+    'singly': 'singl',
+    'sky': 'sky',
+    'news': 'news',
+    'howe': 'howe',
+    'atlas': 'atlas',
+    'cosmos': 'cosmos',
+    'bias': 'bias',
+    'andes': 'andes',
+    'inning': 'inning',
+    'innings': 'inning',
+    'outing': 'outing',
+    'outings': 'outing',
+    'canning': 'canning',
+    'cannings': 'canning',
+    'herring': 'herring',
+    'herrings': 'herring',
+    'earring': 'earring',
+    'earrings': 'earring',
+    'proceed': 'proceed',
+    'proceeds': 'proceed',
+    'proceeded': 'proceed',
+    'proceeding': 'proceed',
+    'exceed': 'exceed',
+    'exceeds': 'exceed',
+    'exceeded': 'exceed',
+    'exceeding': 'exceed',
+    'succeed': 'succeed',
+    'succeeds': 'succeed',
+    'succeeded': 'succeed',
+    'succeeding': 'succeed',
   };
 
   String _r1 = '';
@@ -161,7 +161,7 @@ class SnowballStemmer {
     // Starts on second letter.
     for (var i = 1; i < _word.length; i++) {
       if (_vowels.contains(_word[i - 1]) && _word[i] == 'y') {
-        _word = _word.substring(0, i) + "Y" + _word.substring(i + 1);
+        _word = _word.substring(0, i) + 'Y' + _word.substring(i + 1);
       }
     }
 
@@ -212,8 +212,8 @@ class SnowballStemmer {
   // A detailed description of how to define R1 and R2
   // can be found at http://snowball.tartarus.org/texts/r1r2.html
   void _r1r2Standard() {
-    _r1 = "";
-    _r2 = "";
+    _r1 = '';
+    _r2 = '';
 
     // Starts on second letter.
     for (var i = 1; i < _word.length; i++) {
@@ -246,13 +246,13 @@ class SnowballStemmer {
     for (var suffix in _step1aSuffixes) {
       if (_word.endsWith(suffix)) {
         switch (suffix) {
-          case "sses":
+          case 'sses':
             _word = _stripEnd(_word, 2);
             _r1 = _stripEnd(_r1, 2);
             _r2 = _stripEnd(_r2, 2);
             break;
-          case "ied":
-          case "ies":
+          case 'ied':
+          case 'ies':
             if (_word.substring(0, _word.length - suffix.length).length > 1) {
               _word = _stripEnd(_word, 2);
               _r1 = _stripEnd(_r1, 2);
@@ -263,7 +263,7 @@ class SnowballStemmer {
               _r2 = _stripEnd(_r2, 1);
             }
             break;
-          case "s":
+          case 's':
             var step1a_vowel_found = false;
             for (var i = 0; i < _word.length - 2; i++) {
               if (_vowels.contains(_word[i])) {
@@ -288,7 +288,7 @@ class SnowballStemmer {
         // Interestingly, "eedly" isn't in the test data.
         // According to the Internets, there are only 9 words
         // in English that end in "eedly"
-        if (suffix == "eed" || suffix == "eedly") {
+        if (suffix == 'eed' || suffix == 'eedly') {
           if (_r1.endsWith(suffix)) {
             _word = _suffixReplace(_word, suffix, 'ee');
             _r1 = _safeSuffixReplace(_r1, suffix, 'ee');
@@ -309,14 +309,14 @@ class SnowballStemmer {
             _r1 = _stripEnd(_r1, suffix.length);
             _r2 = _stripEnd(_r2, suffix.length);
 
-            if (_word.endsWith("at") ||
-                _word.endsWith("bl") ||
-                _word.endsWith("iz")) {
-              _word = _word + "e";
-              _r1 = _r1 + "e";
+            if (_word.endsWith('at') ||
+                _word.endsWith('bl') ||
+                _word.endsWith('iz')) {
+              _word = _word + 'e';
+              _r1 = _r1 + 'e';
 
               if (_word.length > 5 || _r1.length >= 3) {
-                _r2 = _r2 + "e";
+                _r2 = _r2 + 'e';
               }
               return;
             }
@@ -332,7 +332,7 @@ class SnowballStemmer {
             if ((_r1 == '' &&
                     _word.length >= 3 &&
                     !_vowels.contains(_word[_word.length - 1]) &&
-                    !"wxY".contains(_word[_word.length - 1]) &&
+                    !'wxY'.contains(_word[_word.length - 1]) &&
                     _vowels.contains(_word[_word.length - 2]) &&
                     !_vowels.contains(_word[_word.length - 3])) ||
                 (_r1 == '' &&
@@ -352,7 +352,7 @@ class SnowballStemmer {
 
   void _step1c() {
     if (_word.length > 2 &&
-        "yY".contains(_word[_word.length - 1]) &&
+        'yY'.contains(_word[_word.length - 1]) &&
         !_vowels.contains(_word[_word.length - 2])) {
       _word = _suffixReplaceLen(_word, 1, 'i');
       _r1 = _safeSuffixReplaceLen(_r1, 1, 'i');
@@ -438,7 +438,7 @@ class SnowballStemmer {
               _r2 = _safeSuffixReplace(_r2, suffix, 'ble');
               break;
             case 'ogi':
-              if (_word[_word.length - 4] == "l") {
+              if (_word[_word.length - 4] == 'l') {
                 _word = _stripEnd(_word, 1);
                 _r1 = _stripEnd(_r1, 1);
                 _r2 = _stripEnd(_r2, 1);
@@ -469,35 +469,35 @@ class SnowballStemmer {
       if (_word.endsWith(suffix)) {
         if (_r1.endsWith(suffix)) {
           switch (suffix) {
-            case "tional":
+            case 'tional':
               _word = _stripEnd(_word, 2);
               _r1 = _stripEnd(_r1, 2);
               _r2 = _stripEnd(_r2, 2);
               break;
-            case "ational":
+            case 'ational':
               _word = _suffixReplace(_word, suffix, 'ate');
               _r1 = _safeSuffixReplace(_r1, suffix, 'ate');
               _r2 = _safeSuffixReplace(_r2, suffix, 'ate');
               break;
-            case "alize":
+            case 'alize':
               _word = _stripEnd(_word, 3);
               _r1 = _stripEnd(_r1, 3);
               _r2 = _stripEnd(_r2, 3);
               break;
-            case "icate":
-            case "iciti":
-            case "ical":
+            case 'icate':
+            case 'iciti':
+            case 'ical':
               _word = _suffixReplace(_word, suffix, 'ic');
               _r1 = _safeSuffixReplace(_r1, suffix, 'ic');
               _r2 = _safeSuffixReplace(_r2, suffix, 'ic');
               break;
-            case "ful":
-            case "ness":
+            case 'ful':
+            case 'ness':
               _word = _stripEnd(_word, suffix.length);
               _r1 = _stripEnd(_r1, suffix.length);
               _r2 = _stripEnd(_r2, suffix.length);
               break;
-            case "ative":
+            case 'ative':
               if (_r2.endsWith(suffix)) {
                 _word = _stripEnd(_word, suffix.length);
                 _r1 = _stripEnd(_r1, suffix.length);
@@ -513,8 +513,8 @@ class SnowballStemmer {
     for (var suffix in _step4Suffixes) {
       if (_word.endsWith(suffix)) {
         if (_r2.endsWith(suffix)) {
-          if (suffix == "ion") {
-            if ("st".contains(_word[_word.length - 4])) {
+          if (suffix == 'ion') {
+            if ('st'.contains(_word[_word.length - 4])) {
               _word = _stripEnd(_word, 3);
               _r1 = _stripEnd(_r1, 3);
               _r2 = _stripEnd(_r2, 3);
@@ -531,18 +531,18 @@ class SnowballStemmer {
   }
 
   void _step5() {
-    if (_r2.endsWith("l") && _word[_word.length - 2] == "l") {
+    if (_r2.endsWith('l') && _word[_word.length - 2] == 'l') {
       _word = _stripEnd(_word, 1);
       return;
     }
-    if (_r2.endsWith("e")) {
+    if (_r2.endsWith('e')) {
       _word = _stripEnd(_word, 1);
       return;
     }
-    if (_r1.endsWith("e")) {
+    if (_r1.endsWith('e')) {
       if (_word.length >= 4 &&
           (_vowels.contains(_word[_word.length - 2]) ||
-              "wxY".contains(_word[_word.length - 2]) ||
+              'wxY'.contains(_word[_word.length - 2]) ||
               !_vowels.contains(_word[_word.length - 3]) ||
               _vowels.contains(_word[_word.length - 4]))) {
         _word = _stripEnd(_word, 1);
@@ -560,7 +560,7 @@ class SnowballStemmer {
           String word, int oldSuffixLength, String newSuffix) =>
       word.length >= oldSuffixLength
           ? _suffixReplaceLen(word, oldSuffixLength, newSuffix)
-          : "";
+          : '';
 
   String _suffixReplace(String word, String oldSuffix, String newSuffix) =>
       _suffixReplaceLen(word, oldSuffix.length, newSuffix);
@@ -570,5 +570,5 @@ class SnowballStemmer {
       word.substring(0, word.length - oldSuffixLength) + newSuffix;
 
   String _stripEnd(String word, int length) =>
-      word.length > length ? word.substring(0, word.length - length) : "";
+      word.length > length ? word.substring(0, word.length - length) : '';
 }

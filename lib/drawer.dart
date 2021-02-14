@@ -37,16 +37,16 @@ class DrawerMenu extends StatelessWidget {
           ),
           ListTile(title: Text('USCIS Exam')),
           RadioListTile(
-            value: "2008",
+            value: '2008',
             title: Text('2008'),
             onChanged: (value) {},
-            groupValue: "2008",
+            groupValue: '2008',
           ),
           RadioListTile(
-            value: "2020",
+            value: '2020',
             title: Text('2020'),
             onChanged: null,
-            groupValue: "2008",
+            groupValue: '2008',
           ),
           SwitchListTile(
             title: Text('Show only 65+ Questions'),
@@ -62,7 +62,7 @@ class DrawerMenu extends StatelessWidget {
             endIndent: 0,
           ),
           AboutListTile(
-            applicationName: "US Citizenship Test",
+            applicationName: 'US Citizenship Test',
             aboutBoxChildren: [
               //Html(
               //  data:

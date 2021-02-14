@@ -230,11 +230,11 @@ class QuestionChecker {
 
   QuestionStatus checkAnswer(final String origAnswer) {
     var answerTokens = getTokens(origAnswer);
-    print("Key: ${answerTokens.toString()}");
+    print('Key: ${answerTokens.toString()}');
 
     for (var answer in _question.allAnswers) {
       var keyTokens = getTokens(answer);
-      print("Answer: ${keyTokens.toString()}");
+      print('Answer: ${keyTokens.toString()}');
       if (ListEquality().equals(answerTokens, keyTokens)) {
         // Check if we've been cancelled (view answer or similar selected)
         if (_cancelled) return QuestionStatus.cancelled;
@@ -260,7 +260,7 @@ class QuestionChecker {
   List<String> getTokens(final String input) {
     // Treat hyphenated words as two words for matching.
     var answer = input.replaceAll('-', ' ');
-    List<String> answerTokens = [];
+    var answerTokens = <String>[];
     for (var token in answer.split(' ')) {
       var newToken = _prepToken(token);
       if (newToken != null) {

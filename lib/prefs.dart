@@ -24,7 +24,7 @@ class PrefsStorage extends ChangeNotifier {
 
   late bool _over65Only;
   String? _region;
-  var _starredMap = SplayTreeMap<String, bool>();
+  final _starredMap = SplayTreeMap<String, bool>();
 
   late List<int>? _workingSet;
   late List<int>? _randomizedQuestions;
@@ -75,7 +75,7 @@ class PrefsStorage extends ChangeNotifier {
       _prefs.remove(key);
       return;
     }
-    print("saving $key" + input.map((el) => el.toString()).toList().toString());
+    print('saving $key' + input.map((el) => el.toString()).toList().toString());
     _prefs.setStringList(key, input.map((el) => el.toString()).toList());
   }
 

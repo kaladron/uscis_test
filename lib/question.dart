@@ -21,14 +21,14 @@ import 'package:uscis_test/prefs.dart';
 class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
 
-  Map<int, Question> _questions = {};
-  Map<String, UsAnswer> _usAnswers = {};
+  final Map<int, Question> _questions = {};
+  final Map<String, UsAnswer> _usAnswers = {};
 
   Map<int, Question> get questions {
     if (!_prefs.over65Only) {
       return _questions;
     }
-    Map<int, Question> over65Questions = {};
+    var over65Questions = <int, Question>{};
     _questions.forEach((number, question) {
       if (question.over65) {
         over65Questions[number] = question;
@@ -38,7 +38,7 @@ class QuestionStorage extends ChangeNotifier {
   }
 
   List<Question> get starredQuestions {
-    List<Question> starredQuestions = [];
+    var starredQuestions = <Question>[];
     for (var question in _prefs.starredList) {
       starredQuestions.add(_questions[int.parse(question)]!);
     }
@@ -116,8 +116,8 @@ class Question {
   /// These are split into these groups so that only the official answers
   /// are ever shown to the user.  That is what they should be studying from.
   List<String> get allAnswers {
-    List<String> strippedAnswers = [];
-    List<String> strippedExtraAnswers = [];
+    var strippedAnswers = <String>[];
+    var strippedExtraAnswers = <String>[];
 
     for (var answer in answers) {
       if (answer.contains('(')) {

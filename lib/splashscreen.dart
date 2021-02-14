@@ -23,7 +23,7 @@ import 'package:uscis_test/question.dart';
 /// because if it suddenly starts to take a long time, we would add it here.
 /// But that's pretty unlikely in this case, so we don't bother.
 class SplashScreen extends StatefulWidget {
-  static const routeName = "/splash";
+  static const routeName = '/splash';
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(final BuildContext context) => Container();
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     onStart();
   }

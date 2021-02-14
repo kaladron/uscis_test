@@ -87,7 +87,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text("Learn"),
+          title: Text('Learn'),
         ),
         body: Stack(children: [
           rightWrong(),
@@ -157,7 +157,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                         if (_resultText != '') Text('You said: ${_resultText}'),
                         for (var i
                             in context.watch<LearnLogic>().question.answers)
-                          Text("• " + i),
+                          Text('• ' + i),
                       ]),
                 ),
                 Flexible(
@@ -186,9 +186,9 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
       );
 
   void _speakAnswers() async {
-    await flutterTts.setLanguage("en-US");
+    await flutterTts.setLanguage('en-US');
 
-    var spokenAnswers = context.read<LearnLogic>().question.answers.join(".  ");
+    var spokenAnswers = context.read<LearnLogic>().question.answers.join('.  ');
     await flutterTts.speak(spokenAnswers);
   }
 

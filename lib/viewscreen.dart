@@ -3,14 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:uscis_test/question.dart';
 
 class ViewScreen extends StatelessWidget {
-  static const routeName = "/questionlistscreen";
+  static const routeName = '/questionlistscreen';
 
   // TODO(jeffbailey): Write a UI test that toggles the first and last star in
   // the list.
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text("View"),
+          title: Text('View'),
         ),
         body: ListView(children: [
           if (context.watch<QuestionStorage>().starredQuestions.isNotEmpty)
@@ -24,7 +24,7 @@ class ViewScreen extends StatelessWidget {
               .watch<QuestionStorage>()
               .starredQuestions
               .map((e) =>
-                  QuestionListItem(e.number, ValueKey("starred ${e.number}")))
+                  QuestionListItem(e.number, ValueKey('starred ${e.number}')))
               .toList(),
           Padding(
             padding: EdgeInsets.only(left: 8, top: 8),
@@ -36,7 +36,7 @@ class ViewScreen extends StatelessWidget {
               .questions
               .keys
               .toList()
-              .map((e) => QuestionListItem(e, ValueKey("questions ${e}")))
+              .map((e) => QuestionListItem(e, ValueKey('questions ${e}')))
               .toList(),
         ]),
       );
@@ -74,7 +74,7 @@ class QuestionListItem extends StatelessWidget {
                   .answers
                   .map((String value) => Padding(
                       padding: EdgeInsets.only(left: 32, bottom: 12, right: 8),
-                      child: Text("• ${value}")))
+                      child: Text('• ${value}')))
             ],
           ),
         ],

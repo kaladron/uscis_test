@@ -39,43 +39,43 @@ void main() {
     }''';
 
     final Map<String, dynamic> data = jsonDecode(contents);
-    final Map<String, UsAnswer> usAnswers = {};
+    final usAnswers = <String, UsAnswer>{};
     final question = Question.fromJson(data, usAnswers);
 
     test('Test without parens', () {
       final checker = QuestionChecker(question);
-      expect(checker.checkAnswer("new york"), QuestionStatus.correctOnce);
+      expect(checker.checkAnswer('new york'), QuestionStatus.correctOnce);
     });
 
     test('Test with parens', () {
       final checker = QuestionChecker(question);
       expect(
-          checker.checkAnswer("new york harbor"), QuestionStatus.correctOnce);
+          checker.checkAnswer('new york harbor'), QuestionStatus.correctOnce);
     });
 
     test('Test second answer', () {
       final checker = QuestionChecker(question);
-      expect(checker.checkAnswer("liberty island"), QuestionStatus.correctOnce);
+      expect(checker.checkAnswer('liberty island'), QuestionStatus.correctOnce);
     });
 
     test('Test extra answer', () {
       final checker = QuestionChecker(question);
-      expect(checker.checkAnswer("new jersey"), QuestionStatus.correctOnce);
+      expect(checker.checkAnswer('new jersey'), QuestionStatus.correctOnce);
     });
 
     test('Test extra answer without parens', () {
       final checker = QuestionChecker(question);
-      expect(checker.checkAnswer("on the hudson"), QuestionStatus.correctOnce);
+      expect(checker.checkAnswer('on the hudson'), QuestionStatus.correctOnce);
     });
 
     test('Test extra answer with parens', () {
       final checker = QuestionChecker(question);
-      expect(checker.checkAnswer("hudson river"), QuestionStatus.correctOnce);
+      expect(checker.checkAnswer('hudson river'), QuestionStatus.correctOnce);
     });
 
     test('Test wrong answer', () {
       final checker = QuestionChecker(question);
-      expect(checker.checkAnswer("san fransisco"), QuestionStatus.incorrect);
+      expect(checker.checkAnswer('san fransisco'), QuestionStatus.incorrect);
     });
   });
 }
