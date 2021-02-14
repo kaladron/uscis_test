@@ -71,7 +71,12 @@ class PrefsStorage extends ChangeNotifier {
   set mastered(final Set<int> input) => _itToPrefs(input, 'mastered');
 
   void _itToPrefs(final Iterable<int>? input, final String key) {
-    _prefs.setStringList(key, input?.map((el) => el.toString()).toList());
+    if (input == null) {
+      _prefs.remove(key);
+      return;
+    }
+    print("saving $key" + input.map((el) => el.toString()).toString());
+    _prefs.setStringList(key, input.map((el) => el.toString()).toList());
   }
 
   // clearAllLearning

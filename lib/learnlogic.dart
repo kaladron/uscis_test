@@ -45,6 +45,7 @@ class LearnLogic extends ChangeNotifier {
     var generateRandomizedQuestions = () {
       List<int> tmp = _context.read<QuestionStorage>().questions.keys.toList();
       tmp.shuffle();
+      _context.read<PrefsStorage>().randomizedQuestions = tmp;
       return tmp;
     };
 
@@ -58,6 +59,7 @@ class LearnLogic extends ChangeNotifier {
       for (var _ in Iterable<int>.generate(10)) {
         tmp.add(_randomizedQuestions.removeLast());
       }
+      _context.read<PrefsStorage>().workingSet = tmp;
       return tmp;
     };
 
