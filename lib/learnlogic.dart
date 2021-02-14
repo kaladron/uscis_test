@@ -25,60 +25,74 @@ class LearnLogic extends ChangeNotifier {
   final _random = Random();
 
   final Map<int, Question> _questions;
-  late List<int> _randomizedQuestions;
-  late List<int> _workingSet;
-  late Set<int> _rightOnce;
-  late Set<int> _rightTwice;
-  late Set<int> _mastered;
+  List<int> _randomizedQuestions;
+  List<int> _workingSet;
+  Set<int> _rightOnce;
+  Set<int> _rightTwice;
+  Set<int> _mastered;
 
   List<int> get workingSet => _workingSet;
   get rightOnce => _rightOnce;
   get rightTwice => _rightTwice;
   get mastered => _mastered;
 
-  LearnLogic(final BuildContext _context)
-      : _questions =
-            Map<int, Question>.from(_context.read<QuestionStorage>().questions),
-        _prefs = _context.read<PrefsStorage>() {
-    // Initialize local question array
-    //   Get from prefs, init and persist if it doesn't exist
+  LearnLogic._(
+      final BuildContext _context,
+      this._questions,
+      this._randomizedQuestions,
+      this._workingSet,
+      this._rightOnce,
+      this._rightTwice,
+      this._mastered)
+      : _prefs = _context.read<PrefsStorage>() {
+    _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
+  }
+
+  /// Initialize local question array
+  /// Get from prefs, init and persist if it doesn't exist
+  factory LearnLogic(final BuildContext context) {
+    var prefs = context.read<PrefsStorage>();
 
     // Doing this inline confuses the compiler, it thinks the return type is Object
     var generateRandomizedQuestions = () {
-      List<int> tmp = _context.read<QuestionStorage>().questions.keys.toList();
+      List<int> tmp = context.read<QuestionStorage>().questions.keys.toList();
       tmp.shuffle();
-      _prefs.randomizedQuestions = tmp;
+      prefs.randomizedQuestions = tmp;
       return tmp;
     };
 
-    _randomizedQuestions =
-        _prefs.randomizedQuestions ?? generateRandomizedQuestions();
+    var randomizedQuestions =
+        prefs.randomizedQuestions ?? generateRandomizedQuestions();
 
-    print("Questions: ${_randomizedQuestions.toString()}");
+    print("Questions: ${randomizedQuestions.toString()}");
 
     var generateWorkingSet = () {
       List<int> tmp = [];
       for (var _ in Iterable<int>.generate(10)) {
-        tmp.add(_randomizedQuestions.removeLast());
+        tmp.add(randomizedQuestions.removeLast());
       }
-      _prefs.workingSet = tmp;
+      prefs.workingSet = tmp;
       return tmp;
     };
 
-    _workingSet = _prefs.workingSet ?? generateWorkingSet();
+    var workingSet = prefs.workingSet ?? generateWorkingSet();
 
-    print("Working Set: ${_workingSet.toString()}");
+    print("Working Set: ${workingSet.toString()}");
 
-    _rightOnce = _prefs.rightOnce;
-    print("Right Once: ${_rightOnce.toString()}");
+    var rightOnce = prefs.rightOnce;
+    print("Right Once: ${rightOnce.toString()}");
 
-    _rightTwice = _prefs.rightTwice;
-    print("Right Twice: ${_rightTwice.toString()}");
+    var rightTwice = prefs.rightTwice;
+    print("Right Twice: ${rightTwice.toString()}");
 
-    _mastered = _prefs.mastered;
-    print("Mastered: ${_mastered.toString()}");
+    var mastered = prefs.mastered;
+    print("Mastered: ${mastered.toString()}");
 
-    _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
+    var questions =
+        Map<int, Question>.from(context.read<QuestionStorage>().questions);
+
+    return LearnLogic._(context, questions, randomizedQuestions, workingSet,
+        rightOnce, rightTwice, mastered);
   }
 
   double get progress => _mastered.length / _questions.length;
