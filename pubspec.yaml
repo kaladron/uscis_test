@@ -48,11 +48,13 @@ dependencies:
   shared_preferences: ^2.0.0-nullsafety
   flutter_tts: ^2.1.0
   #flutter_html: ^1.2.0
+  html: any
+  http: any
 
 
 dev_dependencies:
-  test: ^1.16.0-nullsafety.17
-  pedantic: ^1.10.0-nullsafety.3
+  test: ^1.16.2
+  pedantic: ^1.10.0
   flutter_test:
     sdk: flutter
 

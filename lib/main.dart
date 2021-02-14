@@ -16,6 +16,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uscis_test/casescreen.dart';
 import 'package:uscis_test/learnscreen.dart';
 import 'package:uscis_test/mainscreen.dart';
 import 'package:uscis_test/prefs.dart';
@@ -43,6 +44,7 @@ void main() {
         MainScreen.routeName: (context) => MainScreen(),
         ViewScreen.routeName: (context) => ViewScreen(),
         TestScreen.routeName: (context) => TestScreen(),
+        CaseScreen.routeName: (context) => CaseScreen(),
       },
     ),
   ));

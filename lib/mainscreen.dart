@@ -23,6 +23,7 @@
 // Drop down with link to location (greys out other buttons until set)
 
 import 'package:flutter/material.dart';
+import 'package:uscis_test/casescreen.dart';
 import 'package:uscis_test/drawer.dart';
 import 'package:uscis_test/prefs.dart';
 import 'package:uscis_test/viewscreen.dart';
@@ -77,6 +78,17 @@ class MainScreen extends StatelessWidget {
                   subtitle: Text('Simulate a test'),
                 ),
               ),
+            ),
+            Card(
+              child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, CaseScreen.routeName);
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.assignment_ind),
+                    title: Text('Case Status'),
+                    subtitle: Text('See your USCIS Case Status'),
+                  )),
             ),
             Padding(
               child: Text('Choose your region'),
