@@ -45,7 +45,7 @@ dependencies:
   speech_to_text: ^3.1.0
   collection: any
   # flag: ^4.0.0-pre
-  shared_preferences: '>=0.5.12+4 <2.0.0'
+  shared_preferences: ^2.0.0-nullsafety
   flutter_tts: ^2.1.0
   #flutter_html: ^1.2.0
 

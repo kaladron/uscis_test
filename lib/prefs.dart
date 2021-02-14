@@ -95,37 +95,26 @@ class PrefsStorage extends ChangeNotifier {
 
   Future<void> initState() async {
     _prefs = await SharedPreferences.getInstance();
-    _over65Only =
-        _prefs.containsKey('over65') ? _prefs.getBool('over65') : false;
+    _over65Only = _prefs.getBool('over65') ?? false;
 
-    _region = _prefs.containsKey('region')
-        ? _prefs.getString('region')
-        : States.defaultState;
+    _region = _prefs.getString('region') ?? States.defaultState;
 
-    final starredList =
-        _prefs.containsKey('starred') ? _prefs.getStringList('starred') : [];
+    final starredList = _prefs.getStringList('starred') ?? [];
     for (var i in starredList) {
       _starredMap[i] = true;
     }
 
-    _workingSet = _prefs.containsKey('workingset')
-        ? _prefs.getStringList('workingset').map(int.parse).toList()
-        : null;
+    _workingSet = _prefs.getStringList('workingset')?.map(int.parse).toList();
 
-    _randomizedQuestions = _prefs.containsKey('randomizedquestions')
-        ? _prefs.getStringList('randomizedquestions').map(int.parse).toList()
-        : null;
+    _randomizedQuestions =
+        _prefs.getStringList('randomizedquestions')?.map(int.parse).toList();
 
-    _rightOnce = _prefs.containsKey('rightonce')
-        ? _prefs.getStringList('rightonce').map(int.parse).toSet()
-        : {};
+    _rightOnce =
+        _prefs.getStringList('rightonce')?.map(int.parse).toSet() ?? {};
 
-    _rightTwice = _prefs.containsKey('righttwice')
-        ? _prefs.getStringList('righttwice').map(int.parse).toSet()
-        : {};
+    _rightTwice =
+        _prefs.getStringList('righttwice')?.map(int.parse).toSet() ?? {};
 
-    _mastered = _prefs.containsKey('mastered')
-        ? _prefs.getStringList('mastered').map(int.parse).toSet()
-        : {};
+    _mastered = _prefs.getStringList('mastered')?.map(int.parse).toSet() ?? {};
   }
 }
