@@ -59,7 +59,7 @@ class PrefsStorage extends ChangeNotifier {
 
   List<int>? get randomizedQuestions => _randomizedQuestions;
   set randomizedQuestions(final List<int>? input) =>
-      _itToPrefs(input, 'randomizedQuestions');
+      _itToPrefs(input, 'randomizedquestions');
 
   Set<int> get rightOnce => _rightOnce;
   set rightOnce(final Set<int> input) => _itToPrefs(input, 'rightonce');
@@ -75,7 +75,7 @@ class PrefsStorage extends ChangeNotifier {
       _prefs.remove(key);
       return;
     }
-    print("saving $key" + input.map((el) => el.toString()).toString());
+    print("saving $key" + input.map((el) => el.toString()).toList().toString());
     _prefs.setStringList(key, input.map((el) => el.toString()).toList());
   }
 
