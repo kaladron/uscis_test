@@ -48,5 +48,27 @@ class _CaseScreenImpl extends StatelessWidget {
         appBar: AppBar(
           title: Text('Case Status'),
         ),
+        body: Column(
+          children: [
+            ...context
+                .watch<CaseLogic>()
+                .cases
+                .keys
+                .map((e) => Text(e))
+                .toList(),
+            Card(
+              child: InkWell(
+                onTap: () {
+                  context.read<CaseLogic>().initiate();
+                },
+                child: ListTile(
+                  leading: Icon(Icons.add),
+                  title: Text('Add'),
+                  subtitle: Text('Add USCIS Case Number'),
+                ),
+              ),
+            ),
+          ],
+        ),
       );
 }

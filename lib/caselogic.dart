@@ -15,10 +15,39 @@
 // Look for an H1 and its sibling Paragraph.
 
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
+import 'package:http/http.dart';
+
+class CaseStatus {
+  String? heading;
+  String? details;
+  DateTime? lastUpdated;
+
+  CaseStatus([this.heading, this.details, this.lastUpdated]);
+  // Date lastUpdated;
+}
 
 class CaseLogic extends ChangeNotifier {
   // ignore: unused_field
   final BuildContext _context;
 
+  final Map<String, CaseStatus> cases = {};
+
   CaseLogic(this._context);
+
+  Future initiate() async {
+    var client = Client();
+
+    for (var caseNum in cases.keys) {
+      var response = await client.get(Uri.parse(
+          'https://egov.uscis.gov/casestatus/mycasestatus.do?appReceiptNum=' +
+              caseNum));
+
+      var document = parse(response.body);
+      var headingElement = document.querySelector('h1');
+      var heading = headingElement?.text;
+      var details = headingElement?.nextElementSibling?.text;
+      cases[caseNum] = CaseStatus(heading, details, DateTime.now());
+    }
+  }
 }
