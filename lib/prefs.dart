@@ -15,7 +15,6 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uscis_test/states.dart';
 
