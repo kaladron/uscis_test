@@ -17,6 +17,7 @@
 import 'package:flutter/material.dart';
 
 class CaseLogic extends ChangeNotifier {
+  // ignore: unused_field
   final BuildContext _context;
 
   CaseLogic(this._context);
