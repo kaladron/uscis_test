@@ -37,6 +37,11 @@ class CaseLogic extends ChangeNotifier {
 
   final Map<String, CaseStatus> cases = {};
 
+  void addCase(String caseNum) {
+    cases[caseNum] = CaseStatus();
+    notifyListeners();
+  }
+
   CaseLogic(this._context);
 
   Future initiate() async {

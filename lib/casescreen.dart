@@ -43,6 +43,8 @@ class CaseScreen extends StatelessWidget {
 }
 
 class _CaseScreenImpl extends StatelessWidget {
+  final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -58,7 +60,25 @@ class _CaseScreenImpl extends StatelessWidget {
                 .toList(),
             Card(
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text('USCIS Case Number'),
+                            content: TextFormField(
+                              controller: _controller,
+                            ),
+                            actions: [
+                              TextButton(
+                                child: Text('Add'),
+                                onPressed: () {
+                                  Navigator.of(context).pop(_controller.text);
+                                },
+                              ),
+                            ],
+                          )).then((value) =>
+                      {context.read<CaseLogic>().addCase(_controller.text)});
+                },
                 child: ListTile(
                   leading: Icon(Icons.add),
                   title: Text('Add'),
