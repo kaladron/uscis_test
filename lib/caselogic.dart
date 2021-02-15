@@ -21,10 +21,14 @@ import 'package:http/http.dart';
 class CaseStatus {
   String? heading;
   String? details;
-  DateTime? lastUpdated;
+  DateTime lastUpdated;
 
-  CaseStatus([this.heading, this.details, this.lastUpdated]);
-  // Date lastUpdated;
+  CaseStatus._(this.lastUpdated, [this.heading, this.details]);
+
+  factory CaseStatus(
+      [String? heading, String? details, DateTime? lastUpdated]) {
+    return CaseStatus._(lastUpdated ?? DateTime.now(), heading, details);
+  }
 }
 
 class CaseLogic extends ChangeNotifier {
@@ -47,7 +51,7 @@ class CaseLogic extends ChangeNotifier {
       var headingElement = document.querySelector('h1');
       var heading = headingElement?.text;
       var details = headingElement?.nextElementSibling?.text;
-      cases[caseNum] = CaseStatus(heading, details, DateTime.now());
+      cases[caseNum] = CaseStatus(heading, details);
     }
   }
 }
