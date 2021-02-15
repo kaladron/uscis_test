@@ -54,13 +54,11 @@ class _CaseScreenImpl extends StatelessWidget {
                 .watch<CaseLogic>()
                 .cases
                 .keys
-                .map((e) => Text(e))
+                .map((e) => CaseItem(e))
                 .toList(),
             Card(
               child: InkWell(
-                onTap: () {
-                  context.read<CaseLogic>().initiate();
-                },
+                onTap: () {},
                 child: ListTile(
                   leading: Icon(Icons.add),
                   title: Text('Add'),
@@ -69,6 +67,35 @@ class _CaseScreenImpl extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      );
+}
+
+class CaseItem extends StatelessWidget {
+  final String _caseNum;
+
+  CaseItem(this._caseNum);
+  @override
+  Widget build(BuildContext context) => Card(
+        child: InkWell(
+          onTap: () {
+            context.read<CaseLogic>().initiate();
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Case: ' + _caseNum),
+              Text(context.read<CaseLogic>().cases[_caseNum]!.heading ??
+                  'No Update'),
+              Text(context.read<CaseLogic>().cases[_caseNum]!.details ??
+                  'No Update'),
+              Text(context
+                  .read<CaseLogic>()
+                  .cases[_caseNum]!
+                  .lastUpdated
+                  .toIso8601String()),
+            ],
+          ),
         ),
       );
 }
