@@ -31,6 +31,7 @@ class PrefsStorage extends ChangeNotifier {
   late Set<int> _rightOnce;
   late Set<int> _rightTwice;
   late Set<int> _mastered;
+  late List<String> _cases;
 
   bool get over65Only => _over65Only;
 
@@ -69,6 +70,12 @@ class PrefsStorage extends ChangeNotifier {
 
   Set<int> get mastered => _mastered;
   set mastered(final Set<int> input) => _itToPrefs(input, 'mastered');
+
+  List<String> get cases => _cases;
+  set cases(final List<String> cases) {
+    _cases = cases;
+    _prefs.setStringList('cases', cases);
+  }
 
   void _itToPrefs(final Iterable<int>? input, final String key) {
     if (input == null) {
@@ -116,5 +123,7 @@ class PrefsStorage extends ChangeNotifier {
         _prefs.getStringList('righttwice')?.map(int.parse).toSet() ?? {};
 
     _mastered = _prefs.getStringList('mastered')?.map(int.parse).toSet() ?? {};
+
+    _cases = _prefs.getStringList('cases') ?? [];
   }
 }

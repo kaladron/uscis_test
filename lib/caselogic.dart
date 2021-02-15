@@ -15,8 +15,10 @@
 // Look for an H1 and its sibling Paragraph.
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart';
+import 'package:uscis_test/prefs.dart';
 
 class CaseStatus {
   String? heading;
@@ -32,17 +34,22 @@ class CaseStatus {
 }
 
 class CaseLogic extends ChangeNotifier {
-  // ignore: unused_field
-  final BuildContext _context;
+  final PrefsStorage _prefs;
 
   final Map<String, CaseStatus> cases = {};
 
   void addCase(String caseNum) {
     cases[caseNum] = CaseStatus();
-    notifyListeners();
+    _prefs.cases = cases.keys.toList();
   }
 
-  CaseLogic(this._context);
+  CaseLogic(final BuildContext _context)
+      : _prefs = _context.read<PrefsStorage>() {
+    for (var caseNum in _prefs.cases) {
+      cases[caseNum] = CaseStatus();
+    }
+    notifyListeners();
+  }
 
   Future initiate() async {
     var client = Client();
