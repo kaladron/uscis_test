@@ -61,8 +61,17 @@ class CaseLogic extends ChangeNotifier {
 
       var document = parse(response.body);
       var headingElement = document.querySelector('h1');
-      var heading = headingElement?.text;
-      var details = headingElement?.nextElementSibling?.text;
+      if (headingElement == null) {
+        // TODO(jeffbailey): Signal error
+        return;
+      }
+      var heading = headingElement.text;
+      var sibling = headingElement.nextElementSibling;
+      if (sibling == null) {
+        // TODO(jeffbailey): Signal error
+        return;
+      }
+      var details = sibling.text;
       cases[caseNum] = CaseStatus(heading, details);
       notifyListeners();
     }
