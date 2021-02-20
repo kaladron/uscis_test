@@ -147,17 +147,14 @@ class Question {
   Question.fromJson(
       this.number, Map<String, dynamic> record, Map<String, UsAnswer> usAnswers)
       : question = record['question'],
-        answers = (record['us_answer'] == null)
-            ? record['answers'].cast<String>()
-            : usAnswers[record['us_answer']]!.answers,
-        extraAnswers = (record['us_answer'] == null)
-            ? record.containsKey('extra_answers')
-                ? record['extra_answers'].cast<String>()
-                : []
-            : usAnswers[record['us_answer']]!.extraAnswers,
-        over65 = record.containsKey('over65') ? record['over65'] : false,
-        mustAnswer =
-            record.containsKey('must_answer') ? record['must_answer'] : 1;
+        answers = record.containsKey('us_answer')
+            ? usAnswers[record['us_answer']]!.answers
+            : record['answers'].cast<String>(),
+        extraAnswers = record.containsKey('us_answer')
+            ? usAnswers[record['us_answer']]!.extraAnswers
+            : record['extra_answers']?.cast<String>() ?? [],
+        over65 = record['over65'] ?? false,
+        mustAnswer = record['must_answer'] ?? 1;
 
   List<String> get allAnswers {
     var strippedAnswers = <String>[];
