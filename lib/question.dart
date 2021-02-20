@@ -47,7 +47,7 @@ class QuestionStorage extends ChangeNotifier {
   List<Question> get starredQuestions {
     var starredQuestions = <Question>[];
     for (var question in _prefs.starredList) {
-      starredQuestions.add(_questions[int.parse(question)]!);
+      starredQuestions.add(_questions[question]!);
     }
     return starredQuestions;
   }
