@@ -75,21 +75,14 @@ class QuestionStorage extends ChangeNotifier {
     data.forEach((key, value) {
       _stateAnswers[key] = StateAnswer.fromJson(key, value);
     });
-
-    print(_stateAnswers.toString());
   }
 
   Future<void> initUsAnswers() async {
     var contents = await rootBundle.loadString('us.json');
-    var data = jsonDecode(contents);
-    for (Map<String, dynamic> i in data) {
-      String key = i['key']!;
-      List<String> answers = i['answers'].cast<String>();
-      List<String> extraAnswers = i.containsKey('extra_answers')
-          ? i['extra_answers'].cast<String>()
-          : [];
-      _usAnswers[key] = (UsAnswer(answers, extraAnswers));
-    }
+    Map<String, dynamic> data = jsonDecode(contents);
+    data.forEach((key, value) {
+      _usAnswers[key] = (UsAnswer.fromJson(key, value));
+    });
   }
 
   Future<void> initQuestions() async {
@@ -113,15 +106,18 @@ class StateAnswer {
   StateAnswer.fromJson(this.state, Map<String, dynamic> record)
       : governor = record['governor'],
         capital = record['capital'],
-        senators = List<String>.from(record['senators']);
+        senators = record['senators'].cast<String>();
 }
 
 @immutable
 class UsAnswer {
+  final String key;
   final List<String> answers;
   final List<String> extraAnswers;
 
-  UsAnswer(this.answers, this.extraAnswers);
+  UsAnswer.fromJson(this.key, Map<String, dynamic> record)
+      : answers = record['answers'].cast<String>(),
+        extraAnswers = record['extra_answers']?.cast<String>() ?? [];
 }
 
 @immutable

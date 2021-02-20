@@ -1,22 +1,19 @@
-[
-    {
-        "key": "president",
+{
+    "president": {
         "answers": [
             "Joseph R. Biden, Jr.",
             "Joe Biden",
             "Biden"
         ]
     },
-    {
-        "key": "vice_president",
+    "vice_president": {
         "answers": [
             "Kamala D. Harris",
             "Kamala Harris",
             "Harris"
         ]
     },
-    {
-        "key": "number_justices",
+    "number_justices": {
         "answers": [
             "nine (9)"
         ],
@@ -24,24 +21,21 @@
             "9"
         ]
     },
-    {
-        "key": "chief_justice",
+    "chief_justice": {
         "answers": [
             "John Roberts",
             "John G. Roberts, Jr."
         ]
     },
-    {
-        "key": "president_party",
+    "president_party": {
         "answers": [
             "Democratic (Party)"
         ]
     },
-    {
-        "key": "speaker_house",
+    "speaker_house": {
         "answers": [
             "Nancy Pelosi",
             "Pelosi"
         ]
     }
-]
+}
