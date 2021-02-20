@@ -64,12 +64,16 @@ class QuestionStorage extends ChangeNotifier {
   // TODO(jeffbailey): Finish state-specific questions.
 
   Future<void> initState() async {
-    await initStateAnswers();
-    await initUsAnswers();
-    await initQuestions();
+    _questions.clear();
+    _stateAnswers.clear();
+    _usAnswers.clear();
+
+    await _initStateAnswers();
+    await _initUsAnswers();
+    await _initQuestions();
   }
 
-  Future<void> initStateAnswers() async {
+  Future<void> _initStateAnswers() async {
     var contents = await rootBundle.loadString('states.json');
     Map<String, dynamic> data = jsonDecode(contents);
     data.forEach((key, value) {
@@ -77,22 +81,20 @@ class QuestionStorage extends ChangeNotifier {
     });
   }
 
-  Future<void> initUsAnswers() async {
+  Future<void> _initUsAnswers() async {
     var contents = await rootBundle.loadString('us.json');
     Map<String, dynamic> data = jsonDecode(contents);
     data.forEach((key, value) {
-      _usAnswers[key] = (UsAnswer.fromJson(key, value));
+      _usAnswers[key] = UsAnswer.fromJson(key, value);
     });
   }
 
-  Future<void> initQuestions() async {
+  Future<void> _initQuestions() async {
     var contents = await rootBundle.loadString('2008.json');
-    var data = jsonDecode(contents);
-    _questions.clear();
-    for (Map<String, dynamic> i in data) {
-      var q = Question.fromJson(i, _usAnswers);
-      _questions[q.number] = q;
-    }
+    Map<String, dynamic> data = jsonDecode(contents);
+    data.forEach((key, value) {
+      _questions[key] = Question.fromJson(key, value, _usAnswers);
+    });
   }
 }
 
@@ -142,6 +144,21 @@ class Question {
 
   final _stripParens = RegExp(r'\(.+\)');
 
+  Question.fromJson(
+      this.number, Map<String, dynamic> record, Map<String, UsAnswer> usAnswers)
+      : question = record['question'],
+        answers = (record['us_answer'] == null)
+            ? record['answers'].cast<String>()
+            : usAnswers[record['us_answer']]!.answers,
+        extraAnswers = (record['us_answer'] == null)
+            ? record.containsKey('extra_answers')
+                ? record['extra_answers'].cast<String>()
+                : []
+            : usAnswers[record['us_answer']]!.extraAnswers,
+        over65 = record.containsKey('over65') ? record['over65'] : false,
+        mustAnswer =
+            record.containsKey('must_answer') ? record['must_answer'] : 1;
+
   List<String> get allAnswers {
     var strippedAnswers = <String>[];
     var strippedExtraAnswers = <String>[];
@@ -167,19 +184,4 @@ class Question {
       if (strippedExtraAnswers.isNotEmpty) ...strippedExtraAnswers,
     ];
   }
-
-  Question.fromJson(
-      final Map<String, dynamic> json, final Map<String, UsAnswer> usAnswers)
-      : number = json['number'].toString(),
-        question = json['question'],
-        answers = (json['us_answer'] == null)
-            ? json['answers'].cast<String>()
-            : usAnswers[json['us_answer']]!.answers,
-        extraAnswers = (json['us_answer'] == null)
-            ? json.containsKey('extra_answers')
-                ? json['extra_answers'].cast<String>()
-                : []
-            : usAnswers[json['us_answer']]!.extraAnswers,
-        over65 = json.containsKey('over65') ? json['over65'] : false,
-        mustAnswer = json.containsKey('must_answer') ? json['must_answer'] : 1;
 }

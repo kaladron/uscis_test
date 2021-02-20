@@ -23,7 +23,7 @@ import 'package:uscis_test/questionchecker.dart';
 void main() {
   group('Question Checker', () {
     const contents = '''{
-        "number": 95,
+        "95": {
         "question": "Where is the Statue of Liberty?",
         "answers": [
             "New York (Harbor)",
@@ -36,45 +36,49 @@ void main() {
             "on the Hudson (River)"
         ],
         "over65": true
-    }''';
+    }}''';
 
     final Map<String, dynamic> data = jsonDecode(contents);
     final usAnswers = <String, UsAnswer>{};
-    final question = Question.fromJson(data, usAnswers);
+    final Map<String, Question> questions = {};
+
+    data.forEach((key, value) {
+      questions[key] = Question.fromJson(key, value, usAnswers);
+    });
 
     test('Test without parens', () {
-      final checker = QuestionChecker(question);
+      final checker = QuestionChecker(questions['95']);
       expect(checker.checkAnswer('new york'), QuestionStatus.correctOnce);
     });
 
     test('Test with parens', () {
-      final checker = QuestionChecker(question);
+      final checker = QuestionChecker(questions['95']);
       expect(
           checker.checkAnswer('new york harbor'), QuestionStatus.correctOnce);
     });
 
     test('Test second answer', () {
-      final checker = QuestionChecker(question);
+      final checker = QuestionChecker(questions['95']);
       expect(checker.checkAnswer('liberty island'), QuestionStatus.correctOnce);
     });
 
     test('Test extra answer', () {
-      final checker = QuestionChecker(question);
+      final checker = QuestionChecker(questions['95']);
       expect(checker.checkAnswer('new jersey'), QuestionStatus.correctOnce);
     });
 
     test('Test extra answer without parens', () {
-      final checker = QuestionChecker(question);
+      final checker = QuestionChecker(questions['95']);
       expect(checker.checkAnswer('on the hudson'), QuestionStatus.correctOnce);
     });
 
     test('Test extra answer with parens', () {
-      final checker = QuestionChecker(question);
+      final checker = QuestionChecker(questions['95']);
       expect(checker.checkAnswer('hudson river'), QuestionStatus.correctOnce);
     });
 
     test('Test wrong answer', () {
-      final checker = QuestionChecker(question);
+      final checker = QuestionChecker(questions['95']);
       expect(checker.checkAnswer('san fransisco'), QuestionStatus.incorrect);
     });
   });
