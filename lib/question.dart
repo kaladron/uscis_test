@@ -144,17 +144,25 @@ class Question {
 
   final _stripParens = RegExp(r'\(.+\)');
 
-  Question.fromJson(
-      this.number, Map<String, dynamic> record, Map<String, UsAnswer> usAnswers)
-      : question = record['question'],
-        answers = record.containsKey('us_answer')
-            ? usAnswers[record['us_answer']]!.answers
-            : record['answers'].cast<String>(),
-        extraAnswers = record.containsKey('us_answer')
-            ? usAnswers[record['us_answer']]!.extraAnswers
-            : record['extra_answers']?.cast<String>() ?? [],
-        over65 = record['over65'] ?? false,
-        mustAnswer = record['must_answer'] ?? 1;
+  factory Question.fromJson(String number, Map<String, dynamic> record,
+      Map<String, UsAnswer> usAnswers) {
+    var answers;
+    var extraAnswers;
+
+    if (record.containsKey('us_answer')) {
+      answers = usAnswers[record['us_answer']]!.answers;
+      extraAnswers = usAnswers[record['us_answer']]!.extraAnswers;
+    } else {
+      answers = record['answers'].cast<String>();
+      extraAnswers = record['extra_answers']?.cast<String>() ?? <String>[];
+    }
+
+    return Question._(number, record['question'], answers, extraAnswers,
+        record['over65'] ?? false, record['must_answer'] ?? 1);
+  }
+
+  Question._(this.number, this.question, this.answers, this.extraAnswers,
+      this.over65, this.mustAnswer);
 
   List<String> get allAnswers {
     var strippedAnswers = <String>[];
