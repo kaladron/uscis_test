@@ -40,7 +40,7 @@ void main() {
 
     final Map<String, dynamic> data = jsonDecode(contents);
     final usAnswers = <String, UsAnswer>{};
-    final Map<String, Question> questions = {};
+    final questions = <String, Question>{};
 
     data.forEach((key, value) {
       questions[key] = Question.fromJson(key, value, usAnswers);
