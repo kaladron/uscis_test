@@ -274,7 +274,7 @@ packages:
       name: path_provider_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety"
+    version: "2.0.0"
   path_provider_windows:
     dependency: transitive
     description:
@@ -302,7 +302,7 @@ packages:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0-nullsafety.2"
+    version: "1.0.3"
   pool:
     dependency: transitive
     description:
@@ -337,7 +337,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety"
+    version: "2.0.0-nullsafety.1"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -400,7 +400,7 @@ packages:
       name: shelf_web_socket
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.4"
+    version: "0.2.4+1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -475,7 +475,7 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.16.2"
+    version: "1.16.3"
   test_api:
     dependency: transitive
     description:
@@ -510,7 +510,7 @@ packages:
       name: vm_service
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.1"
+    version: "6.1.0+1"
   watcher:
     dependency: transitive
     description:
@@ -524,7 +524,7 @@ packages:
       name: web_socket_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "2.0.0"
   webkit_inspection_protocol:
     dependency: transitive
     description:
@@ -545,7 +545,7 @@ packages:
       name: xdg_directories
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0-nullsafety.1"
+    version: "0.2.0"
   yaml:
     dependency: transitive
     description:
