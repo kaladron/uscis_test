@@ -26,10 +26,10 @@ import 'package:flutter/material.dart';
 import 'package:uscis_test/casescreen.dart';
 import 'package:uscis_test/drawer.dart';
 import 'package:uscis_test/prefs.dart';
+import 'package:uscis_test/question.dart';
 import 'package:uscis_test/viewscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/learnscreen.dart';
-import 'package:uscis_test/states.dart';
 import 'package:uscis_test/testscreen.dart';
 
 class MainScreen extends StatelessWidget {
@@ -99,7 +99,9 @@ class MainScreen extends StatelessWidget {
               onChanged: (String? newValue) {
                 context.read<PrefsStorage>().region = newValue;
               },
-              items: States.states
+              items: context
+                  .read<QuestionStorage>()
+                  .states
                   .map((e) => DropdownMenuItem(
                         value: e,
                         child: Text(e),

@@ -22,7 +22,14 @@ class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
 
   final Map<int, Question> _questions = {};
+  final Map<String, StateAnswer> _stateAnswers = {};
   final Map<String, UsAnswer> _usAnswers = {};
+
+  List<String> get states {
+    var states = _stateAnswers.keys.toList();
+    states.sort();
+    return states;
+  }
 
   Map<int, Question> get questions {
     if (!_prefs.over65Only) {
@@ -57,8 +64,19 @@ class QuestionStorage extends ChangeNotifier {
   // TODO(jeffbailey): Finish state-specific questions.
 
   Future<void> initState() async {
+    await initStateAnswers();
     await initUsAnswers();
     await initQuestions();
+  }
+
+  Future<void> initStateAnswers() async {
+    var contents = await rootBundle.loadString('states.json');
+    Map<String, dynamic> data = jsonDecode(contents);
+    data.forEach((key, value) {
+      _stateAnswers[key] = StateAnswer.fromJson(key, value);
+    });
+
+    print(_stateAnswers.toString());
   }
 
   Future<void> initUsAnswers() async {
@@ -83,6 +101,19 @@ class QuestionStorage extends ChangeNotifier {
       _questions[q.number] = q;
     }
   }
+}
+
+@immutable
+class StateAnswer {
+  final String state;
+  final String governor;
+  final String capital;
+  final List<String> senators;
+
+  StateAnswer.fromJson(this.state, Map<String, dynamic> record)
+      : governor = record['governor'],
+        capital = record['capital'],
+        senators = List<String>.from(record['senators']);
 }
 
 @immutable

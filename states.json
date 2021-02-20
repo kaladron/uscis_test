@@ -1,11 +1,18 @@
-[
-    {
-        "key": "alabama",
+{
+    "Alabama": {
         "governor": "Kay Ivey",
         "capital": "Montgomery",
         "senators": [
             "Richard C. Shelby",
             "Tommy Tuberville"
         ]
+    },
+    "California": {
+        "governor": "Gavin Newsom",
+        "capital": "Sacramento",
+        "senators": [
+            "Alex Padilla",
+            "Dianne Feinstein"
+        ]
     }
-]
+}
