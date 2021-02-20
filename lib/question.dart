@@ -21,7 +21,7 @@ import 'package:uscis_test/prefs.dart';
 class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
 
-  final Map<int, Question> _questions = {};
+  final Map<String, Question> _questions = {};
   final Map<String, StateAnswer> _stateAnswers = {};
   final Map<String, UsAnswer> _usAnswers = {};
 
@@ -31,11 +31,11 @@ class QuestionStorage extends ChangeNotifier {
     return states;
   }
 
-  Map<int, Question> get questions {
+  Map<String, Question> get questions {
     if (!_prefs.over65Only) {
       return _questions;
     }
-    var over65Questions = <int, Question>{};
+    var over65Questions = <String, Question>{};
     _questions.forEach((number, question) {
       if (question.over65) {
         over65Questions[number] = question;
@@ -52,9 +52,9 @@ class QuestionStorage extends ChangeNotifier {
     return starredQuestions;
   }
 
-  bool isStarred(final int qnum) => _prefs.isStarred(qnum);
+  bool isStarred(final String qnum) => _prefs.isStarred(qnum);
 
-  void toggle(final int qnum) {
+  void toggle(final String qnum) {
     _prefs.toggle(qnum);
     notifyListeners();
   }
@@ -120,9 +120,20 @@ class UsAnswer {
         extraAnswers = record['extra_answers']?.cast<String>() ?? [];
 }
 
+/// The Answer set includes:
+///  * The official answers in the book.
+///  * "alternative phrasing of the correct answer"
+///    see: https://www.uscis.gov/sites/default/files/document/guides/Test_Scoring_Guidelines.pdf
+///  * Answers with the bits in parens filtered out.
+///
+/// There is no guide to alternative phrasings, but it's used to convert words
+/// into numbers, allow "fourth of July" in addition to "July 4", etc.
+///
+/// These are split into these groups so that only the official answers
+/// are ever shown to the user.  That is what they should be studying from.
 @immutable
 class Question {
-  final int number;
+  final String number;
   final String question;
   final List<String> answers;
   final List<String> extraAnswers;
@@ -131,17 +142,6 @@ class Question {
 
   final _stripParens = RegExp(r'\(.+\)');
 
-  /// The Answer set includes:
-  ///  * The official answers in the book.
-  ///  * "alternative phrasing of the correct answer"
-  ///    see: https://www.uscis.gov/sites/default/files/document/guides/Test_Scoring_Guidelines.pdf
-  ///  * Answers with the bits in parens filtered out.
-  ///
-  /// There is no guide to alternative phrasings, but it's used to convert words
-  /// into numbers, allow "fourth of July" in addition to "July 4", etc.
-  ///
-  /// These are split into these groups so that only the official answers
-  /// are ever shown to the user.  That is what they should be studying from.
   List<String> get allAnswers {
     var strippedAnswers = <String>[];
     var strippedExtraAnswers = <String>[];
@@ -170,7 +170,7 @@ class Question {
 
   Question.fromJson(
       final Map<String, dynamic> json, final Map<String, UsAnswer> usAnswers)
-      : number = json['number'],
+      : number = json['number'].toString(),
         question = json['question'],
         answers = (json['us_answer'] == null)
             ? json['answers'].cast<String>()

@@ -24,11 +24,11 @@ class PrefsStorage extends ChangeNotifier {
   String? _region;
   final _starredMap = SplayTreeMap<String, bool>();
 
-  late List<int>? _workingSet;
-  late List<int>? _randomizedQuestions;
-  late Set<int> _rightOnce;
-  late Set<int> _rightTwice;
-  late Set<int> _mastered;
+  late List<String>? _workingSet;
+  late List<String>? _randomizedQuestions;
+  late Set<String> _rightOnce;
+  late Set<String> _rightTwice;
+  late Set<String> _mastered;
   late List<String> _cases;
 
   bool get over65Only => _over65Only;
@@ -49,25 +49,25 @@ class PrefsStorage extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isStarred(final int qnum) {
-    return _starredMap.containsKey(qnum.toString());
+  bool isStarred(final String qnum) {
+    return _starredMap.containsKey(qnum);
   }
 
-  List<int>? get workingSet => _workingSet;
-  set workingSet(final List<int>? input) => _itToPrefs(input, 'workingset');
+  List<String>? get workingSet => _workingSet;
+  set workingSet(final List<String>? input) => _itToPrefs(input, 'workingset');
 
-  List<int>? get randomizedQuestions => _randomizedQuestions;
-  set randomizedQuestions(final List<int>? input) =>
+  List<String>? get randomizedQuestions => _randomizedQuestions;
+  set randomizedQuestions(final List<String>? input) =>
       _itToPrefs(input, 'randomizedquestions');
 
-  Set<int> get rightOnce => _rightOnce;
-  set rightOnce(final Set<int> input) => _itToPrefs(input, 'rightonce');
+  Set<String> get rightOnce => _rightOnce;
+  set rightOnce(final Set<String> input) => _itToPrefs(input, 'rightonce');
 
-  Set<int> get rightTwice => _rightTwice;
-  set rightTwice(final Set<int> input) => _itToPrefs(input, 'rightwice');
+  Set<String> get rightTwice => _rightTwice;
+  set rightTwice(final Set<String> input) => _itToPrefs(input, 'rightwice');
 
-  Set<int> get mastered => _mastered;
-  set mastered(final Set<int> input) => _itToPrefs(input, 'mastered');
+  Set<String> get mastered => _mastered;
+  set mastered(final Set<String> input) => _itToPrefs(input, 'mastered');
 
   List<String> get cases => _cases;
   set cases(final List<String> cases) {
@@ -75,24 +75,24 @@ class PrefsStorage extends ChangeNotifier {
     _prefs.setStringList('cases', cases);
   }
 
-  void _itToPrefs(final Iterable<int>? input, final String key) {
+  void _itToPrefs(final Iterable<String>? input, final String key) {
     if (input == null) {
       _prefs.remove(key);
       return;
     }
-    print('saving $key' + input.map((el) => el.toString()).toList().toString());
-    _prefs.setStringList(key, input.map((el) => el.toString()).toList());
+    print('saving $key' + input.map((el) => el).toList().toString());
+    _prefs.setStringList(key, input.map((el) => el).toList());
   }
 
   // clearAllLearning
 
-  void toggle(final int qnum) {
+  void toggle(final String qnum) {
     var state = !isStarred(qnum);
 
     if (state) {
-      _starredMap[qnum.toString()] = true;
+      _starredMap[qnum] = true;
     } else {
-      _starredMap.remove(qnum.toString());
+      _starredMap.remove(qnum);
     }
     _prefs.setStringList('starred', _starredMap.keys.toList());
     notifyListeners();
@@ -109,18 +109,15 @@ class PrefsStorage extends ChangeNotifier {
       _starredMap[i] = true;
     }
 
-    _workingSet = _prefs.getStringList('workingset')?.map(int.parse).toList();
+    _workingSet = _prefs.getStringList('workingset');
 
-    _randomizedQuestions =
-        _prefs.getStringList('randomizedquestions')?.map(int.parse).toList();
+    _randomizedQuestions = _prefs.getStringList('randomizedquestions');
 
-    _rightOnce =
-        _prefs.getStringList('rightonce')?.map(int.parse).toSet() ?? {};
+    _rightOnce = _prefs.getStringList('rightonce')?.toSet() ?? {};
 
-    _rightTwice =
-        _prefs.getStringList('righttwice')?.map(int.parse).toSet() ?? {};
+    _rightTwice = _prefs.getStringList('righttwice')?.toSet() ?? {};
 
-    _mastered = _prefs.getStringList('mastered')?.map(int.parse).toSet() ?? {};
+    _mastered = _prefs.getStringList('mastered')?.toSet() ?? {};
 
     _cases = _prefs.getStringList('cases') ?? [];
   }

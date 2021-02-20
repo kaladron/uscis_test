@@ -24,17 +24,17 @@ class LearnLogic extends ChangeNotifier {
   final PrefsStorage _prefs;
   final _random = Random();
 
-  final Map<int, Question> _questions;
-  List<int> _randomizedQuestions;
-  List<int> _workingSet;
-  Set<int> _rightOnce;
-  Set<int> _rightTwice;
-  Set<int> _mastered;
+  final Map<String, Question> _questions;
+  List<String> _randomizedQuestions;
+  List<String> _workingSet;
+  Set<String> _rightOnce;
+  Set<String> _rightTwice;
+  Set<String> _mastered;
 
-  List<int> get workingSet => _workingSet;
-  Set<int> get rightOnce => _rightOnce;
-  Set<int> get rightTwice => _rightTwice;
-  Set<int> get mastered => _mastered;
+  List<String> get workingSet => _workingSet;
+  Set<String> get rightOnce => _rightOnce;
+  Set<String> get rightTwice => _rightTwice;
+  Set<String> get mastered => _mastered;
 
   LearnLogic._(
       final BuildContext _context,
@@ -67,7 +67,7 @@ class LearnLogic extends ChangeNotifier {
     print('Questions: ${randomizedQuestions.toString()}');
 
     var generateWorkingSet = () {
-      var tmp = <int>[];
+      var tmp = <String>[];
       for (var _ in Iterable<int>.generate(10)) {
         tmp.add(randomizedQuestions.removeLast());
       }
@@ -89,7 +89,7 @@ class LearnLogic extends ChangeNotifier {
     print('Mastered: ${mastered.toString()}');
 
     var questions =
-        Map<int, Question>.from(context.read<QuestionStorage>().questions);
+        Map<String, Question>.from(context.read<QuestionStorage>().questions);
 
     return LearnLogic._(context, questions, randomizedQuestions, workingSet,
         rightOnce, rightTwice, mastered);

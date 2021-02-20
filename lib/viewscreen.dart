@@ -43,17 +43,18 @@ class ViewScreen extends StatelessWidget {
 }
 
 class QuestionListItem extends StatelessWidget {
-  final int _index;
+  final String _qnum;
 
-  const QuestionListItem(this._index, Key key) : super(key: key);
+  const QuestionListItem(this._qnum, Key key) : super(key: key);
 
   Widget _star(final BuildContext context) => GestureDetector(
         onTap: () {
-          context.read<QuestionStorage>().toggle(
-              context.read<QuestionStorage>().questions[_index]!.number);
+          context
+              .read<QuestionStorage>()
+              .toggle(context.read<QuestionStorage>().questions[_qnum]!.number);
         },
         child: context.watch<QuestionStorage>().isStarred(
-                context.watch<QuestionStorage>().questions[_index]!.number)
+                context.watch<QuestionStorage>().questions[_qnum]!.number)
             ? Icon(Icons.star)
             : Icon(Icons.star_outline),
       );
@@ -62,17 +63,14 @@ class QuestionListItem extends StatelessWidget {
   Widget build(final BuildContext context) => ExpansionTile(
         leading: _star(context),
         title:
-            Text(context.watch<QuestionStorage>().questions[_index]!.question),
+            Text(context.watch<QuestionStorage>().questions[_qnum]!.question),
         expandedAlignment: Alignment.centerLeft,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ...context
-                  .watch<QuestionStorage>()
-                  .questions[_index]!
-                  .answers
-                  .map((String value) => Padding(
+              ...context.watch<QuestionStorage>().questions[_qnum]!.answers.map(
+                  (String value) => Padding(
                       padding: EdgeInsets.only(left: 32, bottom: 12, right: 8),
                       child: Text('• ${value}')))
             ],
