@@ -93,7 +93,8 @@ class QuestionStorage extends ChangeNotifier {
     var contents = await rootBundle.loadString('2008.json');
     Map<String, dynamic> data = jsonDecode(contents);
     data.forEach((key, value) {
-      _questions[key] = Question.fromJson(key, value, _usAnswers);
+      _questions[key] =
+          Question.fromJson(key, value, _usAnswers, _stateAnswers);
     });
   }
 }
@@ -101,12 +102,27 @@ class QuestionStorage extends ChangeNotifier {
 @immutable
 class StateAnswer {
   final String state;
-  final String governor;
+  final List<String> governor;
   final String capital;
   final List<String> senators;
 
+  List<String> operator [](String field) {
+    switch (field) {
+      case 'state':
+        return [state];
+      case 'governor':
+        return governor;
+      case 'capital':
+        return [capital];
+      case 'senators':
+        return senators;
+      default:
+        return [];
+    }
+  }
+
   StateAnswer.fromJson(this.state, Map<String, dynamic> record)
-      : governor = record['governor'],
+      : governor = record['governor'].cast<String>(),
         capital = record['capital'],
         senators = record['senators'].cast<String>();
 }
@@ -145,13 +161,17 @@ class Question {
   final _stripParens = RegExp(r'\(.+\)');
 
   factory Question.fromJson(String number, Map<String, dynamic> record,
-      Map<String, UsAnswer> usAnswers) {
-    var answers;
-    var extraAnswers;
+      Map<String, UsAnswer> usAnswers, Map<String, StateAnswer> stateAnswers) {
+    List<String> answers;
+    List<String> extraAnswers;
 
     if (record.containsKey('us_answer')) {
       answers = usAnswers[record['us_answer']]!.answers;
       extraAnswers = usAnswers[record['us_answer']]!.extraAnswers;
+    } else if (record.containsKey('state_answer')) {
+      // TODO(jeffbailey): Don't hardcode this to California!
+      answers = stateAnswers['California']?[record['state_answer']] ?? [];
+      extraAnswers = [];
     } else {
       answers = record['answers'].cast<String>();
       extraAnswers = record['extra_answers']?.cast<String>() ?? <String>[];
