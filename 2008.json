@@ -152,6 +152,7 @@
     },
     "20": {
         "question": "Who is one of your state’s U.S. Senators now?",
+        "state_answer": "senators",
         "answers": [
             "Answers will vary. [District of Columbia residents and residents of U.S. territories should answer that D.C. (or the territory where the applicant lives) has no U.S. Senators.]"
         ],
@@ -334,12 +335,14 @@
     },
     "43": {
         "question": "Who is the Governor of your state now?",
+        "state_answer": "governor",
         "answers": [
             "Answers will vary. [District of Columbia residents should answer that D.C. does not have a Governor.]"
         ]
     },
     "44": {
         "question": "What is the capital of your state?",
+        "state_answer": "capital",
         "answers": [
             "Answers will vary. [District of Columbia residents should answer that D.C. is not a state and does not have a capital. Residents of U.S. territories should name the capital of the territory.]"
         ],
