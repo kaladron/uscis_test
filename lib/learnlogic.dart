@@ -37,14 +37,15 @@ class LearnLogic extends ChangeNotifier {
   Set<String> get mastered => _mastered;
 
   LearnLogic._(
-      final BuildContext _context,
-      this._questions,
-      this._randomizedQuestions,
-      this._workingSet,
-      this._rightOnce,
-      this._rightTwice,
-      this._mastered)
-      : _prefs = _context.read<PrefsStorage>() {
+    final BuildContext _context,
+    this._questions,
+    this._randomizedQuestions,
+    this._workingSet,
+    this._rightOnce,
+    this._rightTwice,
+    this._mastered,
+    this._prefs,
+  ) {
     _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
   }
 
@@ -92,7 +93,7 @@ class LearnLogic extends ChangeNotifier {
         Map<String, Question>.from(context.read<QuestionStorage>().questions);
 
     return LearnLogic._(context, questions, randomizedQuestions, workingSet,
-        rightOnce, rightTwice, mastered);
+        rightOnce, rightTwice, mastered, prefs);
   }
 
   double get progress => _mastered.length / _questions.length;
