@@ -39,12 +39,10 @@ void main() {
     }}''';
 
     final Map<String, dynamic> data = jsonDecode(contents);
-    final stateAnswers = <String, StateAnswer>{};
-    final usAnswers = <String, UsAnswer>{};
-    final questions = <String, Question>{};
 
+    final questions = <String, Question>{};
     data.forEach((key, value) {
-      questions[key] = Question.fromJson(key, value, usAnswers, stateAnswers);
+      questions[key] = Question.fromJson(key, value);
     });
 
     test('Test without parens', () {

@@ -30,7 +30,7 @@ enum QuestionStatus {
 class QuestionChecker {
   final Question _question;
 
-  QuestionChecker(Question question) : _question = question;
+  QuestionChecker(this._question);
 
   final _stemmer = SnowballStemmer();
 

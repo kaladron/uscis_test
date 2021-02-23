@@ -32,16 +32,29 @@ class QuestionStorage extends ChangeNotifier {
   }
 
   Map<String, Question> get questions {
-    if (!_prefs.over65Only) {
-      return _questions;
-    }
-    var over65Questions = <String, Question>{};
+    var questions = <String, Question>{};
+
     _questions.forEach((number, question) {
-      if (question.over65) {
-        over65Questions[number] = question;
+      if (_prefs.over65Only == true && !question.over65) return;
+
+      List<String> answers;
+      List<String> extraAnswers;
+      if (question.type == QuestionType.us) {
+        answers = _usAnswers[question.recordLookup]?.answers ?? [];
+        extraAnswers = _usAnswers[question.recordLookup]?.extraAnswers ?? [];
+      } else if (question.type == QuestionType.state) {
+        answers = _stateAnswers[_prefs.region]?[question.recordLookup!] ?? [];
+        extraAnswers = [];
+      } else {
+        answers = question.answers;
+        extraAnswers = question.extraAnswers;
       }
+
+      questions[number] =
+          Question.fromQuestion(question, answers, extraAnswers);
     });
-    return over65Questions;
+
+    return questions;
   }
 
   List<Question> get starredQuestions {
@@ -60,8 +73,6 @@ class QuestionStorage extends ChangeNotifier {
   }
 
   QuestionStorage(this._prefs);
-
-  // TODO(jeffbailey): Finish state-specific questions.
 
   Future<void> initState() async {
     _questions.clear();
@@ -93,8 +104,7 @@ class QuestionStorage extends ChangeNotifier {
     var contents = await rootBundle.loadString('2008.json');
     Map<String, dynamic> data = jsonDecode(contents);
     data.forEach((key, value) {
-      _questions[key] =
-          Question.fromJson(key, value, _usAnswers, _stateAnswers);
+      _questions[key] = Question.fromJson(key, value);
     });
   }
 }
@@ -138,6 +148,13 @@ class UsAnswer {
         extraAnswers = record['extra_answers']?.cast<String>() ?? [];
 }
 
+enum QuestionType {
+  none,
+  us,
+  state,
+  representative,
+}
+
 /// The Answer set includes:
 ///  * The official answers in the book.
 ///  * "alternative phrasing of the correct answer"
@@ -157,32 +174,57 @@ class Question {
   final List<String> extraAnswers;
   final bool over65;
   final int mustAnswer;
+  final QuestionType type;
+  final String? recordLookup;
 
   final _stripParens = RegExp(r'\(.+\)');
 
-  factory Question.fromJson(String number, Map<String, dynamic> record,
-      Map<String, UsAnswer> usAnswers, Map<String, StateAnswer> stateAnswers) {
-    List<String> answers;
-    List<String> extraAnswers;
-
+  factory Question.fromJson(
+    String number,
+    Map<String, dynamic> record,
+  ) {
+    QuestionType type;
+    String? recordLookup;
     if (record.containsKey('us_answer')) {
-      answers = usAnswers[record['us_answer']]!.answers;
-      extraAnswers = usAnswers[record['us_answer']]!.extraAnswers;
+      type = QuestionType.us;
+      recordLookup = record['us_answer'];
     } else if (record.containsKey('state_answer')) {
-      // TODO(jeffbailey): Don't hardcode this to California!
-      answers = stateAnswers['California']?[record['state_answer']] ?? [];
-      extraAnswers = [];
+      type = QuestionType.state;
+      recordLookup = record['state_answer'];
+    } else if (record.containsKey('representative_answer')) {
+      type = QuestionType.representative;
+      recordLookup = record['representative_answer'];
     } else {
-      answers = record['answers'].cast<String>();
-      extraAnswers = record['extra_answers']?.cast<String>() ?? <String>[];
+      type = QuestionType.none;
     }
 
-    return Question._(number, record['question'], answers, extraAnswers,
-        record['over65'] ?? false, record['must_answer'] ?? 1);
+    return Question._(
+        number,
+        record['question'],
+        record['answers'].cast<String>(),
+        record['extra_answers']?.cast<String>() ?? <String>[],
+        record['over65'] ?? false,
+        record['must_answer'] ?? 1,
+        type,
+        recordLookup);
   }
 
   Question._(this.number, this.question, this.answers, this.extraAnswers,
-      this.over65, this.mustAnswer);
+      this.over65, this.mustAnswer, this.type, this.recordLookup);
+
+  factory Question.fromQuestion(
+      Question orig, List<String> answers, List<String> extraAnswers) {
+    return Question._(
+      orig.number,
+      orig.question,
+      answers,
+      extraAnswers,
+      orig.over65,
+      orig.mustAnswer,
+      orig.type,
+      orig.recordLookup,
+    );
+  }
 
   List<String> get allAnswers {
     var strippedAnswers = <String>[];
