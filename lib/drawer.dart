@@ -35,19 +35,6 @@ class DrawerMenu extends StatelessWidget {
               color: Colors.blue,
             ),
           ),
-          ListTile(title: Text('USCIS Exam')),
-          RadioListTile(
-            value: '2008',
-            title: Text('2008'),
-            onChanged: (value) {},
-            groupValue: '2008',
-          ),
-          RadioListTile(
-            value: '2020',
-            title: Text('2020'),
-            onChanged: null,
-            groupValue: '2008',
-          ),
           SwitchListTile(
             title: Text('Show only 65+ Questions'),
             value: context.watch<PrefsStorage>().over65Only,
