@@ -30,7 +30,6 @@ import 'package:uscis_test/question.dart';
 import 'package:uscis_test/viewscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/learnscreen.dart';
-import 'package:uscis_test/testscreen.dart';
 
 class MainScreen extends StatelessWidget {
   static const routeName = '/';
@@ -69,13 +68,10 @@ class MainScreen extends StatelessWidget {
             ),
             Card(
               child: InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, TestScreen.routeName);
-                },
                 child: ListTile(
                   leading: Icon(Icons.psychology),
                   title: Text('Test'),
-                  subtitle: Text('Simulate a test'),
+                  subtitle: Text('Simulate a test (coming soon!)'),
                 ),
               ),
             ),
