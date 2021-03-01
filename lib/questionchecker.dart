@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:uscis_test/question.dart';
 import 'package:uscis_test/stemmer/SnowballStemmer.dart';
 import 'package:uscis_test/stemmer/stopwords.dart';
@@ -26,6 +27,66 @@ enum QuestionStatus {
   incorrect,
   moreNeeded,
 }
+
+@visibleForTesting
+class AnswerChain {
+  final Map<String, AnswerChain> _next = {};
+  bool _okEnd = false;
+
+  @override
+  String toString({int indentval = 0}) {
+    var output = '';
+    if (_okEnd) output += ' END';
+    _next.forEach((key, value) {
+      output += '\n' + ' ' * indentval + key;
+      output += value.toString(indentval: indentval + 2);
+    });
+    return output;
+  }
+
+  void add(final List<String> words) {
+    if (words.isEmpty) {
+      _okEnd = true;
+      return;
+    }
+
+    var nextChain = _next[words.first];
+
+    if (nextChain == null) {
+      nextChain = AnswerChain();
+      _next[words.first] = nextChain;
+    }
+
+    nextChain.add(words.sublist(1));
+  }
+
+  bool match(final List<String> words) {
+    if (words.isEmpty && _okEnd) {
+      return true;
+    }
+
+    if (words.isEmpty) {
+      return false;
+    }
+
+    // Is our next word in the list?
+    var nextChain = _next[words.first];
+    if (nextChain == null) {
+      // Nope!
+      return false;
+    }
+
+    return nextChain.match(words.sublist(1));
+  }
+}
+
+// At initialization, loop through for each answer
+// Stem/tokenize it
+// Add to a Hashtable the first word and a hash table if there's another word,
+//   null if it's the last
+// Recurse with each word.
+// Match is only successful if the last word returns a null
+// How does
 
 class QuestionChecker {
   final Question _question;
