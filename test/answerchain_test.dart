@@ -21,6 +21,7 @@ void main() {
   group('AnswerChain tests', () {
     test('empty match', () {
       var chain = AnswerChain();
+      chain.add([]);
       expect(chain.match([]), true);
     });
 
