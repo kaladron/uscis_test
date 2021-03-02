@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uscis_test/question.dart';
 import 'package:uscis_test/stemmer/SnowballStemmer.dart';
@@ -91,7 +90,14 @@ class AnswerChain {
 class QuestionChecker {
   final Question _question;
 
-  QuestionChecker(this._question);
+  final _answers = AnswerChain();
+
+  QuestionChecker(this._question) {
+    for (var answer in _question.allAnswers) {
+      var keyTokens = getTokens(answer);
+      _answers.add(keyTokens);
+    }
+  }
 
   final _stemmer = SnowballStemmer();
 
@@ -110,27 +116,23 @@ class QuestionChecker {
     var answerTokens = getTokens(origAnswer);
     print('Key: ${answerTokens.toString()}');
 
-    for (var answer in _question.allAnswers) {
-      var keyTokens = getTokens(answer);
-      print('Answer: ${keyTokens.toString()}');
-      if (ListEquality().equals(answerTokens, keyTokens)) {
-        // Check if we've been cancelled (view answer or similar selected)
-        if (_cancelled) return QuestionStatus.cancelled;
+    if (_answers.match(answerTokens)) {
+      // Check if we've been cancelled (view answer or similar selected)
+      if (_cancelled) return QuestionStatus.cancelled;
 
-        // Check if we've seen the answer before
-        if (_rightAnswers.contains(keyTokens)) return QuestionStatus.duplicate;
+      // Check if we've seen the answer before
+      if (_rightAnswers.contains(answerTokens)) return QuestionStatus.duplicate;
 
-        // Add the answer to the seen set
-        _rightAnswers.add(keyTokens);
+      // Add the answer to the seen set
+      _rightAnswers.add(answerTokens);
 
-        // Check if there's more needed to complete
-        if (_rightAnswers.length != _question.mustAnswer) {
-          return QuestionStatus.moreNeeded;
-        }
-
-        // Return correct
-        return QuestionStatus.correctOnce;
+      // Check if there's more needed to complete
+      if (_rightAnswers.length != _question.mustAnswer) {
+        return QuestionStatus.moreNeeded;
       }
+
+      // Return correct
+      return QuestionStatus.correctOnce;
     }
     return QuestionStatus.incorrect;
   }
