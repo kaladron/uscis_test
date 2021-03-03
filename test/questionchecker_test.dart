@@ -23,6 +23,14 @@ import 'package:uscis_test/questionchecker.dart';
 void main() {
   group('Question Checker', () {
     const contents = '''{
+      "61": {
+          "question": "Why did the colonists fight the British?",
+          "answers": [
+              "because of high taxes (taxation without representation)",
+              "because the British army stayed in their houses (boarding, quartering)",
+              "because they didn’t have self-government"
+          ]
+      },
         "95": {
         "question": "Where is the Statue of Liberty?",
         "answers": [
@@ -76,6 +84,11 @@ void main() {
       expect(checker.checkAnswer('hudson river'), QuestionStatus.correctOnce);
     });
 
+    test('Test answer with hyphen', () {
+      final checker = QuestionChecker(questions['61']);
+      expect(checker.checkAnswer("because they didn't have self-government"),
+          QuestionStatus.correctOnce);
+    });
     test('Test wrong answer', () {
       final checker = QuestionChecker(questions['95']);
       expect(checker.checkAnswer('san fransisco'), QuestionStatus.incorrect);
