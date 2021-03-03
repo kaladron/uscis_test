@@ -237,8 +237,20 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
     setState(() {
       switch (context.read<LearnLogic>().checkAnswer(_resultText)) {
         case QuestionStatus.moreNeeded:
-        case QuestionStatus.correctOnce:
+          _showResult(Text(
+            'More',
+            style: TextStyle(fontSize: 112, color: Colors.green),
+          ));
+          break;
+
         case QuestionStatus.duplicate:
+          _showResult(Text(
+            'Dupe',
+            style: TextStyle(fontSize: 112, color: Colors.green),
+          ));
+          break;
+
+        case QuestionStatus.correctOnce:
           _showResult(_rightOnceMark);
           _nextQuestion();
           break;

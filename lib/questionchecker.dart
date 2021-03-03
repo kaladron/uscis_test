@@ -122,7 +122,12 @@ class QuestionChecker {
       if (_cancelled) return QuestionStatus.cancelled;
 
       // Check if we've seen the answer before
-      if (_rightAnswers.contains(answerTokens)) return QuestionStatus.duplicate;
+      // (Lists are never equal so contains doesn't work here)
+      for (var rightAnswer in _rightAnswers) {
+        if (listEquals(rightAnswer, answerTokens)) {
+          return QuestionStatus.duplicate;
+        }
+      }
 
       // Add the answer to the seen set
       _rightAnswers.add(answerTokens);
@@ -155,6 +160,7 @@ class QuestionChecker {
   String? _prepToken(String token) {
     // Apostrophes are corrected inside the stemmer, but it doesn't match
     // stopwords.  This way we catch didn't vs didn’t
+    // TODO(jeffbailey): This seems like a bug that should be reporting to NLTK.
     var fixed = token
         .replaceAll('\u2019', '\x27')
         .replaceAll('\u2018', '\x27')
