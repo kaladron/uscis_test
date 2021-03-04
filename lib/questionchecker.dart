@@ -59,23 +59,25 @@ class AnswerChain {
     nextChain.add(words.sublist(1));
   }
 
-  bool match(final List<String> words) {
+  List<String>? match(final List<String> words, [List<String>? answerWords]) {
+    answerWords ??= [];
     if (words.isEmpty && _okEnd) {
-      return true;
+      return answerWords;
     }
 
     if (words.isEmpty) {
-      return false;
+      return null;
     }
 
     // Is our next word in the list?
     var nextChain = _next[words.first];
     if (nextChain == null) {
       // Nope!
-      return false;
+      return null;
     }
 
-    return nextChain.match(words.sublist(1));
+    answerWords.add(words.first);
+    return nextChain.match(words.sublist(1), answerWords);
   }
 }
 
@@ -117,20 +119,21 @@ class QuestionChecker {
     print('Key: ${answerTokens.toString()}');
     print('Answer: $_answers');
 
-    if (_answers.match(answerTokens)) {
+    var result = _answers.match(answerTokens);
+    if (result != null) {
       // Check if we've been cancelled (view answer or similar selected)
       if (_cancelled) return QuestionStatus.cancelled;
 
       // Check if we've seen the answer before
       // (Lists are never equal so contains doesn't work here)
       for (var rightAnswer in _rightAnswers) {
-        if (listEquals(rightAnswer, answerTokens)) {
+        if (listEquals(rightAnswer, result)) {
           return QuestionStatus.duplicate;
         }
       }
 
       // Add the answer to the seen set
-      _rightAnswers.add(answerTokens);
+      _rightAnswers.add(result);
 
       // Check if there's more needed to complete
       if (_rightAnswers.length != _question.mustAnswer) {

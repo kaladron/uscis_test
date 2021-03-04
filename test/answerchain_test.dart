@@ -22,7 +22,7 @@ void main() {
     test('empty match', () {
       var chain = AnswerChain();
       chain.add([]);
-      expect(chain.match([]), true);
+      expect(chain.match([]), []);
     });
 
     test('simple match', () {
@@ -34,10 +34,10 @@ void main() {
       chain.add(['foo', 'baz', 'baz']);
       chain.add(['foo', 'quux', 'baz']);
 
-      expect(chain.match(['foo']), true);
-      expect(chain.match(['foo', 'bar', 'quux']), true);
-      expect(chain.match(['foo', 'bar', 'quux', 'ooga']), false);
-      expect(chain.match(['foo', 'quux']), false);
+      expect(chain.match(['foo']), ['foo']);
+      expect(chain.match(['foo', 'bar', 'quux']), ['foo', 'bar', 'quux']);
+      expect(chain.match(['foo', 'bar', 'quux', 'ooga']), null);
+      expect(chain.match(['foo', 'quux']), null);
     });
   });
 }
