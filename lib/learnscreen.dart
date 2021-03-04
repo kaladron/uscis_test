@@ -103,11 +103,11 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
               Column(children: [
                 MaterialButton(
                   onPressed: startListening,
-                  child: Icon(Icons.mic_none_outlined,
-                      size: 24, color: _micButtonForeground),
                   shape: CircleBorder(),
                   padding: EdgeInsets.all(16),
                   color: _micButtonBackground,
+                  child: Icon(Icons.mic_none_outlined,
+                      size: 24, color: _micButtonForeground),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
@@ -154,7 +154,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (_resultText != '') Text('You said: ${_resultText}'),
+                        if (_resultText != '') Text('You said: $_resultText'),
                         for (var i
                             in context.watch<LearnLogic>().question.answers)
                           Text('• ' + i),
@@ -352,10 +352,11 @@ class QuestionInfoDialog extends StatelessWidget {
         ),
         actions: [
           TextButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              })
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('OK'),
+          )
         ],
       );
 }

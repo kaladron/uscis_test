@@ -87,8 +87,8 @@ class MainScreen extends StatelessWidget {
                   )),
             ),
             Padding(
-              child: Text('Choose your region'),
               padding: EdgeInsets.only(top: 16),
+              child: Text('Choose your region'),
             ),
             DropdownButton(
               value: context.watch<PrefsStorage>().region,

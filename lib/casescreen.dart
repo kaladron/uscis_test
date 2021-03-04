@@ -70,10 +70,10 @@ class _CaseScreenImpl extends StatelessWidget {
                             ),
                             actions: [
                               TextButton(
-                                child: Text('Add'),
                                 onPressed: () {
                                   Navigator.of(context).pop(_controller.text);
                                 },
+                                child: Text('Add'),
                               ),
                             ],
                           )).then((value) =>

@@ -36,7 +36,7 @@ class ViewScreen extends StatelessWidget {
               .questions
               .keys
               .toList()
-              .map((e) => QuestionListItem(e, ValueKey('questions ${e}')))
+              .map((e) => QuestionListItem(e, ValueKey('questions $e')))
               .toList(),
         ]),
       );
@@ -72,7 +72,7 @@ class QuestionListItem extends StatelessWidget {
               ...context.watch<QuestionStorage>().questions[_qnum]!.answers.map(
                   (String value) => Padding(
                       padding: EdgeInsets.only(left: 32, bottom: 12, right: 8),
-                      child: Text('• ${value}')))
+                      child: Text('• $value')))
             ],
           ),
         ],
