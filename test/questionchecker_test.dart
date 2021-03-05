@@ -23,6 +23,15 @@ import 'package:uscis_test/questionchecker.dart';
 void main() {
   group('Question Checker', () {
     const contents = '''{
+      "19": {
+          "question": "We elect a U.S. Senator for how many years?",
+          "answers": [
+              "six (6)"
+          ],
+          "extra_answers": [
+              "6 (years)"
+          ]
+      },
       "61": {
           "question": "Why did the colonists fight the British?",
           "answers": [
@@ -92,6 +101,10 @@ void main() {
     test('Test wrong answer', () {
       final checker = QuestionChecker(questions['95']);
       expect(checker.checkAnswer('san fransisco'), QuestionStatus.incorrect);
+    });
+    test('Test fuzzy answer', () {
+      final checker = QuestionChecker(questions['19']);
+      expect(checker.checkAnswer('sex'), QuestionStatus.correctOnce);
     });
   });
 }

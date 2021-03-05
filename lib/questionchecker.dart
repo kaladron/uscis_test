@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:edit_distance/edit_distance.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uscis_test/question.dart';
 import 'package:uscis_test/stemmer/SnowballStemmer.dart';
@@ -70,9 +71,10 @@ class AnswerChain {
     }
 
     // Is our next word in the list?
+    var d = Levenshtein();
     AnswerChain? nextChain;
     for (var key in _next.keys) {
-      if (key == words.first) {
+      if (d.distance(key, words.first) <= 1) {
         nextChain = _next[key];
         break;
       }
