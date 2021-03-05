@@ -70,7 +70,13 @@ class AnswerChain {
     }
 
     // Is our next word in the list?
-    var nextChain = _next[words.first];
+    AnswerChain? nextChain;
+    for (var key in _next.keys) {
+      if (key == words.first) {
+        nextChain = _next[key];
+        break;
+      }
+    }
     if (nextChain == null) {
       // Nope!
       return null;
