@@ -188,10 +188,6 @@ class LearnLogic extends ChangeNotifier {
       case QuestionStatus.incorrect:
         cancelQuestion();
         return status;
-      case QuestionStatus.duplicate:
-        return QuestionStatus.duplicate;
-      case QuestionStatus.moreNeeded:
-        return QuestionStatus.moreNeeded;
       default:
         return status;
     }
