@@ -26,12 +26,12 @@ class LearnLogic extends ChangeNotifier {
 
   final Map<String, Question> _questions;
   List<String> _randomizedQuestions;
-  List<String> _workingSet;
+  Set<String> _workingSet;
   Set<String> _rightOnce;
   Set<String> _rightTwice;
   Set<String> _mastered;
 
-  List<String> get workingSet => _workingSet;
+  Set<String> get workingSet => _workingSet;
   Set<String> get rightOnce => _rightOnce;
   Set<String> get rightTwice => _rightTwice;
   Set<String> get mastered => _mastered;
@@ -46,7 +46,12 @@ class LearnLogic extends ChangeNotifier {
     this._mastered,
     this._prefs,
   ) {
-    _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
+    var next = _nextQuestionfromWorkingSet();
+    var question = _questions[next];
+    if (question != null) {
+      _currentQuestion = next;
+      _questionChecker = QuestionChecker(question);
+    }
   }
 
   /// Initialize local question array
@@ -68,13 +73,16 @@ class LearnLogic extends ChangeNotifier {
     print('Questions: ${randomizedQuestions.toString()}');
 
     var generateWorkingSet = () {
-      var tmp = <String>[];
+      var tmp = <String>{};
       for (var _ in Iterable<int>.generate(10)) {
         tmp.add(randomizedQuestions.removeLast());
       }
       prefs.workingSet = tmp;
       return tmp;
     };
+
+    // TODO(jeffbailey): Add integrity checks to these - no dupes, right number
+    // in working set, etc.
 
     var workingSet = prefs.workingSet ?? generateWorkingSet();
 
@@ -98,15 +106,20 @@ class LearnLogic extends ChangeNotifier {
 
   double get progress => _mastered.length / _questions.length;
 
-  Question get question => _questions[_workingSet[_cursor]]!;
+  Question get question => _questions[_currentQuestion]!;
 
   late QuestionChecker _questionChecker;
 
-  int _cursor = 0;
+  String? _currentQuestion;
+
+  String _nextQuestionfromWorkingSet() =>
+      _questions[_workingSet.toList()[_random.nextInt(_workingSet.length)]]!
+          .number;
 
   void nextQuestion() {
-    _cursor = _random.nextInt(_workingSet.length);
-    _questionChecker = QuestionChecker(_questions[_workingSet[_cursor]]!);
+    _currentQuestion = _nextQuestionfromWorkingSet();
+
+    _questionChecker = QuestionChecker(_questions[_currentQuestion]!);
     notifyListeners();
   }
 
@@ -114,12 +127,12 @@ class LearnLogic extends ChangeNotifier {
   // such as if "show answer" is displayed, or a duplicate answer, etc.
   void cancelQuestion() {
     _questionChecker.cancelled = true;
-    if (_rightOnce.contains(_workingSet[_cursor])) {
-      _rightOnce.remove(_workingSet[_cursor]);
+    if (_rightOnce.contains(_currentQuestion)) {
+      _rightOnce.remove(_currentQuestion);
       _prefs.rightOnce = _rightOnce;
     }
-    if (_rightTwice.contains(_workingSet[_cursor])) {
-      _rightTwice.remove(_workingSet[_cursor]);
+    if (_rightTwice.contains(_currentQuestion)) {
+      _rightTwice.remove(_currentQuestion);
       _prefs.rightTwice = _rightTwice;
     }
   }
@@ -129,12 +142,18 @@ class LearnLogic extends ChangeNotifier {
     var status = _questionChecker.checkAnswer(origAnswer);
     print(status.toString());
 
+    // Cope with Dart's null handling limitations
+    var currentQuestion = _currentQuestion;
+    if (currentQuestion == null) {
+      throw Exception('Current Question is somehow null!');
+    }
+
     switch (status) {
       case QuestionStatus.correctOnce:
-        if (_rightTwice.contains(_workingSet[_cursor])) {
-          _rightTwice.remove(_workingSet[_cursor]);
-          _mastered.add(_workingSet[_cursor]);
-          _workingSet.removeAt(_cursor);
+        if (_rightTwice.contains(currentQuestion)) {
+          _rightTwice.remove(currentQuestion);
+          _mastered.add(currentQuestion);
+          _workingSet.remove(currentQuestion);
           if (_questions.isNotEmpty) {
             _workingSet.add(_randomizedQuestions.removeLast());
           }
@@ -145,15 +164,15 @@ class LearnLogic extends ChangeNotifier {
           return QuestionStatus.correctThrice;
         }
 
-        if (_rightOnce.contains(_workingSet[_cursor])) {
-          _rightOnce.remove(_workingSet[_cursor]);
-          _rightTwice.add(_workingSet[_cursor]);
+        if (_rightOnce.contains(currentQuestion)) {
+          _rightOnce.remove(currentQuestion);
+          _rightTwice.add(currentQuestion);
           _prefs.rightOnce = _rightOnce;
           _prefs.rightTwice = _rightTwice;
           return QuestionStatus.correctTwice;
         }
 
-        _rightOnce.add(_workingSet[_cursor]);
+        _rightOnce.add(currentQuestion);
         _prefs.rightOnce = _rightOnce;
         return QuestionStatus.correctOnce;
       case QuestionStatus.incorrect:

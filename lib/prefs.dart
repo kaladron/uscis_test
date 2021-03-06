@@ -24,7 +24,7 @@ class PrefsStorage extends ChangeNotifier {
   String? _region;
   final _starredMap = SplayTreeMap<String, bool>();
 
-  late List<String>? _workingSet;
+  late Set<String>? _workingSet;
   late List<String>? _randomizedQuestions;
   late Set<String> _rightOnce;
   late Set<String> _rightTwice;
@@ -53,8 +53,8 @@ class PrefsStorage extends ChangeNotifier {
     return _starredMap.containsKey(qnum);
   }
 
-  List<String>? get workingSet => _workingSet;
-  set workingSet(final List<String>? input) => _itToPrefs(input, 'workingset');
+  Set<String>? get workingSet => _workingSet;
+  set workingSet(final Set<String>? input) => _itToPrefs(input, 'workingset');
 
   List<String>? get randomizedQuestions => _randomizedQuestions;
   set randomizedQuestions(final List<String>? input) =>
@@ -109,7 +109,7 @@ class PrefsStorage extends ChangeNotifier {
       _starredMap[i] = true;
     }
 
-    _workingSet = _prefs.getStringList('workingset');
+    _workingSet = _prefs.getStringList('workingset')?.toSet();
 
     _randomizedQuestions = _prefs.getStringList('randomizedquestions');
 
