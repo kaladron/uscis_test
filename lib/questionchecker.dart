@@ -172,17 +172,17 @@ class QuestionChecker {
     // Apostrophes are corrected inside the stemmer, but it doesn't match
     // stopwords.  This way we catch didn't vs didn’t
     // TODO(jeffbailey): This seems like a bug that should be reporting to NLTK.
-    var fixed = token
+    token = token
         .replaceAll('\u2019', '\x27')
         .replaceAll('\u2018', '\x27')
         .replaceAll('\u201B', '\x27');
 
-    // 5. Remove Stopwords - This should happen as part of stemming.
-    // TODO(jeffbailey): filter not from stopwords, it's semantically important
-    if (stopWords.contains(fixed)) return null;
-
     // 3. Strip punctuation
     token = token.replaceAll(_stripPunctuation, '');
+
+    // 5. Remove Stopwords - This should happen as part of stemming.
+    // TODO(jeffbailey): filter not from stopwords, it's semantically important
+    if (stopWords.contains(token)) return null;
 
     // 4. Filter empty words
     if (token.isEmpty) return null;
