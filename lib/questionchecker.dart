@@ -124,8 +124,8 @@ class QuestionChecker {
 
   QuestionStatus checkAnswer(final String origAnswer) {
     var answerTokens = getTokens(origAnswer);
-    print('Key: ${answerTokens.toString()}');
-    print('Answer: $_answers');
+    // print('Key: ${answerTokens.toString()}');
+    // print('Answer: $_answers');
 
     var result = _answers.match(answerTokens);
     if (result != null) {
