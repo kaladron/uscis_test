@@ -77,6 +77,7 @@ class LearnLogic extends ChangeNotifier {
       for (var _ in Iterable<int>.generate(10)) {
         tmp.add(randomizedQuestions.removeLast());
       }
+      prefs.randomizedQuestions = randomizedQuestions;
       prefs.workingSet = tmp;
       return tmp;
     };
@@ -154,9 +155,13 @@ class LearnLogic extends ChangeNotifier {
           _rightTwice.remove(currentQuestion);
           _mastered.add(currentQuestion);
           _workingSet.remove(currentQuestion);
-          if (_questions.isNotEmpty) {
-            _workingSet.add(_randomizedQuestions.removeLast());
+
+          if (_randomizedQuestions.isNotEmpty) {
+            var newQuestion = _randomizedQuestions.removeLast();
+            print('Adding: $newQuestion');
+            _workingSet.add(newQuestion);
           }
+          _prefs.randomizedQuestions = _randomizedQuestions;
           _prefs.rightTwice = _rightTwice;
           _prefs.mastered = _mastered;
           _prefs.workingSet = _workingSet;
