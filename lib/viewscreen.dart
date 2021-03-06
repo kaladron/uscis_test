@@ -49,9 +49,8 @@ class QuestionListItem extends StatelessWidget {
 
   Widget _star(final BuildContext context) => GestureDetector(
         onTap: () {
-          context
-              .read<QuestionStorage>()
-              .toggle(context.read<QuestionStorage>().questions[_qnum]!.number);
+          context.read<QuestionStorage>().toggleStar(
+              context.read<QuestionStorage>().questions[_qnum]!.number);
         },
         child: context.watch<QuestionStorage>().isStarred(
                 context.watch<QuestionStorage>().questions[_qnum]!.number)

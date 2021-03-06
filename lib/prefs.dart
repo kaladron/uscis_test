@@ -32,9 +32,6 @@ class PrefsStorage extends ChangeNotifier {
   late List<String> _cases;
 
   bool get over65Only => _over65Only;
-
-  List<String> get starredList => _starredMap.keys.toList();
-
   set over65Only(final bool value) {
     _prefs.setBool('over65', value);
     _over65Only = value;
@@ -42,15 +39,10 @@ class PrefsStorage extends ChangeNotifier {
   }
 
   String? get region => _region;
-
   set region(final String? value) {
     _prefs.setString('region', value ?? 'Alabama');
     _region = value;
     notifyListeners();
-  }
-
-  bool isStarred(final String qnum) {
-    return _starredMap.containsKey(qnum);
   }
 
   Set<String>? get workingSet => _workingSet;
@@ -75,18 +67,14 @@ class PrefsStorage extends ChangeNotifier {
     _prefs.setStringList('cases', cases);
   }
 
-  void _itToPrefs(final Iterable<String>? input, final String key) {
-    if (input == null) {
-      _prefs.remove(key);
-      return;
-    }
-    print('saving $key' + input.map((el) => el).toList().toString());
-    _prefs.setStringList(key, input.map((el) => el).toList());
+  // Star Handling
+  List<String> get starredList => _starredMap.keys.toList();
+
+  bool isStarred(final String qnum) {
+    return _starredMap.containsKey(qnum);
   }
 
-  // clearAllLearning
-
-  void toggle(final String qnum) {
+  void toggleStar(final String qnum) {
     var state = !isStarred(qnum);
 
     if (state) {
@@ -120,5 +108,14 @@ class PrefsStorage extends ChangeNotifier {
     _mastered = _prefs.getStringList('mastered')?.toSet() ?? {};
 
     _cases = _prefs.getStringList('cases') ?? [];
+  }
+
+  void _itToPrefs(final Iterable<String>? input, final String key) {
+    if (input == null) {
+      _prefs.remove(key);
+      return;
+    }
+    print('saving $key' + input.map((el) => el).toList().toString());
+    _prefs.setStringList(key, input.map((el) => el).toList());
   }
 }

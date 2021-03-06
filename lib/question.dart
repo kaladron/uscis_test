@@ -67,8 +67,8 @@ class QuestionStorage extends ChangeNotifier {
 
   bool isStarred(final String qnum) => _prefs.isStarred(qnum);
 
-  void toggle(final String qnum) {
-    _prefs.toggle(qnum);
+  void toggleStar(final String qnum) {
+    _prefs.toggleStar(qnum);
     notifyListeners();
   }
 
