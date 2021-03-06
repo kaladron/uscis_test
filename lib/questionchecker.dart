@@ -89,14 +89,6 @@ class AnswerChain {
   }
 }
 
-// At initialization, loop through for each answer
-// Stem/tokenize it
-// Add to a Hashtable the first word and a hash table if there's another word,
-//   null if it's the last
-// Recurse with each word.
-// Match is only successful if the last word returns a null
-// How does
-
 class QuestionChecker {
   final Question _question;
 
@@ -113,11 +105,7 @@ class QuestionChecker {
 
   final List<List<String>> _rightAnswers = [];
 
-  bool _cancelled = false;
-
-  set cancelled(final bool value) {
-    _cancelled = value;
-  }
+  bool cancelled = false;
 
   // I don't love reinitializing this per question.
   final _stripPunctuation = RegExp(r"[^\w\s']+");
@@ -130,7 +118,7 @@ class QuestionChecker {
     var result = _answers.match(answerTokens);
     if (result != null) {
       // Check if we've been cancelled (view answer or similar selected)
-      if (_cancelled) return QuestionStatus.cancelled;
+      if (cancelled) return QuestionStatus.cancelled;
 
       // Check if we've seen the answer before
       // (Lists are never equal so contains doesn't work here)
