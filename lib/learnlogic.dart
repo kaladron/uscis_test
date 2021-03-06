@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -31,10 +32,14 @@ class LearnLogic extends ChangeNotifier {
   Set<String> _rightTwice;
   Set<String> _mastered;
 
-  Set<String> get workingSet => _workingSet;
-  Set<String> get rightOnce => _rightOnce;
-  Set<String> get rightTwice => _rightTwice;
-  Set<String> get mastered => _mastered;
+  UnmodifiableSetView<String> get workingSet =>
+      UnmodifiableSetView<String>(_workingSet);
+  UnmodifiableSetView<String> get rightOnce =>
+      UnmodifiableSetView<String>(_rightOnce);
+  UnmodifiableSetView<String> get rightTwice =>
+      UnmodifiableSetView<String>(_rightTwice);
+  UnmodifiableSetView<String> get mastered =>
+      UnmodifiableSetView<String>(_mastered);
 
   LearnLogic._(
     final BuildContext _context,
