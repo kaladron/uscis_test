@@ -47,7 +47,7 @@ dependencies:
   # flag: ^4.0.0-pre
   shared_preferences: 2.0.1
   flutter_tts: ^2.1.0
-  #flutter_html: ^1.2.0
+  flutter_html: ^2.0.0-nullsafety
   html: any
   http: any
   edit_distance: ^0.5.0-nullsafety

@@ -22,8 +22,7 @@ import 'package:flutter/material.dart';
 // import 'package:flag/flag.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/prefs.dart';
-// ignore: import_of_legacy_library_into_null_safe
-//import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class DrawerMenu extends StatelessWidget {
   @override
@@ -51,10 +50,10 @@ class DrawerMenu extends StatelessWidget {
           AboutListTile(
             applicationName: 'US Citizenship Test',
             aboutBoxChildren: [
-              //Html(
-              //  data:
-              //      'Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
-              //)
+              Html(
+                data:
+                    'Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
+              )
             ],
           ),
         ]),
