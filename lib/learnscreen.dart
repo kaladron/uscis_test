@@ -154,7 +154,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (_resultText != '') Text('You said: $_resultText'),
+                        if (_resultText != '') Text('I heard: $_resultText'),
                         for (var i
                             in context.watch<LearnLogic>().question.answers)
                           Text('• ' + i),
