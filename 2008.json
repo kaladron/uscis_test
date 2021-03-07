@@ -458,6 +458,9 @@
         "answers": [
             "April 15"
         ],
+        "extra_answers":[
+            "April 15th"
+        ],
         "over65": true
     },
     "57": {
@@ -840,7 +843,8 @@
         ],
         "extra_answers": [
             "Fourth of July",
-            "4th of July"
+            "4th of July",
+            "July 4th"
         ],
         "over65": true
     },
