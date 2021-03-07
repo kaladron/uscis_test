@@ -18,6 +18,16 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsStorage extends ChangeNotifier {
+  static const CasesKey = 'cases';
+  static const RightOnceKey = 'rightonce';
+  static const RightTwiceKey = 'righttwice';
+  static const MasteredKey = 'mastered';
+  static const WorkingSetKey = 'workingset';
+  static const Over65Key = 'over65';
+  static const RandomizedQuestionsKey = 'randomizedquestions';
+  static const RegionKey = 'region';
+  static const StarredKey = 'starred';
+
   late SharedPreferences _prefs;
 
   late bool _over65Only;
@@ -33,38 +43,38 @@ class PrefsStorage extends ChangeNotifier {
 
   bool get over65Only => _over65Only;
   set over65Only(final bool value) {
-    _prefs.setBool('over65', value);
+    _prefs.setBool(Over65Key, value);
     _over65Only = value;
     notifyListeners();
   }
 
   String? get region => _region;
   set region(final String? value) {
-    _prefs.setString('region', value ?? 'Alabama');
+    _prefs.setString(RegionKey, value ?? 'Alabama');
     _region = value;
     notifyListeners();
   }
 
   Set<String>? get workingSet => _workingSet;
-  set workingSet(final Set<String>? input) => _itToPrefs(input, 'workingset');
+  set workingSet(final Set<String>? input) => _itToPrefs(input, WorkingSetKey);
 
   List<String>? get randomizedQuestions => _randomizedQuestions;
   set randomizedQuestions(final List<String>? input) =>
-      _itToPrefs(input, 'randomizedquestions');
+      _itToPrefs(input, RandomizedQuestionsKey);
 
   Set<String> get rightOnce => _rightOnce;
-  set rightOnce(final Set<String> input) => _itToPrefs(input, 'rightonce');
+  set rightOnce(final Set<String> input) => _itToPrefs(input, RightOnceKey);
 
   Set<String> get rightTwice => _rightTwice;
-  set rightTwice(final Set<String> input) => _itToPrefs(input, 'rightwice');
+  set rightTwice(final Set<String> input) => _itToPrefs(input, RightTwiceKey);
 
   Set<String> get mastered => _mastered;
-  set mastered(final Set<String> input) => _itToPrefs(input, 'mastered');
+  set mastered(final Set<String> input) => _itToPrefs(input, MasteredKey);
 
   List<String> get cases => _cases;
   set cases(final List<String> cases) {
     _cases = cases;
-    _prefs.setStringList('cases', cases);
+    _prefs.setStringList(CasesKey, cases);
   }
 
   // Star Handling
@@ -82,32 +92,27 @@ class PrefsStorage extends ChangeNotifier {
     } else {
       _starredMap.remove(qnum);
     }
-    _prefs.setStringList('starred', _starredMap.keys.toList());
+    _prefs.setStringList(StarredKey, _starredMap.keys.toList());
     notifyListeners();
   }
 
   Future<void> initState() async {
     _prefs = await SharedPreferences.getInstance();
-    _over65Only = _prefs.getBool('over65') ?? false;
+    _over65Only = _prefs.getBool(Over65Key) ?? false;
 
-    _region = _prefs.getString('region') ?? 'Alabama';
+    _region = _prefs.getString(RegionKey) ?? 'Alabama';
 
-    final starredList = _prefs.getStringList('starred') ?? [];
+    final starredList = _prefs.getStringList(StarredKey) ?? [];
     for (var i in starredList) {
       _starredMap[i] = true;
     }
 
-    _workingSet = _prefs.getStringList('workingset')?.toSet();
-
-    _randomizedQuestions = _prefs.getStringList('randomizedquestions');
-
-    _rightOnce = _prefs.getStringList('rightonce')?.toSet() ?? {};
-
-    _rightTwice = _prefs.getStringList('righttwice')?.toSet() ?? {};
-
-    _mastered = _prefs.getStringList('mastered')?.toSet() ?? {};
-
-    _cases = _prefs.getStringList('cases') ?? [];
+    _workingSet = _prefs.getStringList(WorkingSetKey)?.toSet();
+    _randomizedQuestions = _prefs.getStringList(RandomizedQuestionsKey);
+    _rightOnce = _prefs.getStringList(RightOnceKey)?.toSet() ?? {};
+    _rightTwice = _prefs.getStringList(RightTwiceKey)?.toSet() ?? {};
+    _mastered = _prefs.getStringList(MasteredKey)?.toSet() ?? {};
+    _cases = _prefs.getStringList(CasesKey) ?? [];
   }
 
   void _itToPrefs(final Iterable<String>? input, final String key) {
