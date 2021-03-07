@@ -168,6 +168,9 @@ class QuestionChecker {
     // 3. Strip punctuation
     token = token.replaceAll(_stripPunctuation, '');
 
+    // 4. Make it lower case
+    token = token.toLowerCase();
+
     // 5. Remove Stopwords - This should happen as part of stemming.
     // TODO(jeffbailey): filter not from stopwords, it's semantically important
     if (stopWords.contains(token)) return null;
