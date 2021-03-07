@@ -130,7 +130,12 @@
         "answers": [
             "the Senate and House (of Representatives)"
         ],
-        "over65": true
+        "extra_answers": [
+            "the Senate",
+            "the House (of Representatives)"
+        ],
+        "over65": true,
+        "must_answer": 2
     },
     "18": {
         "question": "How many U.S. Senators are there?",
@@ -354,7 +359,12 @@
         "answers": [
             "Democratic and Republican"
         ],
-        "over65": true
+        "extra_answers": [
+            "Democratic",
+            "Republican"
+        ],
+        "over65": true,
+        "must_answer": 2
     },
     "46": {
         "question": "What is the political party of the President now?",
@@ -458,7 +468,7 @@
         "answers": [
             "April 15"
         ],
-        "extra_answers":[
+        "extra_answers": [
             "April 15th"
         ],
         "over65": true
@@ -670,7 +680,13 @@
         "question": "Who did the United States fight in World War II?",
         "answers": [
             "Japan, Germany, and Italy"
-        ]
+        ],
+        "extra_answers": [
+            "Japan",
+            "Germany",
+            "Italy"
+        ],
+        "must_answer": 3
     },
     "82": {
         "question": "Before he was President, Eisenhower was a general. What war was he in?",
