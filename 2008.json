@@ -810,6 +810,9 @@
         "answers": [
             "because there were 13 original colonies",
             "because the stripes represent the original colonies"
+        ],
+        "extra_answers": [
+            "because there were thirteen original colonies"
         ]
     },
     "97": {
@@ -818,6 +821,9 @@
             "because there is one star for each state",
             "because each star represents a state",
             "because there are 50 states"
+        ],
+        "extra_answers": [
+            "because there are fifty states"
         ],
         "over65": true
     },
