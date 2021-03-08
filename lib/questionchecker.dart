@@ -109,6 +109,7 @@ class QuestionChecker {
 
   // I don't love reinitializing this per question.
   final _stripPunctuation = RegExp(r"[^\w\s']+");
+  final _splitTokens = RegExp(r'[ -]');
 
   QuestionStatus checkAnswer(final String origAnswer) {
     var answerTokens = getTokens(origAnswer);
@@ -144,9 +145,8 @@ class QuestionChecker {
 
   List<String> getTokens(final String input) {
     // Treat hyphenated words as two words for matching.
-    var answer = input.replaceAll('-', ' ');
     var answerTokens = <String>[];
-    for (var token in answer.split(' ')) {
+    for (var token in input.split(_splitTokens)) {
       var newToken = _prepToken(token);
       if (newToken != null) {
         answerTokens.add(newToken);
