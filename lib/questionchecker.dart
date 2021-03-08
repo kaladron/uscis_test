@@ -155,7 +155,6 @@ class QuestionChecker {
     return answerTokens;
   }
 
-  // TODO(jeffbailey): Handle 4th vs 4
   String? _prepToken(String token) {
     // Apostrophes are corrected inside the stemmer, but it doesn't match
     // stopwords.  This way we catch didn't vs didn’t
@@ -165,20 +164,19 @@ class QuestionChecker {
         .replaceAll('\u2018', '\x27')
         .replaceAll('\u201B', '\x27');
 
-    // 3. Strip punctuation
+    // Strip punctuation
     token = token.replaceAll(_stripPunctuation, '');
 
-    // 4. Make it lower case
+    // Make it lower case
     token = token.toLowerCase();
 
-    // 5. Remove Stopwords - This should happen as part of stemming.
-    // TODO(jeffbailey): filter not from stopwords, it's semantically important
-    if (stopWords.contains(token)) return null;
-
-    // 4. Filter empty words
+    // Filter empty words - sometimes things are just a piece of punctuation.
     if (token.isEmpty) return null;
 
-    // 6. Stem.
+    // Remove Stopwords - This should happen as part of stemming.
+    if (stopWords.contains(token)) return null;
+
+    // Stem.
     token = _stemmer.stem(token);
 
     return token;
