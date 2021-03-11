@@ -88,7 +88,7 @@ class MainScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 16),
-              child: Text('Choose your region'),
+              child: Text('Choose your state or territory'),
             ),
             DropdownButton(
               value: context.watch<PrefsStorage>().region,
@@ -98,6 +98,24 @@ class MainScreen extends StatelessWidget {
               items: context
                   .read<QuestionStorage>()
                   .states
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 16),
+              child: Text('Choose your congressional district'),
+            ),
+            DropdownButton(
+              value: context.watch<PrefsStorage>().district,
+              onChanged: (String? newValue) {
+                context.read<PrefsStorage>().district = newValue;
+              },
+              items: context
+                  .read<QuestionStorage>()
+                  .districts
                   .map((e) => DropdownMenuItem(
                         value: e,
                         child: Text(e),

@@ -32,6 +32,7 @@ class PrefsStorage extends ChangeNotifier {
 
   late bool _over65Only;
   String? _region;
+  String? _district;
   final _starredMap = SplayTreeMap<String, bool>();
 
   late Set<String>? _workingSet;
@@ -50,6 +51,13 @@ class PrefsStorage extends ChangeNotifier {
 
   String? get region => _region;
   set region(final String? value) {
+    _prefs.setString(RegionKey, value ?? 'Alabama');
+    _region = value;
+    notifyListeners();
+  }
+
+  String? get district => _district;
+  set district(final String? value) {
     _prefs.setString(RegionKey, value ?? 'Alabama');
     _region = value;
     notifyListeners();

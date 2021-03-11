@@ -31,6 +31,11 @@ class QuestionStorage extends ChangeNotifier {
     return states;
   }
 
+  List<String> get districts {
+    var districts = ['18th'];
+    return districts;
+  }
+
   Map<String, Question> get questions {
     var questions = <String, Question>{};
 
@@ -65,14 +70,14 @@ class QuestionStorage extends ChangeNotifier {
     return starredQuestions;
   }
 
+  QuestionStorage(this._prefs);
+
   bool isStarred(final String qnum) => _prefs.isStarred(qnum);
 
   void toggleStar(final String qnum) {
     _prefs.toggleStar(qnum);
     notifyListeners();
   }
-
-  QuestionStorage(this._prefs);
 
   Future<void> initState() async {
     _questions.clear();
