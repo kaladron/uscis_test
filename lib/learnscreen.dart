@@ -26,7 +26,6 @@ import 'package:speech_to_text/speech_to_text.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:speech_to_text/speech_recognition_result.dart';
 
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:uscis_test/questionchecker.dart';
 
