@@ -21,3 +21,8 @@ Some of the items on the test change occasionally.  There are two files, where t
 * Name your U.S. Representative.
 * Who is the Governor of your state now?
 * What is the capital of your state?
+
+The official source of this data is the US Government at these two locations:
+
+* <http://clerk.house.gov/xml/lists/MemberData.xml>
+* <http://www.senate.gov/general/contact_information/senators_cfm.xml>
