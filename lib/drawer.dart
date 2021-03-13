@@ -18,7 +18,7 @@
 // About
 
 import 'package:flutter/material.dart';
-// import 'package:flag/flag.dart';
+import 'package:flag/flag.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/prefs.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -28,10 +28,10 @@ class DrawerMenu extends StatelessWidget {
   Widget build(final BuildContext context) => Drawer(
         child: ListView(padding: EdgeInsets.zero, children: [
           DrawerHeader(
-            child: null, // Flag('us'),
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
+            child: Flag('us'),
           ),
           SwitchListTile(
             title: Text('Show only 65+ Questions'),

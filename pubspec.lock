@@ -239,6 +239,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  flag:
+    dependency: "direct main"
+    description:
+      name: flag
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.0-nullsafety"
   flutter:
     dependency: "direct main"
     description: flutter
