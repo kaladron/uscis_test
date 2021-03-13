@@ -93,28 +93,17 @@ class QuestionStorage extends ChangeNotifier {
   }
 
   void initState() {
-    _questions.clear();
     _stateAnswers.clear();
-    _usAnswers.clear();
-
-    _initStateAnswers();
-    _initUsAnswers();
-    _initQuestions();
-  }
-
-  void _initStateAnswers() {
     _stateAnswersRaw.forEach((key, value) {
       _stateAnswers[key] = StateAnswer.fromJson(key, value);
     });
-  }
 
-  void _initUsAnswers() {
+    _usAnswers.clear();
     _usAnswersRaw.forEach((key, value) {
       _usAnswers[key] = UsAnswer.fromJson(key, value);
     });
-  }
 
-  void _initQuestions() {
+    _questions.clear();
     _2008AnswersRaw.forEach((key, value) {
       _questions[key] = Question.fromJson(key, value);
     });
