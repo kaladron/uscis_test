@@ -30,5 +30,5 @@ The official source of this data is the US Government at these two locations:
 Generate the Dart files from json like so:
 
 ```bash
-flutter packages pub run build_runner build --verbose
+flutter packages pub run build_runner build --verbose --delete-conflicting-outputs
 ```

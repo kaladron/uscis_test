@@ -25,6 +25,7 @@ class PrefsStorage extends ChangeNotifier {
   static const WorkingSetKey = 'workingset';
   static const Over65Key = 'over65';
   static const RandomizedQuestionsKey = 'randomizedquestions';
+  static const DistrictKey = 'district';
   static const RegionKey = 'region';
   static const StarredKey = 'starred';
 
@@ -58,7 +59,7 @@ class PrefsStorage extends ChangeNotifier {
 
   String? get district => _district;
   set district(final String? value) {
-    _prefs.setString(RegionKey, value ?? 'Alabama');
+    _prefs.setString(DistrictKey, value ?? '18th');
     _region = value;
     notifyListeners();
   }
@@ -109,6 +110,7 @@ class PrefsStorage extends ChangeNotifier {
     _over65Only = _prefs.getBool(Over65Key) ?? false;
 
     _region = _prefs.getString(RegionKey) ?? 'Alabama';
+    _district = _prefs.getString(DistrictKey) ?? '18th';
 
     final starredList = _prefs.getStringList(StarredKey) ?? [];
     for (var i in starredList) {

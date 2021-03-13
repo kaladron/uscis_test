@@ -12,10 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uscis_test/prefs.dart';
@@ -24,6 +21,15 @@ part 'question.g.dart';
 
 @JsonLiteral('capitals.json', asConst: true)
 Map get capitalsData => _$capitalsDataJsonLiteral;
+
+@JsonLiteral('states.json', asConst: true)
+Map get _stateAnswersRaw => _$_stateAnswersRawJsonLiteral;
+
+@JsonLiteral('us.json', asConst: true)
+Map get _usAnswersRaw => _$_usAnswersRawJsonLiteral;
+
+@JsonLiteral('2008.json', asConst: true)
+Map get _2008AnswersRaw => _$_2008AnswersRawJsonLiteral;
 
 class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
@@ -86,36 +92,30 @@ class QuestionStorage extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> initState() async {
+  void initState() {
     _questions.clear();
     _stateAnswers.clear();
     _usAnswers.clear();
 
-    await _initStateAnswers();
-    await _initUsAnswers();
-    await _initQuestions();
+    _initStateAnswers();
+    _initUsAnswers();
+    _initQuestions();
   }
 
-  Future<void> _initStateAnswers() async {
-    var contents = await rootBundle.loadString('states.json');
-    Map<String, dynamic> data = jsonDecode(contents);
-    data.forEach((key, value) {
+  void _initStateAnswers() {
+    _stateAnswersRaw.forEach((key, value) {
       _stateAnswers[key] = StateAnswer.fromJson(key, value);
     });
   }
 
-  Future<void> _initUsAnswers() async {
-    var contents = await rootBundle.loadString('us.json');
-    Map<String, dynamic> data = jsonDecode(contents);
-    data.forEach((key, value) {
+  void _initUsAnswers() {
+    _usAnswersRaw.forEach((key, value) {
       _usAnswers[key] = UsAnswer.fromJson(key, value);
     });
   }
 
-  Future<void> _initQuestions() async {
-    var contents = await rootBundle.loadString('2008.json');
-    Map<String, dynamic> data = jsonDecode(contents);
-    data.forEach((key, value) {
+  void _initQuestions() {
+    _2008AnswersRaw.forEach((key, value) {
       _questions[key] = Question.fromJson(key, value);
     });
   }
