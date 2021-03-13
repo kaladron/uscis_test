@@ -16,7 +16,14 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:json_annotation/json_annotation.dart';
 import 'package:uscis_test/prefs.dart';
+
+part 'question.g.dart';
+
+@JsonLiteral('capitals.json', asConst: true)
+Map get capitalsData => _$capitalsDataJsonLiteral;
 
 class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
