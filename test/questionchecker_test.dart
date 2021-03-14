@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// @dart=2.9
-
 import 'dart:convert';
 
 import 'package:test/test.dart';
@@ -63,47 +61,47 @@ void main() {
     });
 
     test('Test without parens', () {
-      final checker = QuestionChecker(questions['95']);
+      final checker = QuestionChecker(questions['95']!);
       expect(checker.checkAnswer('new york'), QuestionStatus.correctOnce);
     });
 
     test('Test with parens', () {
-      final checker = QuestionChecker(questions['95']);
+      final checker = QuestionChecker(questions['95']!);
       expect(
           checker.checkAnswer('new york harbor'), QuestionStatus.correctOnce);
     });
 
     test('Test second answer', () {
-      final checker = QuestionChecker(questions['95']);
+      final checker = QuestionChecker(questions['95']!);
       expect(checker.checkAnswer('liberty island'), QuestionStatus.correctOnce);
     });
 
     test('Test extra answer', () {
-      final checker = QuestionChecker(questions['95']);
+      final checker = QuestionChecker(questions['95']!);
       expect(checker.checkAnswer('new jersey'), QuestionStatus.correctOnce);
     });
 
     test('Test extra answer without parens', () {
-      final checker = QuestionChecker(questions['95']);
+      final checker = QuestionChecker(questions['95']!);
       expect(checker.checkAnswer('on the hudson'), QuestionStatus.correctOnce);
     });
 
     test('Test extra answer with parens', () {
-      final checker = QuestionChecker(questions['95']);
+      final checker = QuestionChecker(questions['95']!);
       expect(checker.checkAnswer('hudson river'), QuestionStatus.correctOnce);
     });
 
     test('Test answer with hyphen', () {
-      final checker = QuestionChecker(questions['61']);
+      final checker = QuestionChecker(questions['61']!);
       expect(checker.checkAnswer("because they didn't have self-government"),
           QuestionStatus.correctOnce);
     });
     test('Test wrong answer', () {
-      final checker = QuestionChecker(questions['95']);
+      final checker = QuestionChecker(questions['95']!);
       expect(checker.checkAnswer('san fransisco'), QuestionStatus.incorrect);
     });
     test('Test fuzzy answer', () {
-      final checker = QuestionChecker(questions['19']);
+      final checker = QuestionChecker(questions['19']!);
       expect(checker.checkAnswer('sex'), QuestionStatus.correctOnce);
     });
   });

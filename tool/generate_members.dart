@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// @dart=2.9
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -31,7 +29,10 @@ class Member {
   String lastName;
   String district;
 
-  Member({this.firstName, this.lastName, this.district});
+  Member(
+      {required this.firstName,
+      required this.lastName,
+      required this.district});
 
   factory Member.fromJson(Map<String, dynamic> json) => _$MemberFromJson(json);
 

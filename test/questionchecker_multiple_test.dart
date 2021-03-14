@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// @dart=2.9
-
 import 'dart:convert';
 
 import 'package:test/test.dart';
@@ -41,7 +39,7 @@ void main() {
     });
 
     test('Test One Answer of Many', () {
-      final checker = QuestionChecker(questions['9']);
+      final checker = QuestionChecker(questions['9']!);
       expect(checker.checkAnswer('life'), QuestionStatus.moreNeeded);
     });
   });
