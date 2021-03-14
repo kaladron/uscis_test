@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:edit_distance/edit_distance.dart';
 import 'package:flutter/foundation.dart';
+import 'package:uscis_test/answerchain.dart';
 import 'package:uscis_test/question.dart';
 import 'package:uscis_test/stemmer/SnowballStemmer.dart';
 import 'package:uscis_test/stemmer/stopwords.dart';
@@ -26,67 +26,6 @@ enum QuestionStatus {
   duplicate,
   incorrect,
   moreNeeded,
-}
-
-@visibleForTesting
-class AnswerChain {
-  final Map<String, AnswerChain> _next = {};
-  bool _okEnd = false;
-
-  @override
-  String toString({int indentval = 0}) {
-    var output = '';
-    if (_okEnd) output += ' END';
-    _next.forEach((key, value) {
-      output += '\n' + ' ' * indentval + key;
-      output += value.toString(indentval: indentval + 2);
-    });
-    return output;
-  }
-
-  void add(final List<String> words) {
-    if (words.isEmpty) {
-      _okEnd = true;
-      return;
-    }
-
-    var nextChain = _next[words.first];
-
-    if (nextChain == null) {
-      nextChain = AnswerChain();
-      _next[words.first] = nextChain;
-    }
-
-    nextChain.add(words.sublist(1));
-  }
-
-  List<String>? match(final List<String> words, [List<String>? answerWords]) {
-    answerWords ??= [];
-    if (words.isEmpty && _okEnd) {
-      return answerWords;
-    }
-
-    if (words.isEmpty) {
-      return null;
-    }
-
-    // Is our next word in the list?
-    var d = Levenshtein();
-    AnswerChain? nextChain;
-    for (var key in _next.keys) {
-      if (d.distance(key, words.first) <= 1) {
-        nextChain = _next[key];
-        break;
-      }
-    }
-    if (nextChain == null) {
-      // Nope!
-      return null;
-    }
-
-    answerWords.add(words.first);
-    return nextChain.match(words.sublist(1), answerWords);
-  }
 }
 
 class QuestionChecker {

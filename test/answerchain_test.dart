@@ -15,7 +15,7 @@
 // @dart=2.9
 
 import 'package:test/test.dart';
-import 'package:uscis_test/questionchecker.dart';
+import 'package:uscis_test/answerchain.dart';
 
 void main() {
   group('AnswerChain tests', () {
