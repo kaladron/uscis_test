@@ -1,5 +1,5 @@
 # XML Source files
-tools/*.xml
+tool/*.xml
 
 # Coverage information
 coverage/
