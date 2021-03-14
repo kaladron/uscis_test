@@ -58,6 +58,7 @@ dev_dependencies:
   test: ^1.16.2
   pedantic: ^1.11.0
   json_serializable: ^3.0.0
+  xml: ^5.0.2
   flutter_test:
     sdk: flutter
 

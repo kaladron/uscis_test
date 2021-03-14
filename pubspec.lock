@@ -813,7 +813,7 @@ packages:
     source: hosted
     version: "0.2.0"
   xml:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: xml
       url: "https://pub.dartlang.org"
