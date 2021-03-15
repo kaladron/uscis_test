@@ -8,12 +8,12 @@ part of 'generate_senators.dart';
 
 Senator _$SenatorFromJson(Map<String, dynamic> json) {
   return Senator(
-    firstName: json['firstName'] as String,
-    lastName: json['lastName'] as String,
+    firstName: json['first_name'] as String,
+    lastName: json['last_name'] as String,
   );
 }
 
 Map<String, dynamic> _$SenatorToJson(Senator instance) => <String, dynamic>{
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
+      'first_name': instance.firstName,
+      'last_name': instance.lastName,
     };

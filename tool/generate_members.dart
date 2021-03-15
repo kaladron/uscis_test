@@ -24,8 +24,12 @@ part 'generate_members.g.dart';
 
 @JsonSerializable()
 class Member {
+  @JsonKey(name: 'first_name')
   String firstName;
+
+  @JsonKey(name: 'last_name')
   String lastName;
+
   String district;
 
   Member(
