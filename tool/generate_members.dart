@@ -85,5 +85,6 @@ void main(List<String> args) async {
   }
 
   var json = jsonEncode(states);
-  print(json);
+  final outFile = File('../lib/representatives.json');
+  outFile.writeAsStringSync(json, flush: true);
 }
