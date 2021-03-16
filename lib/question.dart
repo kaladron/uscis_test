@@ -19,10 +19,7 @@ import 'package:uscis_test/prefs.dart';
 part 'question.g.dart';
 
 @JsonLiteral('capitals.json', asConst: true)
-Map get capitalsData => _$capitalsDataJsonLiteral;
-
-@JsonLiteral('states.json', asConst: true)
-Map get _stateAnswersRaw => _$_stateAnswersRawJsonLiteral;
+Map get _capitalsAnswersRaw => _$_capitalsAnswersRawJsonLiteral;
 
 @JsonLiteral('us.json', asConst: true)
 Map get _usAnswersRaw => _$_usAnswersRawJsonLiteral;
@@ -30,15 +27,23 @@ Map get _usAnswersRaw => _$_usAnswersRawJsonLiteral;
 @JsonLiteral('2008.json', asConst: true)
 Map get _2008AnswersRaw => _$_2008AnswersRawJsonLiteral;
 
+@JsonLiteral('representatives.json', asConst: true)
+Map get _representativesAnswersRaw => _$_representativesAnswersRawJsonLiteral;
+
+@JsonLiteral('senators.json', asConst: true)
+Map get _senatorsAnswersRaw => _$_senatorsAnswersRawJsonLiteral;
+
 class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
 
   final Map<String, Question> _questions = {};
-  final Map<String, StateAnswer> _stateAnswers = {};
   final Map<String, UsAnswer> _usAnswers = {};
+  final Map<String, String> _capitals = {};
+  final Map<String, List<CongressMember>> _senators = {};
+  final Map<String, CongressMember> _representatives = {};
 
   List<String> get states {
-    var states = _stateAnswers.keys.toList();
+    var states = _capitals.keys.toList();
     states.sort();
     return states;
   }
@@ -56,15 +61,29 @@ class QuestionStorage extends ChangeNotifier {
 
       List<String> answers;
       List<String> extraAnswers;
-      if (question.type == QuestionType.us) {
-        answers = _usAnswers[question.recordLookup]?.answers ?? [];
-        extraAnswers = _usAnswers[question.recordLookup]?.extraAnswers ?? [];
-      } else if (question.type == QuestionType.state) {
-        answers = _stateAnswers[_prefs.region]?[question.recordLookup!] ?? [];
-        extraAnswers = [];
-      } else {
-        answers = question.answers;
-        extraAnswers = question.extraAnswers;
+      switch (question.type) {
+        case QuestionType.us:
+          answers = _usAnswers[question.recordLookup]?.answers ?? [];
+          extraAnswers = _usAnswers[question.recordLookup]?.extraAnswers ?? [];
+          break;
+        case QuestionType.capital:
+          answers = [_capitals[_prefs.region] ?? ''];
+          extraAnswers = [];
+          break;
+        case QuestionType.senator:
+          answers = [];
+          for (var senator in _senators[_prefs.region] ?? []) {
+            answers.addAll(senator.answers);
+          }
+          extraAnswers = [];
+          break;
+        case QuestionType.representative:
+          answers = _representatives[_prefs.region]?.answers ?? [''];
+          extraAnswers = [];
+          break;
+        default:
+          answers = question.answers;
+          extraAnswers = question.extraAnswers;
       }
 
       questions[number] =
@@ -92,11 +111,6 @@ class QuestionStorage extends ChangeNotifier {
   }
 
   void initState() {
-    _stateAnswers.clear();
-    _stateAnswersRaw.forEach((key, value) {
-      _stateAnswers[key] = StateAnswer.fromJson(key, value);
-    });
-
     _usAnswers.clear();
     _usAnswersRaw.forEach((key, value) {
       _usAnswers[key] = UsAnswer.fromJson(key, value);
@@ -105,6 +119,24 @@ class QuestionStorage extends ChangeNotifier {
     _questions.clear();
     _2008AnswersRaw.forEach((key, value) {
       _questions[key] = Question.fromJson(key, value);
+    });
+
+    _capitals.clear();
+    _capitalsAnswersRaw.forEach((key, value) {
+      _capitals[key] = value;
+    });
+
+    _representatives.clear();
+//    _representativesAnswersRaw.forEach((key, value) {
+//      _representatives[key] = value;
+//    });
+
+    _senators.clear();
+    _senatorsAnswersRaw.forEach((key, value) {
+      _senators[key] ??= [];
+      for (var senator in value) {
+        _senators[key]!.add(CongressMember.fromJson(key, senator));
+      }
     });
   }
 }
@@ -148,11 +180,32 @@ class UsAnswer {
         extraAnswers = record['extra_answers']?.cast<String>() ?? [];
 }
 
+@immutable
+class CongressMember {
+  final String key;
+  final String firstName;
+  final String lastName;
+
+  List<String> get answers => [lastName, '$firstName $lastName'];
+
+  CongressMember.fromJson(this.key, Map<String, dynamic> record)
+      : firstName = record['first_name'],
+        lastName = record['last_name'];
+
+  @override
+  String toString() {
+    print('$firstName $lastName');
+    return super.toString();
+  }
+}
+
 enum QuestionType {
   none,
-  us,
-  state,
+  capital,
+  governor,
   representative,
+  senator,
+  us,
 }
 
 /// The Answer set includes:
@@ -183,19 +236,29 @@ class Question {
     String number,
     Map<String, dynamic> record,
   ) {
-    QuestionType type;
+    var type = QuestionType.none;
+
     String? recordLookup;
     if (record.containsKey('us_answer')) {
       type = QuestionType.us;
       recordLookup = record['us_answer'];
-    } else if (record.containsKey('state_answer')) {
-      type = QuestionType.state;
-      recordLookup = record['state_answer'];
-    } else if (record.containsKey('representative_answer')) {
-      type = QuestionType.representative;
-      recordLookup = record['representative_answer'];
-    } else {
-      type = QuestionType.none;
+    }
+
+    String? outsideRecord = record['outside_record'];
+
+    switch (outsideRecord) {
+      case 'capital':
+        type = QuestionType.capital;
+        break;
+      case 'representative':
+        type = QuestionType.representative;
+        break;
+      case 'senator':
+        type = QuestionType.senator;
+        break;
+      case 'governor':
+        type = QuestionType.governor;
+        break;
     }
 
     return Question._(
