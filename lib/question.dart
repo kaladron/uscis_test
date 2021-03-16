@@ -28,10 +28,12 @@ Map get _usAnswersRaw => _$_usAnswersRawJsonLiteral;
 Map get _2008AnswersRaw => _$_2008AnswersRawJsonLiteral;
 
 @JsonLiteral('representatives.json', asConst: true)
-Map get _representativesAnswersRaw => _$_representativesAnswersRawJsonLiteral;
+Map<String, List<Map<String, String>>> get _representativesAnswersRaw =>
+    _$_representativesAnswersRawJsonLiteral;
 
 @JsonLiteral('senators.json', asConst: true)
-Map get _senatorsAnswersRaw => _$_senatorsAnswersRawJsonLiteral;
+Map<String, List<Map<String, String>>> get _senatorsAnswersRaw =>
+    _$_senatorsAnswersRawJsonLiteral;
 
 class QuestionStorage extends ChangeNotifier {
   final PrefsStorage _prefs;
@@ -40,7 +42,7 @@ class QuestionStorage extends ChangeNotifier {
   final Map<String, UsAnswer> _usAnswers = {};
   final Map<String, String> _capitals = {};
   final Map<String, List<CongressMember>> _senators = {};
-  final Map<String, CongressMember> _representatives = {};
+  final Map<String, Map<String, CongressMember>> _representatives = {};
 
   List<String> get states {
     var states = _capitals.keys.toList();
@@ -78,7 +80,9 @@ class QuestionStorage extends ChangeNotifier {
           extraAnswers = [];
           break;
         case QuestionType.representative:
-          answers = _representatives[_prefs.region]?.answers ?? [''];
+          answers =
+              _representatives[_prefs.region]?[_prefs.district]?.answers ??
+                  [''];
           extraAnswers = [];
           break;
         default:
@@ -127,9 +131,13 @@ class QuestionStorage extends ChangeNotifier {
     });
 
     _representatives.clear();
-//    _representativesAnswersRaw.forEach((key, value) {
-//      _representatives[key] = value;
-//    });
+    _representativesAnswersRaw.forEach((key, value) {
+      _representatives[key] ??= {};
+      for (var districtrep in value) {
+        _representatives[key]![districtrep['district']!] =
+            CongressMember.fromJson(districtrep['district']!, districtrep);
+      }
+    });
 
     _senators.clear();
     _senatorsAnswersRaw.forEach((key, value) {
