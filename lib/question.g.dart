@@ -369,7 +369,7 @@ const _$_2008AnswersRawJsonLiteral = {
   },
   '43': {
     'question': 'Who is the Governor of your state now?',
-    'state_answer': 'governor',
+    'outside_record': 'governor',
     'answers': [
       'Answers will vary. [District of Columbia residents should answer that D.C. does not have a Governor.]'
     ]
