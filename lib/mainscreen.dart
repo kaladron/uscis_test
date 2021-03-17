@@ -94,6 +94,8 @@ class MainScreen extends StatelessWidget {
               value: context.watch<PrefsStorage>().region,
               onChanged: (String? newValue) {
                 context.read<PrefsStorage>().region = newValue;
+                context.read<PrefsStorage>().district =
+                    context.read<QuestionStorage>().districts[0];
               },
               items: context
                   .read<QuestionStorage>()

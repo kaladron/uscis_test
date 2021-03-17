@@ -51,7 +51,7 @@ class QuestionStorage extends ChangeNotifier {
   }
 
   List<String> get districts {
-    var districts = ['18th'];
+    var districts = _representatives[_prefs.region]?.keys.toList() ?? [];
     return districts;
   }
 
@@ -194,7 +194,7 @@ class CongressMember {
   final String firstName;
   final String lastName;
 
-  List<String> get answers => [lastName, '$firstName $lastName'];
+  List<String> get answers => ['$firstName $lastName', lastName];
 
   CongressMember.fromJson(this.key, Map<String, dynamic> record)
       : firstName = record['first_name'],
