@@ -52,14 +52,22 @@ class PrefsStorage extends ChangeNotifier {
 
   String? get region => _region;
   set region(final String? value) {
-    _prefs.setString(RegionKey, value ?? 'Alabama');
+    if (value == null) {
+      _prefs.remove(RegionKey);
+    } else {
+      _prefs.setString(RegionKey, value);
+    }
     _region = value;
     notifyListeners();
   }
 
   String? get district => _district;
   set district(final String? value) {
-    _prefs.setString(DistrictKey, value ?? '18th');
+    if (value == null) {
+      _prefs.remove(DistrictKey);
+    } else {
+      _prefs.setString(DistrictKey, value);
+    }
     _district = value;
     notifyListeners();
   }
