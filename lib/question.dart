@@ -85,6 +85,10 @@ class QuestionStorage extends ChangeNotifier {
                   [''];
           extraAnswers = [];
           break;
+        case QuestionType.governor:
+          answers = ['Gavin Newsom', 'Newsom'];
+          extraAnswers = [];
+          break;
         default:
           answers = question.answers;
           extraAnswers = question.extraAnswers;
