@@ -60,7 +60,7 @@ class PrefsStorage extends ChangeNotifier {
   String? get district => _district;
   set district(final String? value) {
     _prefs.setString(DistrictKey, value ?? '18th');
-    _region = value;
+    _district = value;
     notifyListeners();
   }
 
