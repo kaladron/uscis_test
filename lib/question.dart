@@ -41,8 +41,8 @@ class QuestionStorage extends ChangeNotifier {
   final Map<String, Question> _questions = {};
   final Map<String, UsAnswer> _usAnswers = {};
   final Map<String, String> _capitals = {};
-  final Map<String, List<CongressMember>> _senators = {};
-  final Map<String, Map<String, CongressMember>> _representatives = {};
+  final Map<String, List<ElectedPerson>> _senators = {};
+  final Map<String, Map<String, ElectedPerson>> _representatives = {};
 
   List<String> get states {
     var states = _capitals.keys.toList();
@@ -135,7 +135,7 @@ class QuestionStorage extends ChangeNotifier {
       _representatives[key] ??= {};
       for (var districtrep in value) {
         _representatives[key]![districtrep['district']!] =
-            CongressMember.fromJson(districtrep['district']!, districtrep);
+            ElectedPerson.fromJson(districtrep['district']!, districtrep);
       }
     });
 
@@ -143,7 +143,7 @@ class QuestionStorage extends ChangeNotifier {
     _senatorsAnswersRaw.forEach((key, value) {
       _senators[key] ??= [];
       for (var senator in value) {
-        _senators[key]!.add(CongressMember.fromJson(key, senator));
+        _senators[key]!.add(ElectedPerson.fromJson(key, senator));
       }
     });
   }
@@ -161,14 +161,14 @@ class UsAnswer {
 }
 
 @immutable
-class CongressMember {
+class ElectedPerson {
   final String key;
   final String firstName;
   final String lastName;
 
   List<String> get answers => ['$firstName $lastName', lastName];
 
-  CongressMember.fromJson(this.key, Map<String, dynamic> record)
+  ElectedPerson.fromJson(this.key, Map<String, dynamic> record)
       : firstName = record['first_name'],
         lastName = record['last_name'];
 
