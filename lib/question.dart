@@ -150,34 +150,6 @@ class QuestionStorage extends ChangeNotifier {
 }
 
 @immutable
-class StateAnswer {
-  final String state;
-  final List<String> governor;
-  final String capital;
-  final List<String> senators;
-
-  List<String> operator [](String field) {
-    switch (field) {
-      case 'state':
-        return [state];
-      case 'governor':
-        return governor;
-      case 'capital':
-        return [capital];
-      case 'senators':
-        return senators;
-      default:
-        return [];
-    }
-  }
-
-  StateAnswer.fromJson(this.state, Map<String, dynamic> record)
-      : governor = record['governor'].cast<String>(),
-        capital = record['capital'],
-        senators = record['senators'].cast<String>();
-}
-
-@immutable
 class UsAnswer {
   final String key;
   final List<String> answers;
