@@ -18,6 +18,7 @@
 // Bottom bar with Home, Prev, Next
 
 import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:uscis_test/learnlogic.dart';
 import 'package:provider/provider.dart';
 
@@ -207,7 +208,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
   Future<void> startListening() async {
     // TODO(jeffbailey): All the error handling!
-    await speech.initialize(debugLogging: false);
+    await speech.initialize(debugLogging: false, onError: _onSpeechError);
 
     setState(() {
       _micButtonBackground = Colors.white;
@@ -221,6 +222,10 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
         partialResults: false,
         cancelOnError: true,
         listenMode: ListenMode.confirmation);
+  }
+
+  void _onSpeechError(SpeechRecognitionError error) {
+    print(error.errorMsg);
   }
 
   void resultListener(final SpeechRecognitionResult result) {
