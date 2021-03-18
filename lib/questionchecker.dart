@@ -31,12 +31,12 @@ enum QuestionStatus {
 class QuestionChecker {
   final Question _question;
 
-  final _answers = AnswerChain();
+  final _answerChain = AnswerChain();
 
   QuestionChecker(this._question) {
     for (var answer in _question.allAnswers) {
       var keyTokens = getTokens(answer);
-      _answers.add(keyTokens);
+      _answerChain.add(keyTokens);
     }
   }
 
@@ -55,30 +55,32 @@ class QuestionChecker {
     // print('Key: ${answerTokens.toString()}');
     // print('Answer: $_answers');
 
-    var result = _answers.match(answerTokens.reversed.toList());
+    var walker = MultiQuestionWalker(_answerChain, answerTokens);
 
-    if (result == null) {
-      return QuestionStatus.incorrect;
-    }
-
-    // Check if we've been cancelled (view answer or similar selected)
-    if (cancelled) return QuestionStatus.cancelled;
-
-    // Check if we've seen the answer before
-    // (Lists are never equal so contains doesn't work here)
-    for (var rightAnswer in _rightAnswers) {
-      if (listEquals(rightAnswer, result)) {
-        return QuestionStatus.duplicate;
+    for (var answer in walker) {
+      if (answer == null) {
+        return QuestionStatus.incorrect;
       }
-    }
 
-    // Add the answer to the seen set
-    _rightAnswers.add(result);
+      // Check if we've seen the answer before
+      // (Lists are never equal so contains doesn't work here)
+      for (var rightAnswer in _rightAnswers) {
+        if (listEquals(rightAnswer, answer)) {
+          return QuestionStatus.duplicate;
+        }
+      }
+
+      // Add the answer to the seen set
+      _rightAnswers.add(answer);
+    }
 
     // Check if there's more needed to complete
     if (_rightAnswers.length != _question.mustAnswer) {
       return QuestionStatus.moreNeeded;
     }
+
+    // Check if we've been cancelled (view answer or similar selected)
+    if (cancelled) return QuestionStatus.cancelled;
 
     // Return correct
     return QuestionStatus.correctOnce;
