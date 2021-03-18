@@ -43,5 +43,12 @@ void main() {
       expect(chain.match(remaining), ['foo', 'bar', 'quux']);
       expect(remaining, ['ooga']);
     });
+
+    test('levenshtein match', () {
+      var chain = AnswerChain();
+      chain.add(['sox']);
+
+      expect(chain.match(['sax']), ['sox']);
+    });
   });
 }

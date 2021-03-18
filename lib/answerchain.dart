@@ -55,11 +55,14 @@ class AnswerChain {
       return null;
     }
 
+    String? wordToSave;
+
     // Is our next word in the list?
     var d = Levenshtein();
     AnswerChain? nextChain;
     for (var key in _next.keys) {
       if (d.distance(key, words.last) <= 1) {
+        wordToSave = key;
         nextChain = _next[key];
         break;
       }
@@ -73,7 +76,9 @@ class AnswerChain {
       return null;
     }
 
-    answerWords.add(words.removeLast());
+    words.removeLast();
+    answerWords.add(wordToSave!);
+
     return nextChain.match(words, answerWords);
   }
 }
