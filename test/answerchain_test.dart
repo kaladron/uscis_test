@@ -32,10 +32,16 @@ void main() {
       chain.add(['foo', 'baz', 'baz']);
       chain.add(['foo', 'quux', 'baz']);
 
-      expect(chain.match(['foo']), ['foo']);
-      expect(chain.match(['foo', 'bar', 'quux']), ['foo', 'bar', 'quux']);
-      expect(chain.match(['foo', 'bar', 'quux', 'ooga']), null);
-      expect(chain.match(['foo', 'quux']), null);
+      expect(chain.match(['foo'].reversed.toList()), ['foo']);
+      expect(chain.match(['foo', 'bar', 'quux'].reversed.toList()),
+          ['foo', 'bar', 'quux']);
+
+      expect(chain.match(['foo', 'quux'].reversed.toList()), null);
+
+      // Test remaining words
+      var remaining = ['foo', 'bar', 'quux', 'ooga'].reversed.toList();
+      expect(chain.match(remaining), ['foo', 'bar', 'quux']);
+      expect(remaining, ['ooga']);
     });
   });
 }

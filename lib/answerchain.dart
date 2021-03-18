@@ -59,17 +59,21 @@ class AnswerChain {
     var d = Levenshtein();
     AnswerChain? nextChain;
     for (var key in _next.keys) {
-      if (d.distance(key, words.first) <= 1) {
+      if (d.distance(key, words.last) <= 1) {
         nextChain = _next[key];
         break;
       }
     }
+    // No, but was this an OK place to stop?
+    if (nextChain == null && _okEnd) {
+      return answerWords;
+    }
+    // Nope!
     if (nextChain == null) {
-      // Nope!
       return null;
     }
 
-    answerWords.add(words.first);
-    return nextChain.match(words.sublist(1), answerWords);
+    answerWords.add(words.removeLast());
+    return nextChain.match(words, answerWords);
   }
 }

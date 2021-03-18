@@ -104,5 +104,10 @@ void main() {
       final checker = QuestionChecker(questions['19']!);
       expect(checker.checkAnswer('sex'), QuestionStatus.correctOnce);
     });
+    test('Test with extra words', () {
+      final checker = QuestionChecker(questions['95']!);
+      expect(checker.checkAnswer('new york harbor dog'),
+          QuestionStatus.correctOnce);
+    });
   });
 }

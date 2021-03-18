@@ -55,7 +55,7 @@ class QuestionChecker {
     // print('Key: ${answerTokens.toString()}');
     // print('Answer: $_answers');
 
-    var result = _answers.match(answerTokens);
+    var result = _answers.match(answerTokens.reversed.toList());
     if (result != null) {
       // Check if we've been cancelled (view answer or similar selected)
       if (cancelled) return QuestionStatus.cancelled;
