@@ -93,15 +93,16 @@ class MultiQuestionWalker with IterableMixin<List<String>?> {
 
   @override
   Iterator<List<String>?> get iterator =>
-      MultiQuestionWalkerIterator(_chain, _answers);
+      _MultiQuestionWalkerIterator(_chain, _answers);
 }
 
-class MultiQuestionWalkerIterator implements Iterator<List<String>?> {
+class _MultiQuestionWalkerIterator implements Iterator<List<String>?> {
   final AnswerChain _chain;
   final List<String> _answers;
   List<String>? _result;
 
-  MultiQuestionWalkerIterator(this._chain, List<String> answers)
+  // Calling reversed.toList() makes a copy of the list.
+  _MultiQuestionWalkerIterator(this._chain, List<String> answers)
       : _answers = answers.reversed.toList();
 
   @override
