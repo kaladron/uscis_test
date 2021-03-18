@@ -23,7 +23,6 @@ enum QuestionStatus {
   correctOnce,
   correctTwice,
   correctThrice,
-  duplicate,
   incorrect,
   moreNeeded,
 }
@@ -66,7 +65,7 @@ class QuestionChecker {
       // (Lists are never equal so contains doesn't work here)
       for (var rightAnswer in _rightAnswers) {
         if (listEquals(rightAnswer, answer)) {
-          return QuestionStatus.duplicate;
+          continue;
         }
       }
 

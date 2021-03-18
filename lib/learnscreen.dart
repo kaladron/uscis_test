@@ -244,13 +244,6 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
           ));
           break;
 
-        case QuestionStatus.duplicate:
-          _showResult(Text(
-            'Dupe',
-            style: TextStyle(fontSize: 112, color: Colors.green),
-          ));
-          break;
-
         case QuestionStatus.correctOnce:
           _showResult(_rightOnceMark);
           _nextQuestion();
