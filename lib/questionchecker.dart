@@ -56,30 +56,32 @@ class QuestionChecker {
     // print('Answer: $_answers');
 
     var result = _answers.match(answerTokens.reversed.toList());
-    if (result != null) {
-      // Check if we've been cancelled (view answer or similar selected)
-      if (cancelled) return QuestionStatus.cancelled;
 
-      // Check if we've seen the answer before
-      // (Lists are never equal so contains doesn't work here)
-      for (var rightAnswer in _rightAnswers) {
-        if (listEquals(rightAnswer, result)) {
-          return QuestionStatus.duplicate;
-        }
-      }
-
-      // Add the answer to the seen set
-      _rightAnswers.add(result);
-
-      // Check if there's more needed to complete
-      if (_rightAnswers.length != _question.mustAnswer) {
-        return QuestionStatus.moreNeeded;
-      }
-
-      // Return correct
-      return QuestionStatus.correctOnce;
+    if (result == null) {
+      return QuestionStatus.incorrect;
     }
-    return QuestionStatus.incorrect;
+
+    // Check if we've been cancelled (view answer or similar selected)
+    if (cancelled) return QuestionStatus.cancelled;
+
+    // Check if we've seen the answer before
+    // (Lists are never equal so contains doesn't work here)
+    for (var rightAnswer in _rightAnswers) {
+      if (listEquals(rightAnswer, result)) {
+        return QuestionStatus.duplicate;
+      }
+    }
+
+    // Add the answer to the seen set
+    _rightAnswers.add(result);
+
+    // Check if there's more needed to complete
+    if (_rightAnswers.length != _question.mustAnswer) {
+      return QuestionStatus.moreNeeded;
+    }
+
+    // Return correct
+    return QuestionStatus.correctOnce;
   }
 
   List<String> getTokens(final String input) {
