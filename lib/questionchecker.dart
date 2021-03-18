@@ -75,7 +75,7 @@ class QuestionChecker {
     }
 
     // Check if there's more needed to complete
-    if (_rightAnswers.length != _question.mustAnswer) {
+    if (_rightAnswers.length < _question.mustAnswer) {
       return QuestionStatus.moreNeeded;
     }
 
