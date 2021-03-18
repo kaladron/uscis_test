@@ -135,6 +135,7 @@
             "the House (of Representatives)"
         ],
         "over65": true,
+        "only_extra_answers": true,
         "must_answer": 2
     },
     "18": {
@@ -365,6 +366,7 @@
             "Republican"
         ],
         "over65": true,
+        "only_extra_answers": true,
         "must_answer": 2
     },
     "46": {
@@ -687,6 +689,7 @@
             "Germany",
             "Italy"
         ],
+        "only_extra_answers": true,
         "must_answer": 3
     },
     "82": {

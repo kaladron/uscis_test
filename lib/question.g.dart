@@ -196,6 +196,7 @@ const _$_2008AnswersRawJsonLiteral = {
     'answers': ['the Senate and House (of Representatives)'],
     'extra_answers': ['the Senate', 'the House (of Representatives)'],
     'over65': true,
+    'only_extra_answers': true,
     'must_answer': 2
   },
   '18': {
@@ -388,6 +389,7 @@ const _$_2008AnswersRawJsonLiteral = {
     'answers': ['Democratic and Republican'],
     'extra_answers': ['Democratic', 'Republican'],
     'over65': true,
+    'only_extra_answers': true,
     'must_answer': 2
   },
   '46': {
@@ -656,6 +658,7 @@ const _$_2008AnswersRawJsonLiteral = {
     'question': 'Who did the United States fight in World War II?',
     'answers': ['Japan, Germany, and Italy'],
     'extra_answers': ['Japan', 'Germany', 'Italy'],
+    'only_extra_answers': true,
     'must_answer': 3
   },
   '82': {

@@ -211,6 +211,7 @@ class Question {
   final List<String> extraAnswers;
   final bool over65;
   final int mustAnswer;
+  final bool onlyExtraAnswers;
   final QuestionType type;
   final String? recordLookup;
 
@@ -252,12 +253,21 @@ class Question {
         record['extra_answers']?.cast<String>() ?? <String>[],
         record['over65'] ?? false,
         record['must_answer'] ?? 1,
+        record['only_extra_answers'] ?? false,
         type,
         recordLookup);
   }
 
-  Question._(this.number, this.question, this.answers, this.extraAnswers,
-      this.over65, this.mustAnswer, this.type, this.recordLookup);
+  Question._(
+      this.number,
+      this.question,
+      this.answers,
+      this.extraAnswers,
+      this.over65,
+      this.mustAnswer,
+      this.onlyExtraAnswers,
+      this.type,
+      this.recordLookup);
 
   factory Question.fromQuestion(
       Question orig, List<String> answers, List<String> extraAnswers) {
@@ -268,6 +278,7 @@ class Question {
       extraAnswers,
       orig.over65,
       orig.mustAnswer,
+      orig.onlyExtraAnswers,
       orig.type,
       orig.recordLookup,
     );
@@ -292,9 +303,10 @@ class Question {
     }
 
     return [
-      ...answers,
+      if (!onlyExtraAnswers) ...answers,
       if (extraAnswers.isNotEmpty) ...extraAnswers,
-      if (strippedAnswers.isNotEmpty) ...strippedAnswers,
+      if (!onlyExtraAnswers)
+        if (strippedAnswers.isNotEmpty) ...strippedAnswers,
       if (strippedExtraAnswers.isNotEmpty) ...strippedExtraAnswers,
     ];
   }
