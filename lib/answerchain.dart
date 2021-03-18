@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:collection';
+
 import 'package:edit_distance/edit_distance.dart';
 
 class AnswerChain {
@@ -80,5 +82,35 @@ class AnswerChain {
     answerWords.add(wordToSave!);
 
     return nextChain.match(words, answerWords);
+  }
+}
+
+class MultiQuestionWalker with IterableMixin<List<String>?> {
+  final AnswerChain _chain;
+  final List<String> _answers;
+
+  MultiQuestionWalker(this._chain, this._answers);
+
+  @override
+  Iterator<List<String>?> get iterator =>
+      MultiQuestionWalkerIterator(_chain, _answers);
+}
+
+class MultiQuestionWalkerIterator implements Iterator<List<String>?> {
+  final AnswerChain _chain;
+  final List<String> _answers;
+  List<String>? _result;
+
+  MultiQuestionWalkerIterator(this._chain, List<String> answers)
+      : _answers = answers.reversed.toList();
+
+  @override
+  List<String>? get current => _result;
+
+  @override
+  bool moveNext() {
+    if (_answers.isEmpty) return false;
+    _result = _chain.match(_answers);
+    return true;
   }
 }

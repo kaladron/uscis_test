@@ -51,5 +51,23 @@ void main() {
 
       expect(chain.match(['sax']), ['sox']);
     });
+
+    test('test multiquestionwalker', () {
+      var chain = AnswerChain();
+      chain.add(['foo']);
+      chain.add(['foo', 'bar', 'baz']);
+      chain.add(['foo', 'bar', 'bar']);
+      chain.add(['foo', 'bar', 'quux']);
+      chain.add(['foo', 'baz', 'baz']);
+      chain.add(['foo', 'quux', 'baz']);
+
+      var walker =
+          MultiQuestionWalker(chain, ['foo', 'foo', 'bar', 'baz', 'foo']);
+      var results = <List<String>?>[];
+      for (var answer in walker) {
+        results.add(answer);
+      }
+      expect(results.length, 3);
+    });
   });
 }
