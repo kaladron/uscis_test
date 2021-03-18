@@ -39,9 +39,10 @@ void main() {
       expect(chain.match(['foo', 'quux'].reversed.toList()), null);
 
       // Test remaining words
-      var remaining = ['foo', 'bar', 'quux', 'ooga'].reversed.toList();
+      var remaining = ['foo', 'bar', 'quux', 'ooga', 'booga'].reversed.toList();
       expect(chain.match(remaining), ['foo', 'bar', 'quux']);
-      expect(remaining, ['ooga']);
+      // Remaining words are reversed
+      expect(remaining, ['booga', 'ooga']);
     });
 
     test('levenshtein match', () {
