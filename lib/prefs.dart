@@ -117,8 +117,8 @@ class PrefsStorage extends ChangeNotifier {
     _prefs = await SharedPreferences.getInstance();
     _over65Only = _prefs.getBool(Over65Key) ?? false;
 
-    _region = _prefs.getString(RegionKey) ?? 'Alabama';
-    _district = _prefs.getString(DistrictKey) ?? '18th';
+    _region = _prefs.getString(RegionKey);
+    _district = _prefs.getString(DistrictKey);
 
     final starredList = _prefs.getStringList(StarredKey) ?? [];
     for (var i in starredList) {
