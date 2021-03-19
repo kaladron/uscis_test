@@ -643,7 +643,8 @@ const _$_2008AnswersRawJsonLiteral = {
       'Vietnam War',
       '(Persian) Gulf War'
     ],
-    'over65': true
+    'over65': true,
+    'extra_answers': ['World War 1', 'World War 2']
   },
   '79': {
     'question': 'Who was President during World War I?',
@@ -664,7 +665,8 @@ const _$_2008AnswersRawJsonLiteral = {
   '82': {
     'question':
         'Before he was President, Eisenhower was a general. What war was he in?',
-    'answers': ['World War II']
+    'answers': ['World War II'],
+    'extra_answers': ['World War 2']
   },
   '83': {
     'question':
