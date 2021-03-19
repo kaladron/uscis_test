@@ -491,8 +491,7 @@ const _$_2008AnswersRawJsonLiteral = {
     'question': 'When must all men register for the Selective Service?',
     'answers': [
       'at age eighteen (18)',
-      'between eighteen (18) and twenty-six (26)',
-      'AMERICAN HISTORY'
+      'between eighteen (18) and twenty-six (26)'
     ],
     'extra_answers': ['at age 18', 'between 18 and 26']
   },
