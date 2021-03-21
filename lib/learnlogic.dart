@@ -143,7 +143,6 @@ class LearnLogic extends ChangeNotifier {
     }
   }
 
-  // TODO(jeffbailey): Handle more than one answer needed.
   QuestionStatus checkAnswer(final String origAnswer) {
     var status = _questionChecker.checkAnswer(origAnswer);
     print(status.toString());
