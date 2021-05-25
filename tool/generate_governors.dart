@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:args/args.dart';
+import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 
 part 'generate_governors.g.dart';
@@ -39,5 +44,40 @@ class Governor {
 // first_name
 // last_name
 
-var sourceUrl =
+const sourceUrl =
     'https://raw.githubusercontent.com/CivilServiceUSA/us-governors/master/us-governors/data/us-governors.json';
+
+void main(List<String> args) async {
+  var parser = ArgParser();
+  parser.addOption('file');
+  parser.addOption('url', defaultsTo: sourceUrl);
+
+  // var results = parser.parse(args);
+
+  // print(results.arguments);
+
+  String contents;
+
+  final network = true;
+
+  if (network) {
+    contents = await http.read(Uri.parse(sourceUrl));
+  } else {
+    final file = File('us-governors.json');
+    contents = file.readAsStringSync();
+  }
+
+  final document = jsonDecode(contents);
+
+  var states = <String, Governor>{};
+  for (var stGov in document) {
+    states[stGov['state_name']] =
+        Governor(firstName: stGov['first_name'], lastName: stGov['last_name']);
+  }
+
+  // print(states);
+
+  var json = jsonEncode(states);
+  final outFile = File('../lib/governors.json');
+  outFile.writeAsStringSync(json, flush: true);
+}
