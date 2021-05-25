@@ -963,7 +963,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'W.', 'last_name': 'Steube', 'district': '17th'},
     {'first_name': 'Brian', 'last_name': 'Mast', 'district': '18th'},
     {'first_name': 'Byron', 'last_name': 'Donalds', 'district': '19th'},
-    {'first_name': 'Alcee', 'last_name': 'Hastings', 'district': '20th'},
+    {'first_name': '', 'last_name': '', 'district': '20th'},
     {'first_name': 'Lois', 'last_name': 'Frankel', 'district': '21st'},
     {'first_name': 'Theodore', 'last_name': 'Deutch', 'district': '22nd'},
     {
@@ -1064,10 +1064,10 @@ const _$_representativesAnswersRawJsonLiteral = {
   ],
   'Louisiana': [
     {'first_name': 'Steve', 'last_name': 'Scalise', 'district': '1st'},
-    {'first_name': '', 'last_name': '', 'district': '2nd'},
+    {'first_name': 'Troy', 'last_name': 'Carter', 'district': '2nd'},
     {'first_name': 'Clay', 'last_name': 'Higgins', 'district': '3rd'},
     {'first_name': 'Mike', 'last_name': 'Johnson', 'district': '4th'},
-    {'first_name': '', 'last_name': '', 'district': '5th'},
+    {'first_name': 'Julia', 'last_name': 'Letlow', 'district': '5th'},
     {'first_name': 'Garret', 'last_name': 'Graves', 'district': '6th'}
   ],
   'Massachusetts': [
@@ -1185,7 +1185,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Bonnie', 'last_name': 'Watson Coleman', 'district': '12th'}
   ],
   'New Mexico': [
-    {'first_name': 'Debra', 'last_name': 'Haaland', 'district': '1st'},
+    {'first_name': '', 'last_name': '', 'district': '1st'},
     {'first_name': 'Yvette', 'last_name': 'Herrell', 'district': '2nd'},
     {'first_name': 'Teresa', 'last_name': 'Leger Fernandez', 'district': '3rd'}
   ],
@@ -1239,11 +1239,11 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Warren', 'last_name': 'Davidson', 'district': '8th'},
     {'first_name': 'Marcy', 'last_name': 'Kaptur', 'district': '9th'},
     {'first_name': 'Michael', 'last_name': 'Turner', 'district': '10th'},
-    {'first_name': 'Marcia', 'last_name': 'Fudge', 'district': '11th'},
+    {'first_name': '', 'last_name': '', 'district': '11th'},
     {'first_name': 'Troy', 'last_name': 'Balderson', 'district': '12th'},
     {'first_name': 'Tim', 'last_name': 'Ryan', 'district': '13th'},
     {'first_name': 'David', 'last_name': 'Joyce', 'district': '14th'},
-    {'first_name': 'Steve', 'last_name': 'Stivers', 'district': '15th'},
+    {'first_name': '', 'last_name': '', 'district': '15th'},
     {'first_name': 'Anthony', 'last_name': 'Gonzalez', 'district': '16th'}
   ],
   'Oklahoma': [
