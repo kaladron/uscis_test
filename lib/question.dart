@@ -139,7 +139,7 @@ class QuestionStorage extends ChangeNotifier {
       _representatives[key] ??= {};
       for (var districtrep in value) {
         _representatives[key]![districtrep['district']!] =
-            ElectedPerson.fromJson(districtrep['district']!, districtrep);
+            ElectedPerson.fromJson(districtrep);
       }
     });
 
@@ -147,7 +147,7 @@ class QuestionStorage extends ChangeNotifier {
     _senatorsAnswersRaw.forEach((key, value) {
       _senators[key] ??= [];
       for (var senator in value) {
-        _senators[key]!.add(ElectedPerson.fromJson(key, senator));
+        _senators[key]!.add(ElectedPerson.fromJson(senator));
       }
     });
   }
@@ -166,13 +166,12 @@ class UsAnswer {
 
 @immutable
 class ElectedPerson {
-  final String key;
   final String firstName;
   final String lastName;
 
   List<String> get answers => ['$firstName $lastName', lastName];
 
-  ElectedPerson.fromJson(this.key, Map<String, dynamic> record)
+  ElectedPerson.fromJson(Map<String, dynamic> record)
       : firstName = record['first_name'],
         lastName = record['last_name'];
 
