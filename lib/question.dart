@@ -27,6 +27,10 @@ Map get _usAnswersRaw => _$_usAnswersRawJsonLiteral;
 @JsonLiteral('2008.json', asConst: true)
 Map get _2008AnswersRaw => _$_2008AnswersRawJsonLiteral;
 
+@JsonLiteral('governors.json', asConst: true)
+Map<String, Map<String, String>> get _governorsAnswersRaw =>
+    _$_governorsAnswersRawJsonLiteral;
+
 @JsonLiteral('representatives.json', asConst: true)
 Map<String, List<Map<String, String>>> get _representativesAnswersRaw =>
     _$_representativesAnswersRawJsonLiteral;
@@ -41,6 +45,7 @@ class QuestionStorage extends ChangeNotifier {
   final Map<String, Question> _questions = {};
   final Map<String, UsAnswer> _usAnswers = {};
   final Map<String, String> _capitals = {};
+  final Map<String, ElectedPerson> _governors = {};
   final Map<String, List<ElectedPerson>> _senators = {};
   final Map<String, Map<String, ElectedPerson>> _representatives = {};
 
@@ -86,7 +91,7 @@ class QuestionStorage extends ChangeNotifier {
           extraAnswers = [];
           break;
         case QuestionType.governor:
-          answers = ['Gavin Newsom', 'Newsom'];
+          answers = _governors[_prefs.region]?.answers ?? [''];
           extraAnswers = [];
           break;
         default:
@@ -132,6 +137,11 @@ class QuestionStorage extends ChangeNotifier {
     _capitals.clear();
     _capitalsAnswersRaw.forEach((key, value) {
       _capitals[key] = value;
+    });
+
+    _governors.clear();
+    _governorsAnswersRaw.forEach((key, value) {
+      _governors[key] = ElectedPerson.fromJson(value);
     });
 
     _representatives.clear();
