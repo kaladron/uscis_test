@@ -13,9 +13,9 @@
 // limitations under the License.
 
 import 'package:flutter/foundation.dart';
+import 'package:stemmer/stemmer.dart';
 import 'package:uscis_test/answerchain.dart';
 import 'package:uscis_test/question.dart';
-import 'package:uscis_test/stemmer/SnowballStemmer.dart';
 import 'package:uscis_test/stemmer/stopwords.dart';
 
 enum QuestionStatus {

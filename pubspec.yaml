@@ -49,6 +49,7 @@ dependencies:
   html: any
   http: any
   edit_distance: ^0.5.0-nullsafety
+  stemmer: ^2.1.0
 
 dev_dependencies:
   args: ^2.0.0
