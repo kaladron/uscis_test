@@ -1238,7 +1238,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Bonnie', 'last_name': 'Watson Coleman', 'district': '12th'}
   ],
   'New Mexico': [
-    {'first_name': '', 'last_name': '', 'district': '1st'},
+    {'first_name': 'Melanie', 'last_name': 'Stansbury', 'district': '1st'},
     {'first_name': 'Yvette', 'last_name': 'Herrell', 'district': '2nd'},
     {'first_name': 'Teresa', 'last_name': 'Leger Fernandez', 'district': '3rd'}
   ],
@@ -1373,7 +1373,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Van', 'last_name': 'Taylor', 'district': '3rd'},
     {'first_name': 'Pat', 'last_name': 'Fallon', 'district': '4th'},
     {'first_name': 'Lance', 'last_name': 'Gooden', 'district': '5th'},
-    {'first_name': '', 'last_name': '', 'district': '6th'},
+    {'first_name': 'Jake', 'last_name': 'Ellzey', 'district': '6th'},
     {'first_name': 'Lizzie', 'last_name': 'Fletcher', 'district': '7th'},
     {'first_name': 'Kevin', 'last_name': 'Brady', 'district': '8th'},
     {'first_name': 'Al', 'last_name': 'Green', 'district': '9th'},
