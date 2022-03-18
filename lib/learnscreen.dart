@@ -95,7 +95,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                 padding: const EdgeInsets.all(16),
                 child: Text(
                   '${context.watch<LearnLogic>().question.question}',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               Column(children: [
@@ -332,15 +332,15 @@ class QuestionInfoDialog extends StatelessWidget {
         content: SingleChildScrollView(
           child: ListBody(children: [
             Text('Currently Testing',
-                style: Theme.of(context).textTheme.headline6),
+                style: Theme.of(context).textTheme.titleLarge),
             //Text(context.watch<LearnLogic>().workingSet.toString()),
             Text('Got right once',
-                style: Theme.of(context).textTheme.headline6),
+                style: Theme.of(context).textTheme.titleLarge),
             //Text(context.watch<LearnLogic>().rightOnce.toString()),
             Text('Got right twice',
-                style: Theme.of(context).textTheme.headline6),
+                style: Theme.of(context).textTheme.titleLarge),
             //Text(context.watch<LearnLogic>().rightTwice.toString()),
-            Text('Mastered', style: Theme.of(context).textTheme.headline6),
+            Text('Mastered', style: Theme.of(context).textTheme.titleLarge),
             //Text(context.watch<LearnLogic>().mastered.toString()),
           ]),
         ),

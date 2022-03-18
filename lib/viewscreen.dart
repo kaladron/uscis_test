@@ -17,7 +17,7 @@ class ViewScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 8, top: 8),
               child: Text('Starred',
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.left),
             ),
           ...context
@@ -29,7 +29,7 @@ class ViewScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 8, top: 8),
             child:
-                Text('Questions', style: Theme.of(context).textTheme.headline5),
+                Text('Questions', style: Theme.of(context).textTheme.headlineSmall),
           ),
           ...context
               .watch<QuestionStorage>()
