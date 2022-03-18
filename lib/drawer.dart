@@ -31,7 +31,7 @@ class DrawerMenu extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
-            child: Flag('us'),
+            child: Flag.fromString('us'),
           ),
           SwitchListTile(
             title: Text('Show only 65+ Questions'),
