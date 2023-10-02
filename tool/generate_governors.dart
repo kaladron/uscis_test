@@ -45,7 +45,7 @@ class Governor {
 // last_name
 
 const sourceUrl =
-    'https://raw.githubusercontent.com/CivilServiceUSA/us-governors/master/us-governors/data/us-governors.json';
+    'https://raw.githubusercontent.com/OpenGovDataMirror/F_CivilServiceUSA_us-governors/master/us-governors/data/us-governors.json';
 
 void main(List<String> args) async {
   var parser = ArgParser();
