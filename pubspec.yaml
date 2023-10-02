@@ -30,7 +30,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+27
 
 environment:
-  sdk: ">=2.13.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -40,9 +40,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   provider: ^6.0.0
-  speech_to_text: ^5.4.3
+  speech_to_text: ^6.3.0
   collection: any
-  flag: ^6.0.0
+  flag: ^7.0.0
   shared_preferences: ^2.0.4
   flutter_tts: ^3.3.0
   flutter_html: ^3.0.0-alpha.2
@@ -58,7 +58,7 @@ dev_dependencies:
   pedantic: ^1.11.0
   json_serializable: ^6.1.0
   json_annotation: ^4.4.0
-  xml: ^5.0.2
+  xml: ^6.3.0
   flutter_test:
     sdk: flutter
 
