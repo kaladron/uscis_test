@@ -28,8 +28,8 @@ class ViewScreen extends StatelessWidget {
               .toList(),
           Padding(
             padding: EdgeInsets.only(left: 8, top: 8),
-            child:
-                Text('Questions', style: Theme.of(context).textTheme.headlineSmall),
+            child: Text('Questions',
+                style: Theme.of(context).textTheme.headlineSmall),
           ),
           ...context
               .watch<QuestionStorage>()
