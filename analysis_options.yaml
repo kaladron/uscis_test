@@ -1,5 +1,7 @@
 include: package:pedantic/analysis_options.yaml
 
 analyzer:
+  exclude:
+    - tool/**
   errors:
     todo: ignore
