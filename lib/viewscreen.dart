@@ -72,7 +72,8 @@ class QuestionListItem extends StatelessWidget {
             children: [
               ...context.watch<QuestionStorage>().questions[_qnum]!.answers.map(
                   (String value) => Padding(
-                      padding: const EdgeInsets.only(left: 32, bottom: 12, right: 8),
+                      padding:
+                          const EdgeInsets.only(left: 32, bottom: 12, right: 8),
                       child: Text('• $value')))
             ],
           ),

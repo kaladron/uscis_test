@@ -165,8 +165,8 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                     padding: const EdgeInsets.all(4),
                     child: ElevatedButton(
                         onPressed: _speakAnswers,
-                        child:
-                            const Icon(Icons.play_circle_filled_rounded, size: 32)),
+                        child: const Icon(Icons.play_circle_filled_rounded,
+                            size: 32)),
                   ),
                 ),
               ]),
