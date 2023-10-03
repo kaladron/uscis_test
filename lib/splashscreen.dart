@@ -25,6 +25,8 @@ import 'package:uscis_test/question.dart';
 class SplashScreen extends StatefulWidget {
   static const routeName = '/splash';
 
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }

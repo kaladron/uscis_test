@@ -5,17 +5,19 @@ import 'package:uscis_test/question.dart';
 class ViewScreen extends StatelessWidget {
   static const routeName = '/questionlistscreen';
 
+  const ViewScreen({super.key});
+
   // TODO(jeffbailey): Write a UI test that toggles the first and last star in
   // the list.
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('View'),
+          title: const Text('View'),
         ),
         body: ListView(children: [
           if (context.watch<QuestionStorage>().starredQuestions.isNotEmpty)
             Padding(
-              padding: EdgeInsets.only(left: 8, top: 8),
+              padding: const EdgeInsets.only(left: 8, top: 8),
               child: Text('Starred',
                   style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.left),
@@ -27,7 +29,7 @@ class ViewScreen extends StatelessWidget {
                   QuestionListItem(e.number, ValueKey('starred ${e.number}')))
               .toList(),
           Padding(
-            padding: EdgeInsets.only(left: 8, top: 8),
+            padding: const EdgeInsets.only(left: 8, top: 8),
             child: Text('Questions',
                 style: Theme.of(context).textTheme.headlineSmall),
           ),
@@ -54,8 +56,8 @@ class QuestionListItem extends StatelessWidget {
         },
         child: context.watch<QuestionStorage>().isStarred(
                 context.watch<QuestionStorage>().questions[_qnum]!.number)
-            ? Icon(Icons.star)
-            : Icon(Icons.star_outline),
+            ? const Icon(Icons.star)
+            : const Icon(Icons.star_outline),
       );
 
   @override
@@ -70,7 +72,7 @@ class QuestionListItem extends StatelessWidget {
             children: [
               ...context.watch<QuestionStorage>().questions[_qnum]!.answers.map(
                   (String value) => Padding(
-                      padding: EdgeInsets.only(left: 32, bottom: 12, right: 8),
+                      padding: const EdgeInsets.only(left: 32, bottom: 12, right: 8),
                       child: Text('• $value')))
             ],
           ),

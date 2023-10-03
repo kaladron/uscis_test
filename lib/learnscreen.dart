@@ -31,6 +31,8 @@ import 'package:uscis_test/questionchecker.dart';
 class LearnScreen extends StatelessWidget {
   static const routeName = '/question';
 
+  const LearnScreen({super.key});
+
   @override
   Widget build(BuildContext context) => MultiProvider(providers: [
         ChangeNotifierProvider(
@@ -85,7 +87,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('Learn'),
+          title: const Text('Learn'),
         ),
         body: Stack(children: [
           rightWrong(),
@@ -94,25 +96,25 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
               Container(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  '${context.watch<LearnLogic>().question.question}',
+                  context.watch<LearnLogic>().question.question,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               Column(children: [
                 MaterialButton(
                   onPressed: startListening,
-                  shape: CircleBorder(),
-                  padding: EdgeInsets.all(16),
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(16),
                   color: _micButtonBackground,
                   child: Icon(Icons.mic_none_outlined,
                       size: 24, color: _micButtonForeground),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Text('Tap mic to answer'),
                 ),
               ]),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Divider(
                   height: 2,
@@ -123,23 +125,23 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
               ),
               if (!_answerVisible)
                 ElevatedButton(
-                    onPressed: _showAnswer, child: Text('Show Answer')),
+                    onPressed: _showAnswer, child: const Text('Show Answer')),
               if (_answerVisible) ...[
                 ElevatedButton(
                   onPressed: _nextQuestion,
-                  child: Text('Next Question'),
+                  child: const Text('Next Question'),
                 ),
                 incorrectAnswer(),
               ],
-              Spacer(),
-              ProgressCard(),
+              const Spacer(),
+              const ProgressCard(),
             ],
           ),
         ]),
       );
 
   Widget incorrectAnswer() => Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: SingleChildScrollView(
           child: Row(children: [
             Flexible(
@@ -154,17 +156,17 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
                         if (_resultText != '') Text('I heard: $_resultText'),
                         for (var i
                             in context.watch<LearnLogic>().question.answers)
-                          Text('• ' + i),
+                          Text('• $i'),
                       ]),
                 ),
                 Flexible(
                   flex: 1,
                   child: Padding(
-                    padding: EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(4),
                     child: ElevatedButton(
                         onPressed: _speakAnswers,
                         child:
-                            Icon(Icons.play_circle_filled_rounded, size: 32)),
+                            const Icon(Icons.play_circle_filled_rounded, size: 32)),
                   ),
                 ),
               ]),
@@ -176,7 +178,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   Widget rightWrong() => AnimatedOpacity(
         opacity: _showAnswerMark ? 1.0 : 0.0,
         onEnd: _fadeOut,
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [Center(child: _answerMark)]),
@@ -217,15 +219,15 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
     await speech.listen(
         onResult: resultListener,
-        listenFor: Duration(seconds: 5),
-        pauseFor: Duration(seconds: 5),
+        listenFor: const Duration(seconds: 5),
+        pauseFor: const Duration(seconds: 5),
         partialResults: false,
         cancelOnError: true,
         listenMode: ListenMode.confirmation);
   }
 
   void _onSpeechError(SpeechRecognitionError error) {
-    print(error.errorMsg);
+    debugPrint(error.errorMsg);
   }
 
   void resultListener(final SpeechRecognitionResult result) {
@@ -238,7 +240,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
     setState(() {
       switch (context.read<LearnLogic>().checkAnswer(_resultText)) {
         case QuestionStatus.moreNeeded:
-          _showResult(Text(
+          _showResult(const Text(
             'More',
             style: TextStyle(fontSize: 112, color: Colors.green),
           ));
@@ -285,18 +287,20 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 }
 
 class ProgressCard extends StatelessWidget {
+  const ProgressCard({super.key});
+
   @override
   Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Card(
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Row(mainAxisSize: MainAxisSize.min, children: [
               Flexible(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(bottom: 16),
                         child: Text('Progress'),
                       ),
@@ -311,10 +315,10 @@ class ProgressCard extends StatelessWidget {
                 onTap: () {
                   showDialog(
                     context: context,
-                    builder: (context) => QuestionInfoDialog(),
+                    builder: (context) => const QuestionInfoDialog(),
                   );
                 },
-                child: Padding(
+                child: const Padding(
                   padding: EdgeInsets.only(left: 16),
                   child: Icon(Icons.info, size: 32),
                 ),
@@ -327,6 +331,8 @@ class ProgressCard extends StatelessWidget {
 
 // TODO(jeffbailey): Fill this in.  Maybe also put it in the drawer.
 class QuestionInfoDialog extends StatelessWidget {
+  const QuestionInfoDialog({super.key});
+
   @override
   Widget build(final BuildContext context) => AlertDialog(
         content: SingleChildScrollView(
@@ -349,7 +355,7 @@ class QuestionInfoDialog extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('OK'),
+            child: const Text('OK'),
           )
         ],
       );

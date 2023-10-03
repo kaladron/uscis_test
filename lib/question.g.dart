@@ -86,7 +86,7 @@ const _$_usAnswersRawJsonLiteral = {
   }
 };
 
-const _$_2008AnswersRawJsonLiteral = {
+const _$_answersRawJsonLiteral = {
   '1': {
     'question': 'What is the supreme law of the land?',
     'answers': ['the Constitution']

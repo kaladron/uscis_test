@@ -42,7 +42,7 @@ class LearnLogic extends ChangeNotifier {
       UnmodifiableSetView<String>(_mastered);
 
   LearnLogic._(
-    final BuildContext _context,
+    final BuildContext context,
     this._questions,
     this._randomizedQuestions,
     this._workingSet,
@@ -65,19 +65,19 @@ class LearnLogic extends ChangeNotifier {
     var prefs = context.read<PrefsStorage>();
 
     // Doing this inline confuses the compiler, it thinks the return type is Object
-    var generateRandomizedQuestions = () {
+    generateRandomizedQuestions() {
       var tmp = context.read<QuestionStorage>().questions.keys.toList();
       tmp.shuffle();
       prefs.randomizedQuestions = tmp;
       return tmp;
-    };
+    }
 
     var randomizedQuestions =
         prefs.randomizedQuestions ?? generateRandomizedQuestions();
 
-    print('Questions: ${randomizedQuestions.toString()}');
+    debugPrint('Questions: ${randomizedQuestions.toString()}');
 
-    var generateWorkingSet = () {
+    generateWorkingSet() {
       var tmp = <String>{};
       for (var _ in Iterable<int>.generate(10)) {
         tmp.add(randomizedQuestions.removeLast());
@@ -85,23 +85,23 @@ class LearnLogic extends ChangeNotifier {
       prefs.randomizedQuestions = randomizedQuestions;
       prefs.workingSet = tmp;
       return tmp;
-    };
+    }
 
     // TODO(jeffbailey): Add integrity checks to these - no dupes, right number
     // in working set, etc.
 
     var workingSet = prefs.workingSet ?? generateWorkingSet();
 
-    print('Working Set: ${workingSet.toString()}');
+    debugPrint('Working Set: ${workingSet.toString()}');
 
     var rightOnce = prefs.rightOnce;
-    print('Right Once: ${rightOnce.toString()}');
+    debugPrint('Right Once: ${rightOnce.toString()}');
 
     var rightTwice = prefs.rightTwice;
-    print('Right Twice: ${rightTwice.toString()}');
+    debugPrint('Right Twice: ${rightTwice.toString()}');
 
     var mastered = prefs.mastered;
-    print('Mastered: ${mastered.toString()}');
+    debugPrint('Mastered: ${mastered.toString()}');
 
     var questions =
         Map<String, Question>.from(context.read<QuestionStorage>().questions);
@@ -145,7 +145,7 @@ class LearnLogic extends ChangeNotifier {
 
   QuestionStatus checkAnswer(final String origAnswer) {
     var status = _questionChecker.checkAnswer(origAnswer);
-    print(status.toString());
+    debugPrint(status.toString());
 
     // Cope with Dart's null handling limitations
     var currentQuestion = _currentQuestion;
@@ -162,7 +162,7 @@ class LearnLogic extends ChangeNotifier {
 
           if (_randomizedQuestions.isNotEmpty) {
             var newQuestion = _randomizedQuestions.removeLast();
-            print('Adding: $newQuestion');
+            debugPrint('Adding: $newQuestion');
             _workingSet.add(newQuestion);
           }
           _prefs.randomizedQuestions = _randomizedQuestions;

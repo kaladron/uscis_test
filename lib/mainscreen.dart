@@ -34,12 +34,14 @@ import 'package:uscis_test/learnscreen.dart';
 class MainScreen extends StatelessWidget {
   static const routeName = '/';
 
+  const MainScreen({super.key});
+
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('US Citizenship Test'),
+          title: const Text('US Citizenship Test'),
         ),
-        drawer: DrawerMenu(),
+        drawer: const DrawerMenu(),
         body: Column(
           children: [
             Card(
@@ -47,7 +49,7 @@ class MainScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, ViewScreen.routeName);
                 },
-                child: ListTile(
+                child: const ListTile(
                   leading: Icon(Icons.pageview),
                   title: Text('View'),
                   subtitle: Text('View Questions'),
@@ -59,14 +61,14 @@ class MainScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, LearnScreen.routeName);
                 },
-                child: ListTile(
+                child: const ListTile(
                   leading: Icon(Icons.assignment),
                   title: Text('Learn'),
                   subtitle: Text('Practice Citizenship Questions'),
                 ),
               ),
             ),
-            Card(
+            const Card(
               child: InkWell(
                 child: ListTile(
                   leading: Icon(Icons.psychology),
@@ -80,13 +82,13 @@ class MainScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(context, CaseScreen.routeName);
                   },
-                  child: ListTile(
+                  child: const ListTile(
                     leading: Icon(Icons.assignment_ind),
                     title: Text('Case Status'),
                     subtitle: Text('See your USCIS Case Status'),
                   )),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 16),
               child: Text('Choose your state or territory'),
             ),
@@ -106,7 +108,7 @@ class MainScreen extends StatelessWidget {
                       ))
                   .toList(),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 16),
               child: Text('Choose your congressional district'),
             ),

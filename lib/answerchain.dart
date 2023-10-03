@@ -25,7 +25,7 @@ class AnswerChain {
     var output = '';
     if (_okEnd) output += ' END';
     _next.forEach((key, value) {
-      output += '\n' + ' ' * indentval + key;
+      output += '\n${' ' * indentval}$key';
       output += value.toString(indentval: indentval + 2);
     });
     return output;

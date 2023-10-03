@@ -24,23 +24,25 @@ import 'package:uscis_test/prefs.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class DrawerMenu extends StatelessWidget {
+  const DrawerMenu({super.key});
+
   @override
   Widget build(final BuildContext context) => Drawer(
         child: ListView(padding: EdgeInsets.zero, children: [
-          DrawerHeader(
+          const DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
             child: Flag.fromString('us'),
           ),
           SwitchListTile(
-            title: Text('Show only 65+ Questions'),
+            title: const Text('Show only 65+ Questions'),
             value: context.watch<PrefsStorage>().over65Only,
             onChanged: (newValue) {
               context.read<PrefsStorage>().over65Only = newValue;
             },
           ),
-          Divider(
+          const Divider(
             height: 2,
             thickness: 1,
             indent: 0,

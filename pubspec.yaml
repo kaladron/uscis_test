@@ -50,17 +50,18 @@ dependencies:
   http: any
   edit_distance: ^0.5.0-nullsafety
   stemmer: ^2.1.0
+  json_annotation: ^4.8.1
+
 
 dev_dependencies:
   args: ^2.0.0
   build_runner: ^2.0.1
   test: ^1.16.2
-  pedantic: ^1.11.0
   json_serializable: ^6.1.0
-  json_annotation: ^4.8.1
   xml: ^6.3.0
   flutter_test:
     sdk: flutter
+  flutter_lints: ^2.0.3
 
 flutter:
   uses-material-design: true

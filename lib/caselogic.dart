@@ -43,8 +43,8 @@ class CaseLogic extends ChangeNotifier {
     _prefs.cases = cases.keys.toList();
   }
 
-  CaseLogic(final BuildContext _context)
-      : _prefs = _context.read<PrefsStorage>() {
+  CaseLogic(final BuildContext context)
+      : _prefs = context.read<PrefsStorage>() {
     for (var caseNum in _prefs.cases) {
       cases[caseNum] = CaseStatus();
     }
@@ -56,8 +56,7 @@ class CaseLogic extends ChangeNotifier {
 
     for (var caseNum in cases.keys) {
       var response = await client.get(Uri.parse(
-          'https://egov.uscis.gov/casestatus/mycasestatus.do?appReceiptNum=' +
-              caseNum));
+          'https://egov.uscis.gov/casestatus/mycasestatus.do?appReceiptNum=$caseNum'));
 
       var document = parse(response.body);
       var headingElement = document.querySelector('h1');

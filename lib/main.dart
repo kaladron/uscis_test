@@ -37,12 +37,12 @@ void main() {
       theme: ThemeData(),
       darkTheme: ThemeData.dark(),
       routes: {
-        SplashScreen.routeName: (context) => SplashScreen(),
-        LearnScreen.routeName: (context) => LearnScreen(),
-        MainScreen.routeName: (context) => MainScreen(),
-        ViewScreen.routeName: (context) => ViewScreen(),
-        TestScreen.routeName: (context) => TestScreen(),
-        CaseScreen.routeName: (context) => CaseScreen(),
+        SplashScreen.routeName: (context) => const SplashScreen(),
+        LearnScreen.routeName: (context) => const LearnScreen(),
+        MainScreen.routeName: (context) => const MainScreen(),
+        ViewScreen.routeName: (context) => const ViewScreen(),
+        TestScreen.routeName: (context) => const TestScreen(),
+        CaseScreen.routeName: (context) => const CaseScreen(),
       },
     ),
   ));

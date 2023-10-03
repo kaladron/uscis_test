@@ -25,7 +25,7 @@ Map get _capitalsAnswersRaw => _$_capitalsAnswersRawJsonLiteral;
 Map get _usAnswersRaw => _$_usAnswersRawJsonLiteral;
 
 @JsonLiteral('2008.json', asConst: true)
-Map get _2008AnswersRaw => _$_2008AnswersRawJsonLiteral;
+Map get _answersRaw => _$_answersRawJsonLiteral;
 
 @JsonLiteral('governors.json', asConst: true)
 Map<String, Map<String, String>> get _governorsAnswersRaw =>
@@ -130,7 +130,7 @@ class QuestionStorage extends ChangeNotifier {
     });
 
     _questions.clear();
-    _2008AnswersRaw.forEach((key, value) {
+    _answersRaw.forEach((key, value) {
       _questions[key] = Question.fromJson(key, value);
     });
 
@@ -187,7 +187,7 @@ class ElectedPerson {
 
   @override
   String toString() {
-    print('$firstName $lastName');
+    debugPrint('$firstName $lastName');
     return super.toString();
   }
 }

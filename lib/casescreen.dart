@@ -35,6 +35,8 @@ import 'package:uscis_test/caselogic.dart';
 class CaseScreen extends StatelessWidget {
   static const routeName = '/casescreen';
 
+  const CaseScreen({super.key});
+
   @override
   Widget build(BuildContext context) => MultiProvider(providers: [
         ChangeNotifierProvider(
@@ -48,7 +50,7 @@ class _CaseScreenImpl extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('Case Status'),
+          title: const Text('Case Status'),
         ),
         body: Column(
           children: [
@@ -64,7 +66,7 @@ class _CaseScreenImpl extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                            title: Text('USCIS Case Number'),
+                            title: const Text('USCIS Case Number'),
                             content: TextFormField(
                               controller: _controller,
                             ),
@@ -73,13 +75,13 @@ class _CaseScreenImpl extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context).pop(_controller.text);
                                 },
-                                child: Text('Add'),
+                                child: const Text('Add'),
                               ),
                             ],
                           )).then((value) =>
                       {context.read<CaseLogic>().addCase(_controller.text)});
                 },
-                child: ListTile(
+                child: const ListTile(
                   leading: Icon(Icons.add),
                   title: Text('Add'),
                   subtitle: Text('Add USCIS Case Number'),
@@ -94,7 +96,7 @@ class _CaseScreenImpl extends StatelessWidget {
 class CaseItem extends StatelessWidget {
   final String _caseNum;
 
-  CaseItem(this._caseNum);
+  const CaseItem(this._caseNum, {super.key});
   @override
   Widget build(BuildContext context) => Card(
         child: InkWell(
@@ -104,7 +106,7 @@ class CaseItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Case: ' + _caseNum),
+              Text('Case: $_caseNum'),
               Text(context.read<CaseLogic>().cases[_caseNum]!.heading ??
                   'No Update'),
               Text(context.read<CaseLogic>().cases[_caseNum]!.details ??

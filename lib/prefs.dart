@@ -18,16 +18,16 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsStorage extends ChangeNotifier {
-  static const CasesKey = 'cases';
-  static const RightOnceKey = 'rightonce';
-  static const RightTwiceKey = 'righttwice';
-  static const MasteredKey = 'mastered';
-  static const WorkingSetKey = 'workingset';
-  static const Over65Key = 'over65';
-  static const RandomizedQuestionsKey = 'randomizedquestions';
-  static const DistrictKey = 'district';
-  static const RegionKey = 'region';
-  static const StarredKey = 'starred';
+  static const casesKey = 'cases';
+  static const rightOnceKey = 'rightonce';
+  static const rightTwiceKey = 'righttwice';
+  static const masteredKey = 'mastered';
+  static const workingSetKey = 'workingset';
+  static const over65Key = 'over65';
+  static const randomizedQuestionsKey = 'randomizedquestions';
+  static const districtKey = 'district';
+  static const regionKey = 'region';
+  static const starredKey = 'starred';
 
   late SharedPreferences _prefs;
 
@@ -45,7 +45,7 @@ class PrefsStorage extends ChangeNotifier {
 
   bool get over65Only => _over65Only;
   set over65Only(final bool value) {
-    _prefs.setBool(Over65Key, value);
+    _prefs.setBool(over65Key, value);
     _over65Only = value;
     notifyListeners();
   }
@@ -53,9 +53,9 @@ class PrefsStorage extends ChangeNotifier {
   String? get region => _region;
   set region(final String? value) {
     if (value == null) {
-      _prefs.remove(RegionKey);
+      _prefs.remove(regionKey);
     } else {
-      _prefs.setString(RegionKey, value);
+      _prefs.setString(regionKey, value);
     }
     _region = value;
     notifyListeners();
@@ -64,34 +64,34 @@ class PrefsStorage extends ChangeNotifier {
   String? get district => _district;
   set district(final String? value) {
     if (value == null) {
-      _prefs.remove(DistrictKey);
+      _prefs.remove(districtKey);
     } else {
-      _prefs.setString(DistrictKey, value);
+      _prefs.setString(districtKey, value);
     }
     _district = value;
     notifyListeners();
   }
 
   Set<String>? get workingSet => _workingSet;
-  set workingSet(final Set<String>? input) => _itToPrefs(input, WorkingSetKey);
+  set workingSet(final Set<String>? input) => _itToPrefs(input, workingSetKey);
 
   List<String>? get randomizedQuestions => _randomizedQuestions;
   set randomizedQuestions(final List<String>? input) =>
-      _itToPrefs(input, RandomizedQuestionsKey);
+      _itToPrefs(input, randomizedQuestionsKey);
 
   Set<String> get rightOnce => _rightOnce;
-  set rightOnce(final Set<String> input) => _itToPrefs(input, RightOnceKey);
+  set rightOnce(final Set<String> input) => _itToPrefs(input, rightOnceKey);
 
   Set<String> get rightTwice => _rightTwice;
-  set rightTwice(final Set<String> input) => _itToPrefs(input, RightTwiceKey);
+  set rightTwice(final Set<String> input) => _itToPrefs(input, rightTwiceKey);
 
   Set<String> get mastered => _mastered;
-  set mastered(final Set<String> input) => _itToPrefs(input, MasteredKey);
+  set mastered(final Set<String> input) => _itToPrefs(input, masteredKey);
 
   List<String> get cases => _cases;
   set cases(final List<String> cases) {
     _cases = cases;
-    _prefs.setStringList(CasesKey, cases);
+    _prefs.setStringList(casesKey, cases);
   }
 
   // Star Handling
@@ -109,28 +109,28 @@ class PrefsStorage extends ChangeNotifier {
     } else {
       _starredMap.remove(qnum);
     }
-    _prefs.setStringList(StarredKey, _starredMap.keys.toList());
+    _prefs.setStringList(starredKey, _starredMap.keys.toList());
     notifyListeners();
   }
 
   Future<void> initState() async {
     _prefs = await SharedPreferences.getInstance();
-    _over65Only = _prefs.getBool(Over65Key) ?? false;
+    _over65Only = _prefs.getBool(over65Key) ?? false;
 
-    _region = _prefs.getString(RegionKey);
-    _district = _prefs.getString(DistrictKey);
+    _region = _prefs.getString(regionKey);
+    _district = _prefs.getString(districtKey);
 
-    final starredList = _prefs.getStringList(StarredKey) ?? [];
+    final starredList = _prefs.getStringList(starredKey) ?? [];
     for (var i in starredList) {
       _starredMap[i] = true;
     }
 
-    _workingSet = _prefs.getStringList(WorkingSetKey)?.toSet();
-    _randomizedQuestions = _prefs.getStringList(RandomizedQuestionsKey);
-    _rightOnce = _prefs.getStringList(RightOnceKey)?.toSet() ?? {};
-    _rightTwice = _prefs.getStringList(RightTwiceKey)?.toSet() ?? {};
-    _mastered = _prefs.getStringList(MasteredKey)?.toSet() ?? {};
-    _cases = _prefs.getStringList(CasesKey) ?? [];
+    _workingSet = _prefs.getStringList(workingSetKey)?.toSet();
+    _randomizedQuestions = _prefs.getStringList(randomizedQuestionsKey);
+    _rightOnce = _prefs.getStringList(rightOnceKey)?.toSet() ?? {};
+    _rightTwice = _prefs.getStringList(rightTwiceKey)?.toSet() ?? {};
+    _mastered = _prefs.getStringList(masteredKey)?.toSet() ?? {};
+    _cases = _prefs.getStringList(casesKey) ?? [];
   }
 
   void _itToPrefs(final Iterable<String>? input, final String key) {
@@ -138,7 +138,7 @@ class PrefsStorage extends ChangeNotifier {
       _prefs.remove(key);
       return;
     }
-    print('saving $key' + input.map((el) => el).toList().toString());
+    debugPrint('saving $key${input.map((el) => el).toList()}');
     _prefs.setStringList(key, input.map((el) => el).toList());
   }
 }
