@@ -186,7 +186,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
 
   void _speakAnswers() async {
     await flutterTts.setLanguage('en-US');
-    
+
     if (!context.mounted) return; // Something bad has happened.
     var spokenAnswers = context.read<LearnLogic>().question.answers.join('.  ');
     await flutterTts.speak(spokenAnswers);
