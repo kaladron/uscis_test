@@ -27,7 +27,10 @@ The official source of this data is the US Government at these two locations:
 * <http://clerk.house.gov/xml/lists/MemberData.xml>
 * <http://www.senate.gov/general/contact_information/senators_cfm.xml>
 
-Generate the Dart files from json like so:
+There are three dart programs in the tool directory that will attempt to
+automatically download new files and generate JSON files.
+
+Then generate the Dart files from json like so:
 
 ```bash
 flutter packages pub run build_runner build --verbose --delete-conflicting-outputs
