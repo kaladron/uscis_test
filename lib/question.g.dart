@@ -1508,6 +1508,10 @@ const _$_senatorsAnswersRawJsonLiteral = {
     {'first_name': 'Ted', 'last_name': 'Budd'},
     {'first_name': 'Thom', 'last_name': 'Tillis'}
   ],
+  'California': [
+    {'first_name': 'Laphonza R.', 'last_name': 'Butler'},
+    {'first_name': 'Alex', 'last_name': 'Padilla'}
+  ],
   'Washington': [
     {'first_name': 'Maria', 'last_name': 'Cantwell'},
     {'first_name': 'Patty', 'last_name': 'Murray'}
@@ -1639,9 +1643,6 @@ const _$_senatorsAnswersRawJsonLiteral = {
   'Georgia': [
     {'first_name': 'Jon', 'last_name': 'Ossoff'},
     {'first_name': 'Raphael G.', 'last_name': 'Warnock'}
-  ],
-  'California': [
-    {'first_name': 'Alex', 'last_name': 'Padilla'}
   ],
   'Michigan': [
     {'first_name': 'Gary C.', 'last_name': 'Peters'},
