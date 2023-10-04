@@ -28,7 +28,7 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -43,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void onStart() async {
     await context.read<PrefsStorage>().initState();
+    if (!context.mounted) return; // Something bad has happened.
     context.read<QuestionStorage>().initState();
     await Navigator.pushNamedAndRemoveUntil(
         context, MainScreen.routeName, (Route<dynamic> route) => false);
