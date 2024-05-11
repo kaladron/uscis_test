@@ -22,12 +22,8 @@ class ViewScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.left),
             ),
-          ...context
-              .watch<QuestionStorage>()
-              .starredQuestions
-              .map((e) =>
-                  QuestionListItem(e.number, ValueKey('starred ${e.number}')))
-              ,
+          ...context.watch<QuestionStorage>().starredQuestions.map((e) =>
+              QuestionListItem(e.number, ValueKey('starred ${e.number}'))),
           Padding(
             padding: const EdgeInsets.only(left: 8, top: 8),
             child: Text('Questions',
@@ -38,8 +34,7 @@ class ViewScreen extends StatelessWidget {
               .questions
               .keys
               .toList()
-              .map((e) => QuestionListItem(e, ValueKey('questions $e')))
-              ,
+              .map((e) => QuestionListItem(e, ValueKey('questions $e'))),
         ]),
       );
 }

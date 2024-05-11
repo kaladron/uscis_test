@@ -54,12 +54,7 @@ class _CaseScreenImpl extends StatelessWidget {
         ),
         body: Column(
           children: [
-            ...context
-                .watch<CaseLogic>()
-                .cases
-                .keys
-                .map((e) => CaseItem(e))
-                ,
+            ...context.watch<CaseLogic>().cases.keys.map((e) => CaseItem(e)),
             Card(
               child: InkWell(
                 onTap: () {
