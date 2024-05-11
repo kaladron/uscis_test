@@ -187,7 +187,7 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
   void _speakAnswers() async {
     await flutterTts.setLanguage('en-US');
 
-    if (!context.mounted) return; // Something bad has happened.
+    if (!mounted) return; // Something bad has happened.
     var spokenAnswers = context.read<LearnLogic>().question.answers.join('.  ');
     await flutterTts.speak(spokenAnswers);
   }
@@ -219,12 +219,14 @@ class _LearnScreenImplState extends State<_LearnScreenImpl> {
     });
 
     await speech.listen(
-        onResult: resultListener,
-        listenFor: const Duration(seconds: 5),
-        pauseFor: const Duration(seconds: 5),
-        partialResults: false,
-        cancelOnError: true,
-        listenMode: ListenMode.confirmation);
+      onResult: resultListener,
+      listenFor: const Duration(seconds: 5),
+      pauseFor: const Duration(seconds: 5),
+      listenOptions: SpeechListenOptions(
+          partialResults: false,
+          cancelOnError: true,
+          listenMode: ListenMode.confirmation),
+    );
   }
 
   void _onSpeechError(SpeechRecognitionError error) {

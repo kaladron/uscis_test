@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void onStart() async {
     await context.read<PrefsStorage>().initState();
-    if (!context.mounted) return; // Something bad has happened.
+    if (!mounted) return; // Something bad has happened.
     context.read<QuestionStorage>().initState();
     await Navigator.pushNamedAndRemoveUntil(
         context, MainScreen.routeName, (Route<dynamic> route) => false);
