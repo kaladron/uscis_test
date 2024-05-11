@@ -82,7 +82,7 @@ const _$_usAnswersRawJsonLiteral = {
     'answers': ['Democratic (Party)']
   },
   'speaker_house': {
-    'answers': ['Kevin McCarthy', 'McCarthy']
+    'answers': ['Mike Johnson', 'Johnson', 'James Michael Johnson (birth name)']
   }
 };
 
@@ -936,7 +936,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Ro', 'last_name': 'Khanna', 'district': '17th'},
     {'first_name': 'Zoe', 'last_name': 'Lofgren', 'district': '18th'},
     {'first_name': 'Jimmy', 'last_name': 'Panetta', 'district': '19th'},
-    {'first_name': 'Kevin', 'last_name': 'McCarthy', 'district': '20th'},
+    {'first_name': '', 'last_name': '', 'district': '20th'},
     {'first_name': 'Jim', 'last_name': 'Costa', 'district': '21st'},
     {'first_name': 'David', 'last_name': 'Valadao', 'district': '22nd'},
     {'first_name': 'Jay', 'last_name': 'Obernolte', 'district': '23rd'},
@@ -974,7 +974,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Diana', 'last_name': 'DeGette', 'district': '1st'},
     {'first_name': 'Joe', 'last_name': 'Neguse', 'district': '2nd'},
     {'first_name': 'Lauren', 'last_name': 'Boebert', 'district': '3rd'},
-    {'first_name': 'Ken', 'last_name': 'Buck', 'district': '4th'},
+    {'first_name': '', 'last_name': '', 'district': '4th'},
     {'first_name': 'Doug', 'last_name': 'Lamborn', 'district': '5th'},
     {'first_name': 'Jason', 'last_name': 'Crow', 'district': '6th'},
     {'first_name': 'Brittany', 'last_name': 'Pettersen', 'district': '7th'},
@@ -1015,7 +1015,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Laurel', 'last_name': 'Lee', 'district': '15th'},
     {'first_name': 'Vern', 'last_name': 'Buchanan', 'district': '16th'},
     {'first_name': 'W.', 'last_name': 'Steube', 'district': '17th'},
-    {'first_name': 'C.', 'last_name': 'Franklin', 'district': '18th'},
+    {'first_name': 'Scott', 'last_name': 'Franklin', 'district': '18th'},
     {'first_name': 'Byron', 'last_name': 'Donalds', 'district': '19th'},
     {
       'first_name': 'Sheila',
@@ -1235,7 +1235,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Thomas', 'last_name': 'Kean', 'district': '7th'},
     {'first_name': 'Robert', 'last_name': 'Menendez', 'district': '8th'},
     {'first_name': 'Bill', 'last_name': 'Pascrell', 'district': '9th'},
-    {'first_name': 'Donald', 'last_name': 'Payne', 'district': '10th'},
+    {'first_name': '', 'last_name': '', 'district': '10th'},
     {'first_name': 'Mikie', 'last_name': 'Sherrill', 'district': '11th'},
     {'first_name': 'Bonnie', 'last_name': 'Watson Coleman', 'district': '12th'}
   ],
@@ -1253,7 +1253,7 @@ const _$_representativesAnswersRawJsonLiteral = {
   'New York': [
     {'first_name': 'Nick', 'last_name': 'LaLota', 'district': '1st'},
     {'first_name': 'Andrew', 'last_name': 'Garbarino', 'district': '2nd'},
-    {'first_name': 'George', 'last_name': 'Santos', 'district': '3rd'},
+    {'first_name': 'Thomas', 'last_name': 'Suozzi', 'district': '3rd'},
     {'first_name': 'Anthony', 'last_name': "D'Esposito", 'district': '4th'},
     {'first_name': 'Gregory', 'last_name': 'Meeks', 'district': '5th'},
     {'first_name': 'Grace', 'last_name': 'Meng', 'district': '6th'},
@@ -1280,7 +1280,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Nicholas', 'last_name': 'Langworthy', 'district': '23rd'},
     {'first_name': 'Claudia', 'last_name': 'Tenney', 'district': '24th'},
     {'first_name': 'Joseph', 'last_name': 'Morelle', 'district': '25th'},
-    {'first_name': 'Brian', 'last_name': 'Higgins', 'district': '26th'}
+    {'first_name': 'Timothy', 'last_name': 'Kennedy', 'district': '26th'}
   ],
   'Ohio': [
     {'first_name': 'Greg', 'last_name': 'Landsman', 'district': '1st'},
@@ -1288,7 +1288,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Joyce', 'last_name': 'Beatty', 'district': '3rd'},
     {'first_name': 'Jim', 'last_name': 'Jordan', 'district': '4th'},
     {'first_name': 'Robert', 'last_name': 'Latta', 'district': '5th'},
-    {'first_name': 'Bill', 'last_name': 'Johnson', 'district': '6th'},
+    {'first_name': '', 'last_name': '', 'district': '6th'},
     {'first_name': 'Max', 'last_name': 'Miller', 'district': '7th'},
     {'first_name': 'Warren', 'last_name': 'Davidson', 'district': '8th'},
     {'first_name': 'Marcy', 'last_name': 'Kaptur', 'district': '9th'},
@@ -1341,7 +1341,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     }
   ],
   'Rhode Island': [
-    {'first_name': '', 'last_name': '', 'district': '1st'},
+    {'first_name': 'Gabe', 'last_name': 'Amo', 'district': '1st'},
     {'first_name': 'Seth', 'last_name': 'Magaziner', 'district': '2nd'}
   ],
   'South Carolina': [
@@ -1409,7 +1409,7 @@ const _$_representativesAnswersRawJsonLiteral = {
   ],
   'Utah': [
     {'first_name': 'Blake', 'last_name': 'Moore', 'district': '1st'},
-    {'first_name': '', 'last_name': '', 'district': '2nd'},
+    {'first_name': 'Celeste', 'last_name': 'Maloy', 'district': '2nd'},
     {'first_name': 'John', 'last_name': 'Curtis', 'district': '3rd'},
     {'first_name': 'Burgess', 'last_name': 'Owens', 'district': '4th'}
   ],
@@ -1452,7 +1452,7 @@ const _$_representativesAnswersRawJsonLiteral = {
     {'first_name': 'Scott', 'last_name': 'Fitzgerald', 'district': '5th'},
     {'first_name': 'Glenn', 'last_name': 'Grothman', 'district': '6th'},
     {'first_name': 'Thomas', 'last_name': 'Tiffany', 'district': '7th'},
-    {'first_name': 'Mike', 'last_name': 'Gallagher', 'district': '8th'}
+    {'first_name': '', 'last_name': '', 'district': '8th'}
   ],
   'West Virginia': [
     {'first_name': 'Carol', 'last_name': 'Miller', 'district': '1st'},
