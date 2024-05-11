@@ -44,13 +44,13 @@ dependencies:
   collection: any
   flag: ^7.0.0
   shared_preferences: ^2.0.4
-  flutter_tts: ^3.3.0
+  flutter_tts: ^4.0.2
   flutter_html: ^3.0.0-alpha.2
   html: any
   http: any
   edit_distance: ^0.5.0-nullsafety
   stemmer: ^2.1.0
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
 
 
 dev_dependencies:
@@ -61,7 +61,7 @@ dev_dependencies:
   xml: ^6.3.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.3
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true

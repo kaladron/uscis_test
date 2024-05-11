@@ -27,7 +27,7 @@ class ViewScreen extends StatelessWidget {
               .starredQuestions
               .map((e) =>
                   QuestionListItem(e.number, ValueKey('starred ${e.number}')))
-              .toList(),
+              ,
           Padding(
             padding: const EdgeInsets.only(left: 8, top: 8),
             child: Text('Questions',
@@ -39,7 +39,7 @@ class ViewScreen extends StatelessWidget {
               .keys
               .toList()
               .map((e) => QuestionListItem(e, ValueKey('questions $e')))
-              .toList(),
+              ,
         ]),
       );
 }

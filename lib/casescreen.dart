@@ -59,7 +59,7 @@ class _CaseScreenImpl extends StatelessWidget {
                 .cases
                 .keys
                 .map((e) => CaseItem(e))
-                .toList(),
+                ,
             Card(
               child: InkWell(
                 onTap: () {
