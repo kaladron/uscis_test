@@ -42,74 +42,53 @@ class MainScreen extends StatelessWidget {
           title: const Text('US Citizenship Exam Prep'),
         ),
         drawer: const DrawerMenu(),
-        body: Column(
+        body: GridView.count(
+          crossAxisCount: 2,
           children: [
-            Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Card(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, ViewScreen.routeName);
-                        },
-                        child: const ListTile(
-                          leading: Icon(Icons.pageview),
-                          title: Text('Review Questions'),
-                          subtitle: Text('Review the exam questions.'),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Card(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, LearnScreen.routeName);
-                        },
-                        child: const ListTile(
-                          leading: Icon(Icons.assignment),
-                          title: Text('Practice Drills'),
-                          subtitle: Text(
-                              'Improve your knowledge with practice drills.'),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+            Card(
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, ViewScreen.routeName);
+                },
+                child: const ListTile(
+                  leading: Icon(Icons.pageview),
+                  title: Text('Review Questions'),
+                  subtitle: Text('Review the exam questions.'),
+                ),
               ),
             ),
-            Expanded(
-              child: Row(
-                children: [
-                  const Expanded(
-                    child: Card(
-                      child: InkWell(
-                        child: ListTile(
-                          leading: Icon(Icons.psychology),
-                          title: Text('Full Test Simulation'),
-                          subtitle:
-                              Text('Take a full practice test. (coming soon!)'),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Card(
-                      child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, CaseScreen.routeName);
-                          },
-                          child: const ListTile(
-                            leading: Icon(Icons.assignment_ind),
-                            title: Text('USCIS Case Status'),
-                            subtitle:
-                                Text('Check the status of your USCIS case.'),
-                          )),
-                    ),
-                  ),
-                ],
+            Card(
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, LearnScreen.routeName);
+                },
+                child: const ListTile(
+                  leading: Icon(Icons.assignment),
+                  title: Text('Practice Drills'),
+                  subtitle:
+                      Text('Improve your knowledge with practice drills.'),
+                ),
               ),
+            ),
+            const Card(
+              child: InkWell(
+                child: ListTile(
+                  leading: Icon(Icons.psychology),
+                  title: Text('Full Test Simulation'),
+                  subtitle: Text('Take a full practice test. (coming soon!)'),
+                ),
+              ),
+            ),
+            Card(
+              child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, CaseScreen.routeName);
+                  },
+                  child: const ListTile(
+                    leading: Icon(Icons.assignment_ind),
+                    title: Text('USCIS Case Status'),
+                    subtitle: Text('Check the status of your USCIS case.'),
+                  )),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 16),
