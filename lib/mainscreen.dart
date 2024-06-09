@@ -38,13 +38,13 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('US Citizenship Exam Prep'),
-        ),
-        drawer: const DrawerMenu(),
-        body: GridView.count(
-          crossAxisCount: 2,
-          children: [
+      appBar: AppBar(
+        title: const Text('US Citizenship Exam Prep'),
+      ),
+      drawer: const DrawerMenu(),
+      body: Column(children: [
+        Expanded(
+          child: GridView.count(crossAxisCount: 2, children: [
             Card(
               child: InkWell(
                 onTap: () {
@@ -90,45 +90,45 @@ class MainScreen extends StatelessWidget {
                     subtitle: Text('Check the status of your USCIS case.'),
                   )),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: Text('Choose your state or territory'),
-            ),
-            DropdownButton(
-              value: context.watch<PrefsStorage>().region,
-              onChanged: (String? newValue) {
-                context.read<PrefsStorage>().region = newValue;
-                context.read<PrefsStorage>().district =
-                    context.read<QuestionStorage>().districts[0];
-              },
-              items: context
-                  .read<QuestionStorage>()
-                  .states
-                  .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(e),
-                      ))
-                  .toList(),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: Text('Choose your congressional district'),
-            ),
-            DropdownButton(
-              value: context.watch<PrefsStorage>().district,
-              onChanged: (String? newValue) {
-                context.read<PrefsStorage>().district = newValue;
-              },
-              items: context
-                  .read<QuestionStorage>()
-                  .districts
-                  .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(e),
-                      ))
-                  .toList(),
-            ),
-          ],
+          ]),
         ),
-      );
+        const Padding(
+          padding: EdgeInsets.only(top: 16),
+          child: Text('Choose your state or territory'),
+        ),
+        DropdownButton(
+          value: context.watch<PrefsStorage>().region,
+          onChanged: (String? newValue) {
+            context.read<PrefsStorage>().region = newValue;
+            context.read<PrefsStorage>().district =
+                context.read<QuestionStorage>().districts[0];
+          },
+          items: context
+              .read<QuestionStorage>()
+              .states
+              .map((e) => DropdownMenuItem(
+                    value: e,
+                    child: Text(e),
+                  ))
+              .toList(),
+        ),
+        const Padding(
+          padding: EdgeInsets.only(top: 16),
+          child: Text('Choose your congressional district'),
+        ),
+        DropdownButton(
+          value: context.watch<PrefsStorage>().district,
+          onChanged: (String? newValue) {
+            context.read<PrefsStorage>().district = newValue;
+          },
+          items: context
+              .read<QuestionStorage>()
+              .districts
+              .map((e) => DropdownMenuItem(
+                    value: e,
+                    child: Text(e),
+                  ))
+              .toList(),
+        ),
+      ]));
 }
