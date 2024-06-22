@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flag/flag.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/prefs.dart';
+import 'package:uscis_test/question.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class DrawerMenu extends StatelessWidget {
@@ -42,12 +43,40 @@ class DrawerMenu extends StatelessWidget {
               context.read<PrefsStorage>().over65Only = newValue;
             },
           ),
-          const Divider(
-            height: 2,
-            thickness: 1,
-            indent: 0,
-            endIndent: 0,
-          ),
+          ListTile(
+              title: const Text('Select Region'),
+              subtitle: DropdownButton(
+                value: context.watch<PrefsStorage>().region,
+                onChanged: (String? newValue) {
+                  context.read<PrefsStorage>().region = newValue;
+                  context.read<PrefsStorage>().district =
+                      context.read<QuestionStorage>().districts[0];
+                },
+                items: context
+                    .read<QuestionStorage>()
+                    .states
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+              )),
+          ListTile(
+              title: const Text('Select District'),
+              subtitle: DropdownButton(
+                value: context.watch<PrefsStorage>().district,
+                onChanged: (String? newValue) {
+                  context.read<PrefsStorage>().district = newValue;
+                },
+                items: context
+                    .read<QuestionStorage>()
+                    .districts
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+              )),
           AboutListTile(
             applicationName: 'US Citizenship Test',
             aboutBoxChildren: [

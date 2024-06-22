@@ -26,10 +26,21 @@ import 'package:flutter/material.dart';
 import 'package:uscis_test/casescreen.dart';
 import 'package:uscis_test/drawer.dart';
 import 'package:uscis_test/prefs.dart';
-import 'package:uscis_test/question.dart';
 import 'package:uscis_test/viewscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:uscis_test/learnscreen.dart';
+
+String locationText(String? region, String? district) {
+  if (region == null) {
+    return "Location Not Selected";
+  }
+
+  if (district == null) {
+    return region;
+  }
+
+  return '$region, $district';
+}
 
 class MainScreen extends StatelessWidget {
   static const routeName = '/';
@@ -92,43 +103,12 @@ class MainScreen extends StatelessWidget {
             ),
           ]),
         ),
-        const Padding(
-          padding: EdgeInsets.only(top: 16),
-          child: Text('Choose your state or territory'),
+      ]),
+      bottomNavigationBar: BottomAppBar(
+        child: ListTile(
+          leading: const Icon(Icons.my_location),
+          title: Text(locationText(context.watch<PrefsStorage>().region,
+              context.read<PrefsStorage>().district)),
         ),
-        DropdownButton(
-          value: context.watch<PrefsStorage>().region,
-          onChanged: (String? newValue) {
-            context.read<PrefsStorage>().region = newValue;
-            context.read<PrefsStorage>().district =
-                context.read<QuestionStorage>().districts[0];
-          },
-          items: context
-              .read<QuestionStorage>()
-              .states
-              .map((e) => DropdownMenuItem(
-                    value: e,
-                    child: Text(e),
-                  ))
-              .toList(),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(top: 16),
-          child: Text('Choose your congressional district'),
-        ),
-        DropdownButton(
-          value: context.watch<PrefsStorage>().district,
-          onChanged: (String? newValue) {
-            context.read<PrefsStorage>().district = newValue;
-          },
-          items: context
-              .read<QuestionStorage>()
-              .districts
-              .map((e) => DropdownMenuItem(
-                    value: e,
-                    child: Text(e),
-                  ))
-              .toList(),
-        ),
-      ]));
+      ));
 }
