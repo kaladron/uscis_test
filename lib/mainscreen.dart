@@ -12,16 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Title bar with app name, sandwich
-// Buttons on the page
-// First button Learning Mode
-//   This one will go through and grind people through the app
-// Second one is Testing Mode
-//   This one will simulate a test.  Verbal questions, verbal answers.
-//   10 Questions, have to get 6 rights.  Stops at 6 correct. (for 2008)
-// Third one is link to saved questions
-// Drop down with link to location (greys out other buttons until set)
-
 import 'package:flutter/material.dart';
 import 'package:uscis_test/casescreen.dart';
 import 'package:uscis_test/drawer.dart';
