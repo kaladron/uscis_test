@@ -1,0 +1,29 @@
+{
+  "name": "USCIS Test - Flutter",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17"
+    }
+  },
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "PUB_CACHE": "/home/vscode/.pub-cache",
+    "ANDROID_SDK_ROOT": "/home/vscode/android-sdk",
+    "ANDROID_HOME": "/home/vscode/android-sdk"
+  },
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+  "postStartCommand": "flutter doctor -v || true",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Dart-Code.dart-code",
+        "Dart-Code.flutter"
+      ],
+      "settings": {
+        "dart.lineLength": 100,
+        "editor.formatOnSave": true
+      }
+    }
+  }
+}
