@@ -75,6 +75,10 @@ jobs:
           rm -f android/app/upload-keystore.jks
           rm -f android/key.properties
       
+      # Setup service account file for Google Play deployment
+      - name: Setup service account
+        run: echo "${{ secrets.SERVICE_ACCOUNT_JSON }}" | base64 --decode > service_account.json
+      
       - name: Deploy to Internal
         uses: r0adkll/upload-google-play@v1
         with:
