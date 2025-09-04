@@ -39,7 +39,8 @@ class CaseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MultiProvider(providers: [
-        ChangeNotifierProvider(create: (context) => CaseLogic(context), lazy: false),
+        ChangeNotifierProvider(
+            create: (context) => CaseLogic(context), lazy: false),
       ], child: _CaseScreenImpl());
 }
 
@@ -104,9 +105,15 @@ class CaseItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Case: $_caseNum'),
-              Text(context.read<CaseLogic>().cases[_caseNum]!.heading ?? 'No Update'),
-              Text(context.read<CaseLogic>().cases[_caseNum]!.details ?? 'No Update'),
-              Text(context.read<CaseLogic>().cases[_caseNum]!.lastUpdated.toIso8601String()),
+              Text(context.read<CaseLogic>().cases[_caseNum]!.heading ??
+                  'No Update'),
+              Text(context.read<CaseLogic>().cases[_caseNum]!.details ??
+                  'No Update'),
+              Text(context
+                  .read<CaseLogic>()
+                  .cases[_caseNum]!
+                  .lastUpdated
+                  .toIso8601String()),
             ],
           ),
         ),
