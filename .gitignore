@@ -45,3 +45,11 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+# Signing related files (should not be committed)
+android/key.properties
+android/app/upload-keystore.jks
+service_account.json
+
+# Exceptions to above rules.
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages

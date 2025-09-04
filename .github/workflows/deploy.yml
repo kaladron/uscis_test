@@ -1,32 +1,42 @@
-# From https://www.valueof.io/blog/deploying-to-google-play-using-github-actions
+# Deploy Flutter app to Google Play Store internal track
 
-name: Deploy
+name: Deploy to Play Store
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches:
       - 'release/*'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          distribution: 'microsoft'
+          fetch-depth: 0  # Needed for proper tagging
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'  # More reliable than microsoft
           java-version: '17'
           cache: 'gradle'
-      - uses: subosito/flutter-action@v2
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
-
-      - name: Print Dart SDK version
-        run: dart --version
+      
+      - name: Print environment versions
+        run: |
+          echo "Flutter version:"
+          flutter --version
+          echo "Dart version:"
+          dart --version
+          echo "Java version:"
+          java -version
 
       - name: Install dependencies
         run: flutter pub get
@@ -40,17 +50,17 @@ jobs:
       - name: Run tests
         run: flutter test
       
+      # Decode and save the keystore file from base64
+      - name: Setup keystore
+        run: |
+          echo "${{ secrets.SIGNING_KEY }}" | base64 --decode > android/app/upload-keystore.jks
+          echo "storeFile=upload-keystore.jks" >> android/key.properties
+          echo "storePassword=${{ secrets.KEY_STORE_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.ALIAS }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+      
       - name: Build app
         run: flutter build appbundle --release
-        
-      - name: Sign Release
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: build/app/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
           
       - name: Tag Release
         run: |
@@ -59,11 +69,21 @@ jobs:
           git tag $version_name release/$version_name
           git push origin --tags
 
+      - name: Clean up keystore
+        if: always()
+        run: |
+          rm -f android/app/upload-keystore.jks
+          rm -f android/key.properties
+      
       - name: Deploy to Internal
         uses: r0adkll/upload-google-play@v1
         with:
-          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          serviceAccountJson: service_account.json
           packageName: com.raspberryginger.uscis_test
           releaseFiles: build/app/outputs/bundle/release/app-release.aab
           track: internal
           whatsNewDirectory: whatsNewDirectory/
+      
+      - name: Clean up service account
+        if: always()
+        run: rm -f service_account.json
