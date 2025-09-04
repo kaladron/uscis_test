@@ -39,8 +39,7 @@ class CaseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MultiProvider(providers: [
-        ChangeNotifierProvider(
-            create: (context) => CaseLogic(context), lazy: false),
+        ChangeNotifierProvider(create: (context) => CaseLogic(context), lazy: false),
       ], child: _CaseScreenImpl());
 }
 
@@ -57,8 +56,9 @@ class _CaseScreenImpl extends StatelessWidget {
             ...context.watch<CaseLogic>().cases.keys.map((e) => CaseItem(e)),
             Card(
               child: InkWell(
-                onTap: () {
-                  showDialog(
+                onTap: () async {
+                  final caseLogic = context.read<CaseLogic>();
+                  final result = await showDialog<String>(
                       context: context,
                       builder: (context) => AlertDialog(
                             title: const Text('USCIS Case Number'),
@@ -73,8 +73,10 @@ class _CaseScreenImpl extends StatelessWidget {
                                 child: const Text('Add'),
                               ),
                             ],
-                          )).then((value) =>
-                      {context.read<CaseLogic>().addCase(_controller.text)});
+                          ));
+                  if (result != null && result.isNotEmpty) {
+                    caseLogic.addCase(result);
+                  }
                 },
                 child: const ListTile(
                   leading: Icon(Icons.add),
@@ -102,15 +104,9 @@ class CaseItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Case: $_caseNum'),
-              Text(context.read<CaseLogic>().cases[_caseNum]!.heading ??
-                  'No Update'),
-              Text(context.read<CaseLogic>().cases[_caseNum]!.details ??
-                  'No Update'),
-              Text(context
-                  .read<CaseLogic>()
-                  .cases[_caseNum]!
-                  .lastUpdated
-                  .toIso8601String()),
+              Text(context.read<CaseLogic>().cases[_caseNum]!.heading ?? 'No Update'),
+              Text(context.read<CaseLogic>().cases[_caseNum]!.details ?? 'No Update'),
+              Text(context.read<CaseLogic>().cases[_caseNum]!.lastUpdated.toIso8601String()),
             ],
           ),
         ),
